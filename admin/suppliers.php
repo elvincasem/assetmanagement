@@ -4,26 +4,65 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cubes fa-1x" style="color:green;"></i> SUPPLIERS
+                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Items
 						<div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Add New Supplier</a>
-                                        </li>
-                                        <li><a href="#">Print All Suppliers</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div></h1>
+							<button id="addsupplierbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addSupplier">
+                                <i class="fa fa-plus-circle"></i> Add Supplier
+                            </button>
+                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
+                                <i class="fa fa-print"></i> Print
+                            </button>   
+
+                         </div>
+					</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             
+			  <!-- Modal -->
+                            <div class="modal fade" id="addSupplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Add Supplier</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           
+                                    <form role="form" id="form_item"> 
+                                        <div class="form-group">
+											<input type="hidden" id="supplierid" value="">
+                                            <label>Supplier Name</label>
+                                            <input id="suppliername" class="form-control" value="" tabindex="1">
+											<label>Address</label>
+                                            <input id="address" class="form-control" value="" tabindex="2">
+                                            <label>Contact Number</label>
+											<input id="contactno" class="form-control" value="" tabindex="3">                                            
+                                        </div>
+										
+									</form>
+			
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
+                                            <button id="savesupplier" type="button" class="btn btn-primary">Save and Close</button>
+											<button id="updatesupplier" type="button" class="btn btn-primary" disabled>Update</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+			<!-- end modal-->
+			
+			<div class="row">
+				<div class="alert alert-success hide" id="success-alert">
+                                Supplier Added!
+                </div>
+			
+			</div>
+
             <div class="row">
 								<div class="col-lg-12">
 								<div class="panel panel-default">
@@ -42,28 +81,28 @@ include('header.php');
 															</tr>
 														</thead>
 														<tbody>
-															<tr class="odd gradeX">
-																<td>PC 4 Me</td>
-																<td>San Fernando City La Union</td>
-																<td>700-1234</td>
-
-																<td class="center"><button type="button" class="btn btn-default btn-circle" ><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>Morning Star General Merchandise</td>
-																<td>San Fernando City La Union</td>
-																<td>888-1234</td>
-
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>National Bookstore</td>
-																<td>Mannah Mall, CSF</td>
-																<td>888-2345</td>
-
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-														   
+					<?php
+						include_once("include/functions.php");			
+						$supplierlist = selectListSQL("SELECT * FROM suppliers ORDER BY supplierid DESC");
+						foreach ($supplierlist as $rows => $link) {
+							$supplierid = $link['supplierID'];
+							$suppliername = $link['supName'];
+							$address = $link['address'];
+							$contactno = $link['contactNo'];
+							$tin = $link['TIN'];
+							
+							echo "<tr class='odd gradeX'>";
+							echo "<td>$suppliername</td>";
+							echo "<td>$address</td>";
+							echo "<td>$contactno</td>";
+							echo "<td class='center'> 
+								
+								<button class='btn btn-primary' onClick='editsupplier($supplierid)'  data-toggle='modal' data-target='#addSupplier'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-danger notification' id='notification' onClick='deletesupplier($supplierid)'><i class='fa fa-times'></i></button>
+							</td>";
+							echo "</tr>";
+						}
+						?>
 															
 														</tbody>
 													</table>

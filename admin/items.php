@@ -13,7 +13,8 @@ include('header.php');
                                 <i class="fa fa-print"></i> Print
                             </button>   
 
-                            </div></h1>
+                         </div>
+					</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

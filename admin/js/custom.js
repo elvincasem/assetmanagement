@@ -1,3 +1,9 @@
+//user logout
+
+	$('#logout').click(function(){
+				//alert("out");
+					logout();
+				});
 
 //item savePreferences
 	$('#additembutton').click(function(){
@@ -9,6 +15,16 @@
 		document.getElementById("cost").value = "";
 
 	});
+	$('#addsupplierbutton').click(function(){
+		//clear fields
+		//alert("clear");
+		document.getElementById("suppliername").value = "";
+		document.getElementById("address").value = "";
+		document.getElementById("contactno").value = "";
+		document.getElementById("supplierid").value = "";
+
+	});
+	//save item
 	$('#saveitem').click(function(){
 				//alert("save");
 					//logout();
@@ -51,15 +67,44 @@
 						return "valid";
                     }
                 });
-				
-				
-				
-				
-				
+
 				//$( ".simplemodal-close" ).trigger( "click" );
 				});
-//item update
+	//save supplier
+	$('#savesupplier').click(function(){
 
+				$('#updatesupplier').prop("disabled", true);    
+				$('#saveitem').prop("disabled", false);  
+				
+					var suppliername = document.getElementById("suppliername").value;
+					var address = document.getElementById("address").value;
+					var contactno = document.getElementById("contactno").value;
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "savesupplier", suppliername: suppliername, address: address, contactno: contactno},
+                    success: function(response) {
+						//console.log();
+						document.getElementById("suppliername").value = "";
+						document.getElementById("address").value = "";
+						document.getElementById("contactno").value = "";
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});				
+				
+				
+				
+//item update
 $('#update').click(function(){
 	
 		var itemno = document.getElementById("itemno").value;
@@ -99,22 +144,7 @@ $('#update').click(function(){
 */
 	
 	
-	
-//user logout
-
-	$('#logout').click(function(){
-				//alert("out");
-					logout();
-				});
-
-				
-				
-				
-				
-				
-				
-				
-				
+		
 //functions		
 				
 
@@ -208,5 +238,74 @@ function edititem(id){
 }
 
 
+
+//edit supplier
+function editsupplier(id){
+	$('#updatesupplier').prop("disabled", false);    
+	$('#savesupplier').prop("disabled", true);    
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "getsupplier", supplierno : id},
+		success: function(response) {
+			console.log(response);
+			var data = JSON.parse(response);
+			document.getElementById("supplierid").value = id;
+			document.getElementById("suppliername").value = data.supName;
+			document.getElementById("address").value = data.address;
+			document.getElementById("contactno").value = data.contactNo;
+			return "valid";
+		}
+	});
+	
+}
+//update supplier
+$('#updatesupplier').click(function(){
+	
+		var suppliername = document.getElementById("suppliername").value;
+		var address = document.getElementById("address").value;
+		var contactno = document.getElementById("contactno").value;
+		var supplierid = document.getElementById("supplierid").value;
+		
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "updatesupplier", supplierid: supplierid, suppliername: suppliername, address: address, contactno: contactno},
+                    success: function(response) {
+						//console.log(response);
+						//alert(response);
+						document.getElementById("suppliername").value = "";
+						document.getElementById("address").value = "";
+						document.getElementById("contactno").value = "";
+						document.getElementById("supplierid").value = "";
+
+						$( ".simplemodal-close" ).trigger( "click" );
+						setTimeout(function(){location.reload();},1000);
+						
+						return "valid";
+                    }
+                });
+		
+	});
+//delete supplier
+function deletesupplier(id){
+	var r = confirm("Are your sure you want to delete this Supplier?");
+    if (r == true) {
+        
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deletesupplier", supplierid: id},
+                    success: function(response) {
+						location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
 
 

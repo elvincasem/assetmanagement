@@ -82,5 +82,58 @@ function selectListSQL($q){
 	}
 	
 	
+	//save supplier
+	if($_POST['action'] == "savesupplier"){
+
+		$conn = dbConnect();
+		$suppliername = $_POST['suppliername'];
+		$address = $_POST['address'];
+		$contactno = $_POST['contactno'];
+		//return "ok";
+		$sqlinsert = "INSERT INTO suppliers(supName,address,contactNo) VALUES('$suppliername','$address',$contactno)";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+
+	}
+	//get single supplier
+	if($_POST['action'] == "getsupplier"){
+
+		$conn = dbConnect();
+		$supplierno = $_POST['supplierno'];
+		$sqlselect = "SELECT * FROM suppliers where supplierID=$supplierno";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	//update item
+	if($_POST['action'] == "updatesupplier"){
+
+		$conn = dbConnect();
+		$supplierid = $_POST['supplierid'];
+		$suppliername = $_POST['suppliername'];
+		$address = $_POST['address'];
+		$contactno = $_POST['contactno'];
+		
+		$sqlupdate = "UPDATE suppliers set supName = '$suppliername', address = '$address', contactno = '$contactno' where supplierID=$supplierid";
+		//echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+	}
+	//delete supplier
+	if($_POST['action'] == "deletesupplier"){
+		$conn = dbConnect();
+		$supplierid = $_POST['supplierid'];
+		$sqldelete = "DELETE FROM suppliers where supplierID='$supplierid'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
+
+	}
 	
 ?>

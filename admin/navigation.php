@@ -16,20 +16,45 @@
                             <a href="index.php"><i class="fa fa-dashboard fa-2x"></i> DASHBOARD</a>
                         </li>
 						<li>
-                            <a href="requisition.php" style="color:#000;"><i class="fa fa-check-square-o fa-2x"></i> REQUISITION</a>
+                            <a href="#"  style="color:#bd0000;"><i class="fa fa-cubes fa-2x"></i> ASSET MANAGEMENT<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+									<a href="requisition.php" style="color:#000;"><i class="fa fa-check-square-o fa-2x"></i> REQUISITION</a>
+								</li>
+                               <li>
+									<a href="assetassignment.php" style="color:#6fb00c;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
+								</li>
+                                <li>
+                                    <a href="#" ><i class="fa fa-gears fa-2x" style="bgcolor:green;"></i> Inventory</a>
+                                </li>
+								
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
 						<li>
-                            <a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-money fa-2x"></i> PURCHASE REQUESTS</a>
+                            <a href="#"  style="color:#bd0000;"><i class="fa fa-list fa-2x"></i> ORDER MANAGEMENT<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-share-square-o fa-2x"></i> PURCHASE REQUESTS</a>
+								</li>
+								<li>
+									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-money fa-2x"></i> PURCHASE ORDERS</a>
+								</li>
+								<li>
+									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-reply fa-2x"></i> RECEIVING</a>
+								</li>
+								<li>
+									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
+								</li>
+								<li>
+									<a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
+								</li>
+								
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
-						<li>
-                            <a href="assetassignment.php" style="color:#6fb00c;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
-                        </li>
-						<li>
-                            <a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
-                        </li>
-						<li>
-                            <a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
-                        </li>
+						
+						
                         <li>
                             <a href="employees.php" style="color:#000000;"><i class="fa fa-user fa-2x"></i> EMPLOYEES</a>
                         </li>

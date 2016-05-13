@@ -6,26 +6,74 @@ include('header.php');
                 <div class="col-lg-12">
                     <h1 class="page-header"><i class="fa fa-users fa-1x"></i> Employees
 						<div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Add New Item</a>
-                                        </li>
-                                        <li><a href="#">Print All Items</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div></h1>
+							<button id="addemployeebutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEmployee">
+                                <i class="fa fa-plus-circle"></i> Add Employee
+                            </button>
+                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#">
+                                <i class="fa fa-print"></i> Print
+                            </button>   
+
+                         </div>
+					</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+			
+			
+			 <!-- Modal -->
+				<div class="modal fade" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+							</div>
+							<div class="modal-body">
+							   
+						<form role="form" id="form_item"> 
+							<div class="form-group">
+								<input type="hidden" id="eid" value="">
+								<label>Employee ID/Number</label>
+								<input id="employeeno" class="form-control" value="" tabindex="1">
+								<label>Last Name</label>
+								<input id="lname" class="form-control" value="" tabindex="2">
+								<label>First Name</label>
+								<input id="fname" class="form-control" value="" tabindex="3">
+								<label>Middle Name</label>
+								<input id="mname" class="form-control" value="" tabindex="4">
+								<label>Extension Name</label>
+								<input id="ename" class="form-control" value="" tabindex="4">
+								<label>Designation</label>
+								<input id="designation" class="form-control" value="" tabindex="5">
+								                                            
+							</div>
+							
+						</form>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
+								<button id="saveemployee" type="button" class="btn btn-primary">Save and Close</button>
+								<button id="updateemployee" type="button" class="btn btn-primary" disabled>Update</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+
+			<!-- end modal-->
+			
+			<div class="row">
+				<div class="alert alert-success hide" id="success-alert">
+                                Employee Added!
+                </div>
+			
+			</div>
+			
             
             <div class="row">
-								<div class="col-lg-12">
+				<div class="col-lg-12">
 								<div class="panel panel-default">
 											<div class="panel-heading">
 											   Search employees
@@ -37,38 +85,37 @@ include('header.php');
 															<tr>
 																<th>Employee ID</th>
 																<th>Name</th>
-																<th>First Name</th>
-																<th>Available QTY</th>
-																<th>Category</th>
+																
+																<th>Designation</th>
+																
 																<th>Action</th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr class="odd gradeX">
-																<td>1</td>
-																<td>PC</td>
-																<td>4500.00</td>
-																<td>10</td>
-																<td>Equipment</td>
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>2</td>
-																<td>BOX</td>
-																<td>75.00</td>
-																<td>100</td>
-																<td>Consumable</td>
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>3</td>
-																<td>PC</td>
-																<td>15.00</td>
-																<td>200</td>
-																<td>Consumable</td>
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-														   
+			<?php
+						include_once("include/functions.php");			
+						$emplist = selectListSQL("SELECT * FROM employee ORDER BY eid DESC");
+						foreach ($emplist as $rows => $link) {
+							$eid = $link['eid'];
+							$empno = $link['empNo'];
+							$lname = $link['lname'];
+							$fname = $link['fname'];
+							$mname = $link['mname'];
+							$ename = $link['ename'];
+							$designation = $link['designation'];
+							
+							echo "<tr class='odd gradeX'>";
+							echo "<td>$empno</td>";
+							echo "<td>$fname $lname $mname, $ename</td>";
+							echo "<td>$designation</td>";
+							echo "<td class='center'> 
+								
+								<button class='btn btn-primary' onClick='editemployee($eid)'  data-toggle='modal' data-target='#addEmployee'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-danger notification' id='notification' onClick='deleteemployee($eid)'><i class='fa fa-times'></i></button>
+							</td>";
+							echo "</tr>";
+						}
+						?>
 															
 														</tbody>
 													</table>

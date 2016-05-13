@@ -135,5 +135,64 @@ function selectListSQL($q){
 		$conn = null;
 
 	}
-	
+	//save employee
+	if($_POST['action'] == "saveemployee"){
+
+		$conn = dbConnect();
+		$employeeno = $_POST['employeeno'];
+		$lname = $_POST['lname'];
+		$fname = $_POST['fname'];
+		$mname = $_POST['mname'];
+		$ename = $_POST['ename'];
+		$designation = $_POST['designation'];
+		//return "ok";
+		$sqlinsert = "INSERT INTO employee(empNo,lname,fname,mname,ename,designation) VALUES('$employeeno','$lname','$fname','$mname','$ename','$designation')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo "employee added";
+
+	}
+	//get single employee
+	if($_POST['action'] == "getemployee"){
+
+		$conn = dbConnect();
+		$eid = $_POST['eid'];
+		$sqlselect = "SELECT * FROM employee where eid=$eid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	//update employee
+	if($_POST['action'] == "updateemployee"){
+
+		$conn = dbConnect();
+		$eid = $_POST['eid'];
+		$employeeno = $_POST['employeeno'];
+		$lname = $_POST['lname'];
+		$fname = $_POST['fname'];
+		$mname = $_POST['mname'];
+		$ename = $_POST['ename'];
+		$designation = $_POST['designation'];
+		
+		$sqlupdate = "UPDATE employee set empNo = '$employeeno', lname = '$lname', fname = '$fname', mname = '$mname', ename = '$ename', designation = '$designation' where eid=$eid";
+		echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+	}
+	//delete employee
+	if($_POST['action'] == "deleteemployee"){
+		$conn = dbConnect();
+		$eid = $_POST['eid'];
+		$sqldelete = "DELETE FROM employee where eid='$eid'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
+
+	}
 ?>

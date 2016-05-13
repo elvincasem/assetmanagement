@@ -13,7 +13,9 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    
+        <!-- Bootstrap Date Picker-->
+   <script src="js/bootstrap-datepicker.js"></script>
+   <link href="style/datepicker.css" rel="stylesheet" media="screen">
 
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
@@ -40,7 +42,6 @@
     <script src="bower_components/morrisjs/morris.min.js"></script>
     <script src="js/morris-data.js"></script>
 	
-
 
 </body>
 

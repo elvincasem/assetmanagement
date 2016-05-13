@@ -5,6 +5,23 @@
 					logout();
 				});
 
+	function logout(){
+	
+	
+				$.ajax({
+                    url: 'include/functions.php',
+                    type: 'get',
+                    data: {action: 'logout'},
+                    success: function(response) {
+						alert(response);
+						if(response=="loggedout"){
+							//document.getElementById("message").style.display="block";
+							window.location.replace("../");
+						}
+						
+                    }
+                });
+	} 
 //item savePreferences
 	$('#additembutton').click(function(){
 		//clear fields
@@ -101,7 +118,43 @@
                 });
 
 				});				
+	//save employee
+	$('#saveemployee').click(function(){
+
+				$('#updateemployee').prop("disabled", true);    
+				$('#saveemployee').prop("disabled", false);  
 				
+					var employeeno = document.getElementById("employeeno").value;
+					var lname = document.getElementById("lname").value;
+					var fname = document.getElementById("fname").value;
+					var mname = document.getElementById("mname").value;
+					var ename = document.getElementById("ename").value;
+					var designation = document.getElementById("designation").value;
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveemployee", employeeno: employeeno, lname: lname, fname: fname, mname: mname,ename: ename, designation: designation},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("employeeno").value = "";
+						document.getElementById("lname").value = "";
+						document.getElementById("fname").value = "";
+						document.getElementById("mname").value = "";
+						document.getElementById("ename").value = "";
+						document.getElementById("designation").value = "";
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});				
 				
 				
 //item update
@@ -148,23 +201,6 @@ $('#update').click(function(){
 //functions		
 				
 
-function logout(){
-	
-	
-				$.ajax({
-                    url: 'include/functions.php',
-                    type: 'get',
-                    data: {action: 'logout'},
-                    success: function(response) {
-						alert(response);
-						if(response=="loggedout"){
-							//document.getElementById("message").style.display="block";
-							window.location.replace("../");
-						}
-						
-                    }
-                });
-} 
 //delete item
 
 function deleteitem(id){
@@ -308,4 +344,85 @@ function deletesupplier(id){
 	
 }
 
+//edit employee
+function editemployee(id){
+	$('#updateemployee').prop("disabled", false);    
+	$('#saveemployee').prop("disabled", true);    
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "getemployee", eid : id},
+		success: function(response) {
+			//console.log(response);
+			var data = JSON.parse(response);
+			document.getElementById("eid").value = id;
+			document.getElementById("employeeno").value = data.empNo;
+			document.getElementById("lname").value = data.lname;
+			document.getElementById("fname").value = data.fname;
+			document.getElementById("mname").value = data.mname;
+			document.getElementById("ename").value = data.ename;
+			document.getElementById("designation").value = data.designation;
+			return "valid";
+		}
+	});
+	
+}
 
+//update employee
+$('#updateemployee').click(function(){
+	
+		var eid = document.getElementById("eid").value;
+		var employeeno = document.getElementById("employeeno").value;
+		var lname = document.getElementById("lname").value;
+		var fname = document.getElementById("fname").value;
+		var mname = document.getElementById("mname").value;
+		var ename = document.getElementById("ename").value;
+		var designation = document.getElementById("designation").value;
+		
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "updateemployee", eid: eid, employeeno: employeeno, lname: lname, fname: fname, mname: mname, ename: ename, designation: designation},
+                    success: function(response) {
+						console.log(response);
+						//alert(response);
+						document.getElementById("eid").value = "";
+						document.getElementById("employeeno").value = "";
+						document.getElementById("lname").value = "";
+						document.getElementById("fname").value = "";
+						document.getElementById("lname").value = "";
+						document.getElementById("ename").value = "";
+						document.getElementById("designation").value = "";
+
+						$( ".simplemodal-close" ).trigger( "click" );
+						//setTimeout(function(){location.reload();},1000);
+						
+						return "valid";
+                    }
+                });
+		
+	});
+//delete employee
+function deleteemployee(id){
+	var r = confirm("Are your sure you want to delete this Employee?");
+    if (r == true) {
+        
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleteemployee", eid: id},
+                    success: function(response) {
+						location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
+
+	$(function() {
+		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+	});

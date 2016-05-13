@@ -4,7 +4,7 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Items
+                    <h1 class="page-header"><i class="fa fa-cubes fa-1x"></i> Suppliers
 						<div class="pull-right">
 							<button id="addsupplierbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addSupplier">
                                 <i class="fa fa-plus-circle"></i> Add Supplier

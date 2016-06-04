@@ -195,4 +195,36 @@ function selectListSQL($q){
 		$conn = null;
 
 	}
+	//get last pr number
+	
+	if($_POST['action'] == "getlastpr"){
+		
+		$conn = dbConnect();
+		$lastprid = $conn->prepare("SELECT prNo FROM pr_list ORDER BY transID DESC limit 1");
+		$lastprid->execute();
+		$result = $lastprid->fetch(PDO::FETCH_ASSOC);
+		$lastpriddb = $result['prNo'];
+		echo $lastpriddb;
+		$conn = null;
+
+	}
+	//save pr
+	if($_POST['action'] == "savepr"){
+
+		$conn = dbConnect();
+		$prnumber = $_POST['prnumber'];
+		$department = $_POST['department'];
+		$office = $_POST['office'];
+		$requestdate = $_POST['requestdate'];
+		$purpose = $_POST['purpose'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO pr_list(prNo,department,section,prDate,purpose) VALUES('$prnumber','$department','$office','$requestdate','$purpose')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo $sqlinsert;
+
+	}
+	
 ?>

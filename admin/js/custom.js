@@ -41,6 +41,24 @@
 		document.getElementById("supplierid").value = "";
 
 	});
+	
+		$('#addprbutton').click(function(){
+		//clear fields
+		//alert("clear");
+		/*document.getElementById("suppliername").value = "";
+		document.getElementById("address").value = "";
+		document.getElementById("contactno").value = "";
+		document.getElementById("supplierid").value = "";
+		*/
+		//get last pr number
+		getLastprnumber();	
+
+	});
+	
+	
+	
+	
+	
 	//save item
 	$('#saveitem').click(function(){
 				//alert("save");
@@ -155,7 +173,43 @@
                 });
 
 				});				
+
+	//save purchase request
+	$('#savepr').click(function(){
+
+				$('#updatepr').prop("disabled", true);    
+				$('#savepr').prop("disabled", false);  
 				
+					var prnumber = document.getElementById("prnumber").value;
+					var department = document.getElementById("department").value;
+					var office = document.getElementById("office").value;
+					var requestdate = document.getElementById("requestdate").value;
+					var purpose = document.getElementById("purpose").value;
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "savepr", prnumber: prnumber, department: department, office: office, requestdate: requestdate,purpose: purpose},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("prnumber").value = "";
+						document.getElementById("department").value = "";
+						document.getElementById("office").value = "";
+						document.getElementById("requestdate").value = "";
+						document.getElementById("purpose").value = "";
+						
+						window.location.href = "prequestitem.php?prno=" + prnumber;
+						//$('#success-alert').show("slow");
+						//$('#success-alert').removeClass("hide");
+						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						//$( ".simplemodal-close" ).trigger( "click" );
+						 //setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});		
 				
 //item update
 $('#update').click(function(){
@@ -422,7 +476,71 @@ function deleteemployee(id){
     }
 	
 }
-
+	//date picker for PR Request page
 	$(function() {
 		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 	});
+
+	
+	
+	/* ********* purchase request module *** */
+	
+function getLastprnumber(){
+	
+	$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "getlastpr"},
+                    success: function(response) {
+						console.log(response);
+						
+                        var d = new Date();
+						var month = d.getMonth();
+						//increate month by 1 since it is 0 indexed
+						month = month + 1;
+						var day = d.getDate();
+						var year = d.getFullYear();
+						var yy = year.toString().substring(2);
+						
+						var lastdigit = response.substring(5);
+						
+						//alert(lastdigit);
+						
+						/*var lastmonth = response.substring(3,5);
+						var lastyear = response.substring(1,2);
+						
+						
+							lastmonth = parseInt(lastmonth);
+							if(lastmonth < month){
+								
+								lastdigit = 1;
+							}else{
+								lastdigit = parseInt(lastdigit) +1;
+							}
+
+						//converts month to a string
+						month = month + "";
+						//if month is 1-9 pad right with a 0 for two digits
+						if (month.length == 1)
+						{
+							month = "0" + month;
+						}
+		
+						var autopr = yy + '-' + month + '-' + lastdigit;
+						
+						*/
+						lastdigit++;
+						var autopr = year + '-' + lastdigit;
+						document.getElementById("prnumber").value = autopr; 
+						//alert (autopr);
+						
+                    }
+                });
+	
+}
+
+function addpritem(id){
+	var table=document.getElementById("pr_items");
+	$(table).append( "<tr><td>aaaa</td></tr>" );
+	
+}

@@ -56,7 +56,7 @@
 
 	});
 	
-		$('#addprbutton').click(function(){
+	$('#addprbutton').click(function(){
 		//clear fields
 		//alert("clear");
 		/*document.getElementById("suppliername").value = "";
@@ -69,6 +69,16 @@
 
 	});
 	
+	//add inventory button
+	$('#addinventorybutton').click(function(){
+		$('#update').prop("disabled", true);    
+		$('#saveitem').prop("disabled", false);
+		//clear fields
+		//alert("clear");
+		document.getElementById("unit").value = "";
+		document.getElementById("qty").value = "";
+
+	});
 	
 	
 	
@@ -223,8 +233,69 @@
 
 				});	
 
+		//save user
+		$('#saveuser').click(function(){
 
+				$('#updateuser').prop("disabled", true);    
+				$('#saveuser').prop("disabled", false);  
+				
+					var username = document.getElementById("userusername").value;
+					var password = document.getElementById("userpassword").value;
+					var usertype = "admin";
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveuser", username: username, password: password},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("userusername").value = "";
+						document.getElementById("userpassword").value = "";
+						
 
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});	
+
+//save inventory
+		$('#saveinventory').click(function(){
+
+				$('#updateuser').prop("disabled", true);    
+				$('#saveuser').prop("disabled", false);  
+				
+					var itemno = document.getElementById("itemdescription").value;
+					var unit = document.getElementById("unit").value;
+					var qty = document.getElementById("qty").value;
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveinventory", itemno: itemno, unit: unit, qty: qty},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("unit").value = "";
+						document.getElementById("qty").value = "";
+						
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});	
 				
 
 	//save purchase request
@@ -630,6 +701,29 @@ function getLastprnumber(){
                 });
 	
 }
+//auto input Unit in additem select
+function selectunit(){
+	
+	var itemNo = document.getElementById("itemdescription").value;
+	
+	$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "getunitinventory", itemno: itemNo},
+                    success: function(response) {
+						console.log(response);
+						var data = JSON.parse(response);
+						document.getElementById("unit").value = data.unit; 
+                        
+						
+                    }
+                });
+	
+	
+	
+}
+
+
 
 function addpritem(id){
 	var table=document.getElementById("pr_items");

@@ -260,4 +260,63 @@ function selectListSQL($q){
 
 	}
 	
+	//get unit in inventory module
+	if($_POST['action'] == "getunitinventory"){
+
+		$conn = dbConnect();
+		$itemno = $_POST['itemno'];
+		$sqlselect = "SELECT unit FROM items where itemNo=$itemno";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	
+	//save inventory
+	if($_POST['action'] == "saveinventory"){
+
+		$conn = dbConnect();
+		$itemno = $_POST['itemno'];
+		$unit = $_POST['unit'];
+		$qty = $_POST['qty'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO inventory(itemNo,unit,qty) VALUES($itemno,'$unit',$qty)";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		
+		
+		/*
+		//get current inventory
+		$conn2 = dbConnect();
+		$currentinventoryqty = $conn2->prepare("SELECT inventory_qty FROM items where itemNo=$itemno ");
+		$currentinventoryqty->execute();
+		$result = $lastqty->fetch(PDO::FETCH_ASSOC);
+		$current_qty = $result['inventory_qty'];
+		
+		
+		*/
+		$sqlselect = "SELECT inventory_qty FROM items where itemNo=$itemno limit 1";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows);
+		$current_qty = $rows[0]['inventory_qty'];
+		//echo $current_qty;
+		
+		
+		$latest_qty = $current_qty + $qty;
+		//update item qty
+		$sqlupdate = "UPDATE items set inventory_qty = $latest_qty where itemNo=$itemno";
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		
+		$conn = null;
+		echo "inventory added";
+
+	}
+	
 ?>

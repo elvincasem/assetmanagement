@@ -5,9 +5,9 @@ include_once("include/functions.php");
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Items
+                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Inventory
 						<div class="pull-right">
-							<button id="additembutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
+							<button id="addinventorybutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addInventory">
                                 <i class="fa fa-plus-circle"></i> Add Inventory
                             </button>
                              <button class="btn btn-primary btn-lg hidden" data-toggle="modal" data-target="#addItem">
@@ -27,7 +27,7 @@ include_once("include/functions.php");
                             <!-- Button trigger modal -->
                             
                             <!-- Modal -->
-                            <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addInventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -40,18 +40,12 @@ include_once("include/functions.php");
                                         <div class="form-group">
 											<input type="hidden" id="itemno" value="">
                                             <label>Select Item</label>
-											<select id="category" class="form-control" tabindex="4">
+											<select id="itemdescription" class="form-control" tabindex="4" onclick="selectunit()">
 											<?php
-														
 											$itemlist = selectListSQL("SELECT * FROM items ORDER BY description ASC");
-											//print_r($employeelist);
 											foreach ($itemlist as $rows => $link) {
 												$itemNo = $link['itemNo'];
 												$description = $link['description'];
-												$unit = $link['unit'];
-												$unitcost = $link['unitCost'];
-												$category = $link['category'];
-												
 												echo "<option value='$itemNo'>$description</option>";
 											}
 											?>
@@ -61,16 +55,12 @@ include_once("include/functions.php");
                                             
 											<label>Unit</label>
                                             <input id="unit" class="form-control" value="" tabindex="2">
-                                            <label>Cost</label>
+                                            <label>Quantity</label>
 											<div class="form-group input-group">
-												<span class="input-group-addon">₱</span>
-												<input id="cost" class="form-control" value="" tabindex="3">
+												
+												<input id="qty" class="form-control" value="" tabindex="3">
 											</div>
-											<label>Category</label>
-												<select id="category" class="form-control" tabindex="4">
-													<option value="Equipment">Equipment</option>
-													<option value="Office Supply">Office Supply</option>
-												</select>
+											
                                             
                                         </div>
 										
@@ -79,7 +69,7 @@ include_once("include/functions.php");
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-                                            <button id="saveitem" type="button" class="btn btn-primary">Save and Close</button>
+                                            <button id="saveinventory" type="button" class="btn btn-primary">Save and Close</button>
 											<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
                                         </div>
                                     </div>
@@ -92,7 +82,7 @@ include_once("include/functions.php");
 			
 			<div class="row">
 				<div class="alert alert-success hide" id="success-alert">
-                                Item Added!
+                                Iventory Added!
                 </div>
 			
 			</div>
@@ -103,7 +93,7 @@ include_once("include/functions.php");
 					<div class="col-lg-12">
 					<div class="panel panel-default">
 								<div class="panel-heading">
-								   Search Items
+								   Search Inventory
 								</div>
 					<div class="panel-body">
 									<div class="dataTable_wrapper">
@@ -121,20 +111,20 @@ include_once("include/functions.php");
 											
 											<?php
 														
-											$itemlist = selectListSQL("SELECT * FROM inventory ORDER BY inventoryid DESC");
+											$itemlist = selectListSQL("SELECT items.description,inventory.itemNo,inventory.unit,inventory.qty,inventory.time_stamp FROM inventory LEFT JOIN items ON inventory.itemNo = items.itemNo ORDER BY inventoryid DESC");
 											//print_r($employeelist);
 											foreach ($itemlist as $rows => $link) {
 												$itemNo = $link['itemNo'];
 												$description = $link['description'];
 												$unit = $link['unit'];
-												$unitcost = $link['unitCost'];
-												$category = $link['category'];
+												$qty = $link['qty'];
+												$time = $link['time_stamp'];
 												
 												echo "<tr class='odd gradeX'>";
 												echo "<td>$description</td>";
 												echo "<td>$unit</td>";
-												echo "<td>$unitcost</td>";
-												echo "<td>$category</td>";
+												echo "<td>$qty</td>";
+												echo "<td>$time</td>";
 												echo "<td class='center'> 
 													
 													<button class='btn btn-primary' onClick='edititem($itemNo)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>

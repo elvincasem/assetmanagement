@@ -3,10 +3,11 @@
 
 //logout user
 	if($_GET['action'] == "logout"){
-		
+		ob_start();
+		session_start();
 		session_unset();
 		session_destroy();
-		echo "loggedout";
+		//echo "Log";
 	}
 
 //list rows and columns sql
@@ -29,9 +30,12 @@ function selectListSQL($q){
 		$description = $_POST['description'];
 		$unit = $_POST['unit'];
 		$unitcost = $_POST['unitcost'];
+		$pcperunit = $_POST['pc_per_unit'];
+		$category = $_POST['category'];
+		$supplier = $_POST['supplier'];
 		//return "ok";
 
-		$sqlinsert = "INSERT INTO items(description,unit,unitcost) VALUES('$description','$unit',$unitcost)";
+		$sqlinsert = "INSERT INTO items(description,category,unit,pc_per_unit,unitcost,supplierID) VALUES('$description','$category','$unit','$pcperunit',$unitcost,$supplier)";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		
@@ -56,10 +60,12 @@ function selectListSQL($q){
 		$conn = dbConnect();
 		$itemno = $_POST['itemno'];
 		$desc = $_POST['description'];
+		$pcperunit = $_POST['pc_per_unit'];
 		$unit = $_POST['unit'];
 		$cost = $_POST['unitcost'];
 		$category = $_POST['category'];
-		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit', unitCost = $cost, category='$category' where itemNo=$itemno";
+		$supplier = $_POST['supplier'];
+		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit',pc_per_unit = '$pcperunit', unitCost = $cost, category='$category', supplierID =$supplier where itemNo=$itemno";
 		echo $sqlupdate;
 		$update = $conn->prepare($sqlupdate);
 		$update->execute();
@@ -71,7 +77,7 @@ function selectListSQL($q){
 
 		$conn = dbConnect();
 		$itemno = $_POST['itemno'];
-		$sqlselect = "SELECT * FROM items where itemNo=$itemno";
+		$sqlselect = "SELECT itemNo,description,category,unit,pc_per_unit,unitCost,inventory_qty,items.supplierID,COALESCE(supName,'') AS supName FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo=$itemno";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$rows = $stmt->fetchAll();
@@ -224,6 +230,33 @@ function selectListSQL($q){
 		$save->execute();
 		$conn = null;
 		echo $sqlinsert;
+
+	}
+	//save user
+	if($_POST['action'] == "saveuser"){
+
+		$conn = dbConnect();
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO users(userName,password,userType,status) VALUES('$username',MD5('$password'),'admin','1')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo "user added";
+
+	}
+	
+	//delete user
+	if($_POST['action'] == "deleteuser"){
+		$conn = dbConnect();
+		$userid = $_POST['userid'];
+		$sqldelete = "DELETE FROM users where userID='$userid'";
+		//echo $sqldelete;
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
 
 	}
 	

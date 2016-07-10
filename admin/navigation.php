@@ -24,8 +24,14 @@
                                <li>
 									<a href="assetassignment.php" style="color:#6fb00c;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
 								</li>
+								<li>
+									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
+								</li>
+								<li>
+									<a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
+								</li>
                                 <li>
-                                    <a href="#" ><i class="fa fa-gears fa-2x" style="bgcolor:green;"></i> Inventory</a>
+                                    <a href="inventory.php" ><i class="fa fa-gears fa-2x" style="bgcolor:green;"></i> INVENTORY</a>
                                 </li>
 								
                             </ul>
@@ -38,17 +44,12 @@
 									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-share-square-o fa-2x"></i> PURCHASE REQUESTS</a>
 								</li>
 								<li>
-									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-money fa-2x"></i> PURCHASE ORDERS</a>
+									<a href="#" style="color:gray;"><i class="fa fa-money fa-2x"></i> PURCHASE ORDERS</a>
 								</li>
 								<li>
-									<a href="prequest.php" style="color:#0bafc8;"><i class="fa fa-reply fa-2x"></i> RECEIVING</a>
+									<a href="#" style="color:gray;"><i class="fa fa-reply fa-2x"></i> RECEIVING</a>
 								</li>
-								<li>
-									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
-								</li>
-								<li>
-									<a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
-								</li>
+								
 								
                             </ul>
                             <!-- /.nav-second-level -->

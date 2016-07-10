@@ -16,6 +16,8 @@
 						alert(response);
 						if(response=="loggedout"){
 							//document.getElementById("message").style.display="block";
+							//document.cookie = 'PHPSESSID=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+							
 							window.location.replace("../");
 						}
 						
@@ -24,12 +26,24 @@
 	} 
 //item savePreferences
 	$('#additembutton').click(function(){
+		$('#update').prop("disabled", true);    
+		$('#saveitem').prop("disabled", false);
 		//clear fields
 		//alert("clear");
 		document.getElementById("itemno").value = "";
 		document.getElementById("idescription").value = "";
 		document.getElementById("unit").value = "";
 		document.getElementById("cost").value = "";
+		//alert("test");
+		var sel = document.getElementById("supplier");
+			sel.remove(0);
+			var opt = document.createElement("option");
+			opt.value = "0";
+			opt.text = "";
+			opt.selected = "selected";
+
+			sel.add(opt,  sel.options[0]);
+
 
 	});
 	$('#addsupplierbutton').click(function(){
@@ -70,14 +84,17 @@
 				$('#saveitem').prop("disabled", false);  
 				
 				var description = document.getElementById("idescription").value;
+				var pcperunit = document.getElementById("pc_per_unit").value;
 					var unit = document.getElementById("unit").value;
 					var cost = document.getElementById("cost").value;
+					var category = document.getElementById("category").value;
+					var supplierid = document.getElementById("supplier").value;
 					//alert(description);
 					
 					$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "saveitem", description: description, unit: unit, unitcost: cost},
+                    data: {action: "saveitem", description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category,supplier:supplierid},
                     success: function(response) {
 						//console.log();
 						document.getElementById("idescription").value = "";
@@ -172,7 +189,43 @@
                     }
                 });
 
-				});				
+				});
+
+		//save user
+		$('#saveuser').click(function(){
+
+				$('#updateuser').prop("disabled", true);    
+				$('#saveuser').prop("disabled", false);  
+				
+					var username = document.getElementById("userusername").value;
+					var password = document.getElementById("userpassword").value;
+					var usertype = "admin";
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveuser", username: username, password: password},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("userusername").value = "";
+						document.getElementById("userpassword").value = "";
+						
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+
+				});	
+
+
+
+				
 
 	//save purchase request
 	$('#savepr').click(function(){
@@ -217,13 +270,15 @@ $('#update').click(function(){
 		var itemno = document.getElementById("itemno").value;
 		var description = document.getElementById("idescription").value;
 		var unit = document.getElementById("unit").value;
+		var pcperunit = document.getElementById("pc_per_unit").value;
 		var cost = document.getElementById("cost").value;
 		var category = document.getElementById("category").value;
+		var supplierid = document.getElementById("supplier").value;
 		
 		$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, unitcost: cost, category: category},
+                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category, supplier: supplierid},
                     success: function(response) {
 						console.log(response);
 						//alert(response);
@@ -291,12 +346,12 @@ function edititem(id){
 		type: 'post',
 		data: {action: "getitem", itemno : id},
 		success: function(response) {
-			console.log();
+			console.log(response);
 			 var data = JSON.parse(response);
 			//var itemdescription = $.parseJSON(response);
 			//var description = item.description;
 			
-			//alert(response);
+			//alert(data.descript);
 			
 			//alert(response.description);
 			
@@ -304,13 +359,27 @@ function edititem(id){
 			document.getElementById("itemno").value = id;
 			document.getElementById("idescription").value = data.description;
 			document.getElementById("unit").value = data.unit;
+			document.getElementById("pc_per_unit").value = data.pc_per_unit;
 			document.getElementById("cost").value = data.unitCost;
+			
 			
 			if(data.category == "Equipment"){
 				document.getElementById("category").selectedIndex = 0;
 			}else{
 				document.getElementById("category").selectedIndex = 1;
 			}
+			
+
+			//document.getElementById("cost").value = data.unitCost;
+			var sel = document.getElementById("supplier");
+			sel.remove(0);
+			var opt = document.createElement("option");
+			opt.value = data.supplierID;
+			opt.text = data.supName;
+			opt.selected = "selected";
+
+			sel.add(opt,  sel.options[0]);
+
 			
 			//$("#category :selected").text() = data.category;
 			
@@ -398,6 +467,29 @@ function deletesupplier(id){
 	
 }
 
+
+//delete user
+function deleteuser(id){
+	var r = confirm("Are your sure you want to delete this user?");
+    if (r == true) {
+        
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleteuser", userid: id},
+                    success: function(response) {
+						console.log(response);
+						location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
+
 //edit employee
 function editemployee(id){
 	$('#updateemployee').prop("disabled", false);    
@@ -447,7 +539,7 @@ $('#updateemployee').click(function(){
 						document.getElementById("lname").value = "";
 						document.getElementById("ename").value = "";
 						document.getElementById("designation").value = "";
-
+location.reload();
 						$( ".simplemodal-close" ).trigger( "click" );
 						//setTimeout(function(){location.reload();},1000);
 						

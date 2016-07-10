@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-include_once("include/functions.php");			
+include_once("include/functions.php");
 ?>
 <div id="page-wrapper">
             <div class="row">
@@ -8,9 +8,9 @@ include_once("include/functions.php");
                     <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Items
 						<div class="pull-right">
 							<button id="additembutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
-                                <i class="fa fa-plus-circle"></i> Add Item
+                                <i class="fa fa-plus-circle"></i> Add Inventory
                             </button>
-                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
+                             <button class="btn btn-primary btn-lg hidden" data-toggle="modal" data-target="#addItem">
                                 <i class="fa fa-print"></i> Print
                             </button>   
 
@@ -32,45 +32,46 @@ include_once("include/functions.php");
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Add Item</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Add Inventory</h4>
                                         </div>
                                         <div class="modal-body">
                                            
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
 											<input type="hidden" id="itemno" value="">
-                                            <label>Item Description</label>
-                                            <input id="idescription" class="form-control" value="" tabindex="1">
-											<label>Unit (BOX,REAM,PC, etc)</label>
+                                            <label>Select Item</label>
+											<select id="category" class="form-control" tabindex="4">
+											<?php
+														
+											$itemlist = selectListSQL("SELECT * FROM items ORDER BY description ASC");
+											//print_r($employeelist);
+											foreach ($itemlist as $rows => $link) {
+												$itemNo = $link['itemNo'];
+												$description = $link['description'];
+												$unit = $link['unit'];
+												$unitcost = $link['unitCost'];
+												$category = $link['category'];
+												
+												echo "<option value='$itemNo'>$description</option>";
+											}
+											?>
+	
+											</select>
+											
+                                            
+											<label>Unit</label>
                                             <input id="unit" class="form-control" value="" tabindex="2">
-											<label>PC per Unit</label>
-                                            <input placeholder="" id="pc_per_unit" class="form-control" value="" tabindex="3">
                                             <label>Cost</label>
 											<div class="form-group input-group">
 												<span class="input-group-addon">₱</span>
-												<input id="cost" class="form-control" value="" tabindex="4">
+												<input id="cost" class="form-control" value="" tabindex="3">
 											</div>
 											<label>Category</label>
-												<select id="category" class="form-control" tabindex="5">
+												<select id="category" class="form-control" tabindex="4">
 													<option value="Equipment">Equipment</option>
 													<option value="Office Supply">Office Supply</option>
 												</select>
-											<label>Supplier</label>	
-											<select id="supplier" class="form-control" tabindex="6">	
-											<option value="0"></option>
-											<?php
-													
-											$suplist = selectListSQL("SELECT * FROM suppliers ORDER BY supName ASC");
-											//print_r($employeelist);
-											foreach ($suplist as $rows => $link) {
-												$supplierid = $link['supplierID'];
-												$supname = $link['supName'];
-												
-												
-												echo "<option value='$supplierid'>$supname</option>";
-											}
-											?>
-                                            </select>
+                                            
                                         </div>
 										
 									</form>
@@ -109,19 +110,18 @@ include_once("include/functions.php");
 										<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 											<thead>
 												<tr>
-													<th>Description</th>
-													<th>Inventory QTY</th>
+													<th>Item Name</th>
 													<th>Unit</th>
-													<th>Cost</th>
-													<th>Category</th>
+													<th>QTY</th>
+													<th>Time</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 											
 											<?php
-											
-											$itemlist = selectListSQL("SELECT * FROM items ORDER BY itemNo DESC");
+														
+											$itemlist = selectListSQL("SELECT * FROM inventory ORDER BY inventoryid DESC");
 											//print_r($employeelist);
 											foreach ($itemlist as $rows => $link) {
 												$itemNo = $link['itemNo'];
@@ -129,11 +129,9 @@ include_once("include/functions.php");
 												$unit = $link['unit'];
 												$unitcost = $link['unitCost'];
 												$category = $link['category'];
-												$inventoryqty = $link['inventory_qty'];
 												
 												echo "<tr class='odd gradeX'>";
 												echo "<td>$description</td>";
-												echo "<td>$inventoryqty</td>";
 												echo "<td>$unit</td>";
 												echo "<td>$unitcost</td>";
 												echo "<td>$category</td>";

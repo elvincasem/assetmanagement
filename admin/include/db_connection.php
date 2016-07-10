@@ -5,7 +5,7 @@ function dbConnect (){
  	$host = 'localhost';
  	$db = 	'supply_office';
  	$user = 'root';
- 	$pwd = 	'';
+ 	$pwd = 	's3b@ysurfc3ntr@l';
 	try {
 	   	$conn = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pwd);
 		//echo 'Connected succesfully.<br>';

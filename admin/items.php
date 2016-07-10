@@ -10,7 +10,7 @@ include_once("include/functions.php");
 							<button id="additembutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
                                 <i class="fa fa-plus-circle"></i> Add Item
                             </button>
-                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
+                             <button class="btn btn-primary btn-lg hidden" data-toggle="modal" data-target="#addItem">
                                 <i class="fa fa-print"></i> Print
                             </button>   
 

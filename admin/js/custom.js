@@ -747,7 +747,7 @@ function deleteinventory(id){
                 });
 		
     } if(r == false) {
-        //txt = "You pressed Cancel!";
+        //txt = "You pressed Cancel!"; 
 		
     }
 	

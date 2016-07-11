@@ -111,7 +111,7 @@ include_once("include/functions.php");
 											
 											<?php
 														
-											$itemlist = selectListSQL("SELECT items.description,inventory.itemNo,inventory.unit,inventory.qty,inventory.time_stamp FROM inventory LEFT JOIN items ON inventory.itemNo = items.itemNo ORDER BY inventoryid DESC");
+											$itemlist = selectListSQL("SELECT inventory.inventoryid,items.description,inventory.itemNo,inventory.unit,inventory.qty,inventory.time_stamp FROM inventory LEFT JOIN items ON inventory.itemNo = items.itemNo ORDER BY inventoryid DESC");
 											//print_r($employeelist);
 											foreach ($itemlist as $rows => $link) {
 												$itemNo = $link['itemNo'];
@@ -119,6 +119,7 @@ include_once("include/functions.php");
 												$unit = $link['unit'];
 												$qty = $link['qty'];
 												$time = $link['time_stamp'];
+												$inventoryid = $link['inventoryid'];
 												
 												echo "<tr class='odd gradeX'>";
 												echo "<td>$description</td>";
@@ -127,8 +128,8 @@ include_once("include/functions.php");
 												echo "<td>$time</td>";
 												echo "<td class='center'> 
 													
-													<button class='btn btn-primary' onClick='edititem($itemNo)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
-													<button class='btn btn-danger notification' id='notification' onClick='deleteitem($itemNo)'><i class='fa fa-times'></i></button>
+													<button class='btn btn-primary hidden' onClick='edit($inventoryid)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
+													<button class='btn btn-danger notification' id='notification' onClick='deleteinventory($inventoryid)'><i class='fa fa-times'></i></button>
 												</td>";
 												echo "</tr>";
 											}

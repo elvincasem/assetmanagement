@@ -730,3 +730,25 @@ function addpritem(id){
 	$(table).append( "<tr><td>aaaa</td></tr>" );
 	
 }
+
+//delete inventory
+function deleteinventory(id){
+	
+	var r = confirm("Are your sure you want to delete this Item?");
+    if (r == true) {
+        //alert ("You pressed OK!");
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleteinventory", inventoryid: id},
+                    success: function(response) {
+						location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}

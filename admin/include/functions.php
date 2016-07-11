@@ -319,4 +319,15 @@ function selectListSQL($q){
 
 	}
 	
+	//delete inventory
+	if($_POST['action'] == "deleteinventory"){
+		$conn = dbConnect();
+		$inventoryid = $_POST['inventoryid'];
+		$sqldelete = "DELETE FROM inventory where inventoryid='$inventoryid'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
+
+	}
+	
 ?>

@@ -13,7 +13,7 @@
                     type: 'get',
                     data: {action: 'logout'},
                     success: function(response) {
-						alert(response);
+						//alert(response);
 						if(response=="loggedout"){
 							//document.getElementById("message").style.display="block";
 							//document.cookie = 'PHPSESSID=; expires=Thu, 01-Jan-70 00:00:01 GMT;';

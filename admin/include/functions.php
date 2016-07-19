@@ -8,6 +8,7 @@
 		session_unset();
 		session_destroy();
 		//echo "Log";
+		echo "loggedout";
 	}
 
 //list rows and columns sql

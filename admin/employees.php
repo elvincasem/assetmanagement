@@ -33,23 +33,48 @@ include('header.php');
 						<form role="form" id="form_item"> 
 							<div class="form-group">
 								<input type="hidden" id="eid" value="">
+								
+								<div class="col-lg-4 text-right">
 								<label>Employee ID/Number</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="employeeno" class="form-control" value="" tabindex="1">
+								</div>
+								<div class="col-lg-4 text-right">
 								<label>Last Name</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="lname" class="form-control" value="" tabindex="2">
+								</div>
+								<div class="col-lg-4 text-right">
 								<label>First Name</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="fname" class="form-control" value="" tabindex="3">
+								</div>
+								<div class="col-lg-4 text-right">
 								<label>Middle Name</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="mname" class="form-control" value="" tabindex="4">
+								</div>
+								<div class="col-lg-4 text-right">
 								<label>Extension Name</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="ename" class="form-control" value="" tabindex="4">
+								</div>
+								<div class="col-lg-4 text-right">
 								<label>Designation</label>
+								</div>
+								<div class="col-lg-8 text-right">
 								<input id="designation" class="form-control" value="" tabindex="5">
-								                                            
+								</div>                           
 							</div>
 							
 						</form>
-
+						<div class="row">
+						</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>

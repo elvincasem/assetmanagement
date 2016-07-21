@@ -39,23 +39,46 @@ include_once("include/functions.php");
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
 											<input type="hidden" id="itemno" value="">
+											<div class="col-lg-4 text-right">
                                             <label>Item Description</label>
+											</div>
+											<div class="col-lg-8 text-right">
                                             <input id="idescription" class="form-control" value="" tabindex="1">
-											<label>Unit (BOX,REAM,PC, etc)</label>
+											</div>
+											<div class="col-lg-4 text-right">
+											<label>Unit</label>
+											</div>
+											<div class="col-lg-8 text-right">
                                             <input id="unit" class="form-control" value="" tabindex="2">
+											</div>
+											<div class="col-lg-4 text-right">
 											<label>PC per Unit</label>
+											</div>
+											<div class="col-lg-8 text-right">
                                             <input placeholder="" id="pc_per_unit" class="form-control" value="" tabindex="3">
+											</div>
+											<div class="col-lg-4 text-right">
                                             <label>Cost</label>
+											</div>
+											<div class="col-lg-8 text-right">
 											<div class="form-group input-group">
 												<span class="input-group-addon">₱</span>
 												<input id="cost" class="form-control" value="" tabindex="4">
 											</div>
+											</div>
+											<div class="col-lg-4 text-right">
 											<label>Category</label>
+											</div>
+											<div class="col-lg-8 text-right">
 												<select id="category" class="form-control" tabindex="5">
 													<option value="Equipment">Equipment</option>
 													<option value="Office Supply">Office Supply</option>
 												</select>
+											</div>
+											<div class="col-lg-4 text-right">
 											<label>Supplier</label>	
+											</div>
+											<div class="col-lg-8 text-right">
 											<select id="supplier" class="form-control" tabindex="6">	
 											<option value="0"></option>
 											<?php
@@ -71,10 +94,12 @@ include_once("include/functions.php");
 											}
 											?>
                                             </select>
+											</div>
                                         </div>
 										
 									</form>
-			
+										<div class="row">
+										</div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>

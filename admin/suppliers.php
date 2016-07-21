@@ -32,15 +32,31 @@ include('header.php');
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
 											<input type="hidden" id="supplierid" value="">
+											<div class="col-lg-4 text-right">
                                             <label>Supplier Name</label>
+											</div>
+											<div class="col-lg-8 text-right">
                                             <input id="suppliername" class="form-control" value="" tabindex="1">
+											</div>
+											<div class="col-lg-4 text-right">
 											<label>Address</label>
+											</div>
+											<div class="col-lg-8 text-right">
                                             <input id="address" class="form-control" value="" tabindex="2">
+											</div>
+											<div class="col-lg-4 text-right">
                                             <label>Contact Number</label>
-											<input id="contactno" class="form-control" value="" tabindex="3">                                            
+											</div>
+											<div class="col-lg-8 text-right">
+											<input id="contactno" class="form-control" value="" tabindex="3">
+											</div>
+											
                                         </div>
 										
 									</form>
+									
+									<div class="row">
+										</div>
 			
                                         </div>
                                         <div class="modal-footer">

@@ -97,9 +97,11 @@ function selectListSQL($q){
 		$address = $_POST['address'];
 		$contactno = $_POST['contactno'];
 		//return "ok";
-		$sqlinsert = "INSERT INTO suppliers(supName,address,contactNo) VALUES('$suppliername','$address',$contactno)";
+		$sqlinsert = "INSERT INTO suppliers(supName,address,contactNo) VALUES('$suppliername','$address','$contactno')";
+		//echo "INSERT INTO suppliers(supName,address,contactNo) VALUES('$suppliername','$address','$contactno')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
+		
 		$conn = null;
 
 	}

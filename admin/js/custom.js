@@ -156,13 +156,13 @@
 					var suppliername = document.getElementById("suppliername").value;
 					var address = document.getElementById("address").value;
 					var contactno = document.getElementById("contactno").value;
-					
+					//alert('save');
 					$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
                     data: {action: "savesupplier", suppliername: suppliername, address: address, contactno: contactno},
                     success: function(response) {
-						//console.log();
+						console.log(response);
 						document.getElementById("suppliername").value = "";
 						document.getElementById("address").value = "";
 						document.getElementById("contactno").value = "";

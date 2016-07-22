@@ -80,6 +80,21 @@
 
 	});
 	
+	//add inventory button
+	$('#addemployeebutton').click(function(){
+		$('#update').prop("disabled", true);    
+		$('#saveitem').prop("disabled", false);
+		//clear fields
+		//alert("clear");
+		document.getElementById("employeeno").value = "";
+		document.getElementById("lname").value = "";
+		document.getElementById("fname").value = "";
+		document.getElementById("mname").value = "";
+		document.getElementById("ename").value = "";
+		document.getElementById("designation").value = "";
+
+	});
+	
 	
 	
 	

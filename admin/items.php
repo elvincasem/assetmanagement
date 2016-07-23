@@ -38,6 +38,7 @@ include_once("include/functions.php");
                                            
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
+										
 											<input type="hidden" id="itemno" value="">
 											<div class="col-lg-4 text-right">
                                             <label>Item Description</label>
@@ -131,7 +132,7 @@ include_once("include/functions.php");
 								</div>
 					<div class="panel-body">
 									<div class="dataTable_wrapper">
-										<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+										<table class="table table-striped table-bordered table-hover" id="dataTables-items">
 											<thead>
 												<tr>
 													<th>Description</th>

@@ -25,7 +25,13 @@
 									<a href="assetassignment.php" style="color:#6fb00c;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
 								</li>
 								<li>
-									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
+									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS<span class="fa arrow"></span></a></a>
+									
+									<ul class="nav nav-third-level">
+									<li>
+									<a href="buom.php" style="color:#0bafc8;"><i class="fa fa-columns fa-2x"></i> Base Unit of Measure</a>
+									</li>
+									</ul>
 								</li>
 								<li>
 									<a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>

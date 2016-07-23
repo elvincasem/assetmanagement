@@ -767,3 +767,15 @@ function deleteinventory(id){
     }
 	
 }
+
+$(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+		
+		//items sort by name
+		$('#dataTables-items').DataTable({
+                responsive: true,
+				 "order": [[ 0, "asc" ]]
+        });
+    });

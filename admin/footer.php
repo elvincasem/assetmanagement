@@ -27,7 +27,7 @@
     <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 	
 	
-	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<!-- Page-Level Demo Scripts - Tables - Use for reference 
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -35,7 +35,7 @@
         });
     });
 	
-    </script>
+    </script> -->
 	
 	<!-- Morris Charts JavaScript -->
     <script src="bower_components/raphael/raphael-min.js"></script>

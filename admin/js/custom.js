@@ -778,4 +778,10 @@ $(document).ready(function() {
                 responsive: true,
 				 "order": [[ 0, "asc" ]]
         });
+		//base unit of measure
+		//items sort by name
+		$('#dataTables-baseunit').DataTable({
+                responsive: true,
+				 "order": [[ 0, "asc" ]]
+        });
     });

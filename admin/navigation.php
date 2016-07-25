@@ -22,22 +22,25 @@
 									<a href="requisition.php" style="color:#000;"><i class="fa fa-check-square-o fa-2x"></i> REQUISITION</a>
 								</li>
                                <li>
-									<a href="assetassignment.php" style="color:#6fb00c;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
+									<a href="assetassignment.php" style="color:#000;"><i class="fa fa-home fa-2x"></i> ASSET ASSIGNMENT</a>
 								</li>
 								<li>
-									<a href="items.php" style="color:#e3cb01;"><i class="fa fa-briefcase fa-2x"></i> ITEMS<span class="fa arrow"></span></a></a>
+									<a href="items" style="color:#bd0000;"><i class="fa fa-briefcase fa-2x"></i> ITEMS<span class="fa arrow"></span></a></a>
 									
 									<ul class="nav nav-third-level">
 									<li>
-									<a href="buom.php" style="color:#0bafc8;"><i class="fa fa-columns fa-2x"></i> Base Unit of Measure</a>
+										<a href="items.php" style="color:#000;"><i class="fa fa-briefcase fa-2x"></i> Items List</a>
+									</li>
+									<li>
+										<a href="items_baseunit.php" style="color:#000;"><i class="fa fa-columns fa-2x"></i> Base Unit of Measure</a>
 									</li>
 									</ul>
 								</li>
 								<li>
-									<a href="suppliers.php" style="color:#e80846;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
+									<a href="suppliers.php" style="color:#000;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
 								</li>
                                 <li>
-                                    <a href="inventory.php" ><i class="fa fa-gears fa-2x" style="bgcolor:green;"></i> INVENTORY</a>
+                                    <a href="inventory.php" style="color:#000;"><i class="fa fa-gears fa-2x" style="bgcolor:#000;"></i> INVENTORY</a>
                                 </li>
 								
                             </ul>

@@ -42,7 +42,15 @@
     <script src="bower_components/morrisjs/morris.min.js"></script>
     <script src="js/morris-data.js"></script>
 	
+    <script>
+    // tooltip demo
+    $('.panel-body').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
 
+   
+    </script>
 </body>
 
 </html>

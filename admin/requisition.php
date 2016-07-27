@@ -31,6 +31,7 @@ include('header.php');
 											   Requisition and Issue Slip List
 											</div>
 								<div class="panel-body">
+								
 												<div class="dataTable_wrapper">
 													<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 														<thead>
@@ -69,7 +70,8 @@ include('header.php');
 																<td>N/A</td>
 																<td>Released</td>
 																
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
+																<td class="center"><button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Tooltip on top"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
+																
 															</tr>
 														   
 															

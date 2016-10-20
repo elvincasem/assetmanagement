@@ -1,8 +1,8 @@
 <!-- /#wrapper -->
 	
 	
-    <!-- jQuery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+ 
+   
 
 	<!-- My custom javascript -->
 	<script src="js/custom.js"></script>
@@ -36,12 +36,8 @@
     });
 	
     </script> -->
-	
-	<!-- Morris Charts JavaScript -->
-    <script src="bower_components/raphael/raphael-min.js"></script>
-    <script src="bower_components/morrisjs/morris.min.js"></script>
-    <script src="js/morris-data.js"></script>
-	
+
+
 
 </body>
 

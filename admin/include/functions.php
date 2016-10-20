@@ -23,6 +23,50 @@ function selectListSQL($q){
 	
 }
 	
+//return single value sql
+function singleSQL($q){
+	$conn = dbConnect();
+	$stmt = $conn->prepare($q);
+	$stmt->execute();
+	$rows = $stmt->fetch();
+	return $rows[0];
+	$conn = null;
+}
+
+	//save requisition
+	if($_POST['action'] == "saverequisition"){
+
+		$conn = dbConnect();
+		$rdate = $_POST['rdate'];
+		$rno = $_POST['rno'];
+		$requesterid = $_POST['requesterid'];
+
+		$sqlinsert = "INSERT INTO requisition_details(requisition_no,requisition_date,eid) VALUES('$rno','$rdate','$requesterid')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		
+		//get last id
+		$sqlselect = "SELECT MAX(reqid) AS lastid FROM requisition_details WHERE requisition_no='$rno'";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+		echo $lastid['lastid'];
+		//echo $sqlselect;
+		$conn = null;
+
+	}
+
+	//delete requisition
+	if($_POST['action'] == "deleterequisition"){
+		$conn = dbConnect();
+		$reqid = $_POST['reqid'];
+		$sqldelete = "DELETE FROM requisition_details where reqid='$reqid'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		echo $sqldelete;
+		$conn = null;
+
+	}
 	
 	//save item
 	if($_POST['action'] == "saveitem"){
@@ -36,10 +80,10 @@ function selectListSQL($q){
 		$supplier = $_POST['supplier'];
 		//return "ok";
 
-		$sqlinsert = "INSERT INTO items(description,category,unit,pc_per_unit,unitcost,supplierID) VALUES('$description','$category','$unit','$pcperunit',$unitcost,$supplier)";
+		$sqlinsert = "INSERT INTO items(description,category,unit,unitcost,supplierID) VALUES('$description','$category','$unit','$pcperunit',$unitcost,$supplier)";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		
+		echo $sqlinsert;
 		$conn = null;
 
 	}
@@ -61,13 +105,13 @@ function selectListSQL($q){
 		$conn = dbConnect();
 		$itemno = $_POST['itemno'];
 		$desc = $_POST['description'];
-		$pcperunit = $_POST['pc_per_unit'];
+		//$pcperunit = $_POST['pc_per_unit'];
 		$unit = $_POST['unit'];
 		$cost = $_POST['unitcost'];
 		$category = $_POST['category'];
 		$supplier = $_POST['supplier'];
-		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit',pc_per_unit = '$pcperunit', unitCost = $cost, category='$category', supplierID =$supplier where itemNo=$itemno";
-		echo $sqlupdate;
+		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit', unitCost = $cost, category='$category', supplierID =$supplier where itemNo=$itemno";
+		//echo $sqlupdate;
 		$update = $conn->prepare($sqlupdate);
 		$update->execute();
 		$conn = null;

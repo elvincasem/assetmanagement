@@ -52,19 +52,14 @@ include_once("include/functions.php");
 											<div class="col-lg-8 text-right">
                                             <input id="unit" class="form-control" value="" tabindex="2">
 											</div>
-											<div class="col-lg-4 text-right">
-											<label>PC per Unit</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input placeholder="" id="pc_per_unit" class="form-control" value="" tabindex="3">
-											</div>
+											
 											<div class="col-lg-4 text-right">
                                             <label>Cost</label>
 											</div>
 											<div class="col-lg-8 text-right">
 											<div class="form-group input-group">
 												<span class="input-group-addon">₱</span>
-												<input id="cost" class="form-control" value="" tabindex="4">
+												<input id="cost" class="form-control" value="0.00" tabindex="4">
 											</div>
 											</div>
 											<div class="col-lg-4 text-right">
@@ -135,6 +130,7 @@ include_once("include/functions.php");
 										<table class="table table-striped table-bordered table-hover" id="dataTables-items">
 											<thead>
 												<tr>
+													<th>Item#</th>
 													<th>Description</th>
 													<th>Inventory QTY</th>
 													<th>Unit</th>
@@ -158,7 +154,8 @@ include_once("include/functions.php");
 												$inventoryqty = $link['inventory_qty'];
 												
 												echo "<tr class='odd gradeX'>";
-												echo "<td>$description</td>";
+												echo "<td>$itemNo</td>";
+												echo "<td><a href='itemdetails.php'>$description</a></td>";
 												echo "<td>$inventoryqty</td>";
 												echo "<td>$unit</td>";
 												echo "<td>$unitcost</td>";

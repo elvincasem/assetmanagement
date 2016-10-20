@@ -1,91 +1,147 @@
 <?php
 include('header.php');
+include_once("include/functions.php");	
 ?>
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="color:#000;"><i class="fa fa-check-square-o fa-1x"></i> REQUISITION AND ISSUE SLIP
+                    <h3 class="page-header" style="color:#000;"><i class="fa fa-check-square-o fa-1x"></i> REQUISITION AND ISSUE SLIP
 						<div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="addprequest.php">Add New Requisition</a>
-                                        </li>
-                                        <li><a href="#">Print All Request</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div></h1>
+							<button id="addreq" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequisition">
+									<i class="fa fa-plus-circle"></i> Add Requisition
+							</button>
+                                
+						</div></h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+			
+		
+		<!-- Modal -->
+			<div class="modal fade" id="addRequisition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" id="adreq" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Add Requisition</h4>
+						</div>
+						<div class="modal-body">
+						   
+					<form role="form" id="form_item"> 
+						<div class="form-group">
+						
+							<input type="hidden" id="reqid" value="">
+							<div class="col-lg-4 text-right">
+							<label>Date</label>
+							</div>
+							<div class="col-lg-8 text-right">
+							<input id="rdate" type="date" class="form-control" value="" tabindex="1">
+							</div>
+							<div class="col-lg-4 text-right">
+							<label>Requisition No.</label>
+							</div>
+							<div class="col-lg-8 text-right">
+							<input id="rno" class="form-control" value="" tabindex="2">
+							</div>
+							
+							<div class="col-lg-4 text-right">
+							<label>Requesting Official/Employee</label>
+							</div>
+							<div class="col-lg-8 text-right">
+								<select id="requester_id" class="form-control" tabindex="5">
+										<?php
+										
+								$suplist = selectListSQL("SELECT eid, CONCAT(fname,' ',lname) AS fullname FROM employee order by fname");
+								//print_r($employeelist);
+								foreach ($suplist as $rows => $link) {
+									$eid = $link['eid'];
+									$fullname = $link['fullname'];
+									
+									
+									echo "<option value='$eid'>$fullname</option>";
+								}
+								?>
+									
+									
+								</select>
+							</div>
+							
+						</div>
+						
+					</form>
+						<div class="row">
+						</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
+							<button id="savereqitem" type="button" class="btn btn-primary">Save and Add Item</button>
+							<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+							<!-- /.modal-dialog -->
+			</div>
+
+		<!-- end modal-->
+			
             
             <div class="row">
-								<div class="col-lg-12">
-								<div class="panel panel-default">
-											<div class="panel-heading">
-											   Requisition and Issue Slip List
-											</div>
-								<div class="panel-body">
-												<div class="dataTable_wrapper">
-													<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-														<thead>
-															<tr>
-																<th>RIS No.</th>
-																<th>Date</th>
-																<th>Requested By</th>
-																<th>Purpose</th>
-																<th>Status</th>
-																<th>Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr class="odd gradeX">
-																<td>2016-0101</td>
-																<td>02/10/2016</td>
-																<td>Juan De La Cruz</td>
-																<td>Scholarship unit use.</td>
-																<td>Approved</td>
-																
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>2016-0102</td>
-																<td>02/10/2016</td>
-																<td>Juan De La Cruz</td>
-																<td>N/A</td>
-																<td>Pending</td>
-																
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>2016-0103</td>
-																<td>02/10/2016</td>
-																<td>Juan De La Cruz</td>
-																<td>N/A</td>
-																<td>Released</td>
-																
-																<td class="center"><button type="button" class="btn btn-default btn-circle"><i class="fa fa-eye"></i></button> <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></button> <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-															</tr>
-														   
-															
-														</tbody>
-													</table>
-												</div>
-								
-								
-								
-								
-											</div>
+	<div class="col-lg-12">
+	<div class="panel panel-default">
+				<div class="panel-heading">
+				   Requisition and Issue Slip List
+				</div>
+	<div class="panel-body">
+					<div class="dataTable_wrapper">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								<tr>
+									<th>RIS No.</th>
+									<th>Date</th>
+									<th>Requested By</th>
+									
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
 											
-											</div><!-- table end -->
-											</div><!-- panel default end-->
+					$itemlist = selectListSQL("SELECT reqid,requisition_no, requisition_date, CONCAT(employee.fname,' ',employee.lname) AS fullname FROM requisition_details LEFT JOIN employee 
+ON requisition_details.eid = employee.eid");
+					//print_r($employeelist);
+					foreach ($itemlist as $rows => $link) {
+						$reqid = $link['reqid'];
+						$requisition_no = $link['requisition_no'];
+						$requisition_date = $link['requisition_date'];
+						$fullname = $link['fullname'];
+						
+						echo "<tr class='odd gradeX'>";
+						echo "<td><a href='requisitiondetails.php?id=$reqid'>$requisition_no</a></td>";
+						echo "<td>$requisition_date</td>";
+						echo "<td>$fullname</td>";
+						echo "<td class='center'> 
+							
+							<button class='btn btn-primary' onClick='editrequisition($reqid)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
+							<button class='btn btn-danger notification' id='notification' onClick='deleterequisition($reqid)'><i class='fa fa-times'></i></button>
+						</td>";
+						echo "</tr>";
+					}
+					?>	
+								
+							</tbody>
+						</table>
+					</div>
+	
+	
+	
+	
+				</div>
+				
+				</div><!-- table end -->
+				</div><!-- panel default end-->
 											
-											</div> <!-- row end-->
+			</div> <!-- row end-->
         </div>
         <!-- /#page-wrapper -->
 

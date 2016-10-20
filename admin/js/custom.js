@@ -1,3 +1,12 @@
+
+	$(function() {
+        // initialize sol
+        $('#guest-list').searchableOptionList({
+			maxHeight: '250px'
+			
+		});
+		
+    });
 //user logout
 
 	$('#logout').click(function(){
@@ -94,9 +103,84 @@
 		document.getElementById("designation").value = "";
 
 	});
+
+//save requisition	
+$('#savereqitem').click(function(){
+	var rdate = document.getElementById("rdate").value;
+	var rno = document.getElementById("rno").value;
+	var requesterid = document.getElementById("requester_id").value;
+	$.ajax({
+			url: 'include/functions.php',
+			type: 'post',
+			data: {action: "saverequisition", rdate: rdate, rno: rno, requesterid: requesterid},
+			success: function(response) {
+				//console.log(response);
+				document.getElementById("rdate").value = "";
+				document.getElementById("rno").value = "";
+				document.getElementById("requester_id").value = "";
+
+				$('#success-alert').show("slow");
+				$('#success-alert').removeClass("hide");
+				setTimeout(function(){$('#success-alert').hide("slow");},1500);
+				$( ".simplemodal-close" ).trigger( "click" );
+				var rid = parseInt(response);
+				//console.log(rid);
+				window.location.href = "requisitiondetails.php?id=" + rid;
+				
+				//return "valid";
+			}
+		});
 	
+});
+$('#addreq').click(function(){
+		//clear fields
+		//alert("clear");
+		document.getElementById("rdate").value = "";
+		document.getElementById("rno").value = "";
+		document.getElementById("requester_id").value = "";
+		
+
+	});
+//delete requisition
+function deleterequisition(id){
 	
+	var r = confirm("Are your sure you want to delete this requisition?");
+    if (r == true) {
+        //alert ("You pressed OK!");
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleterequisition", reqid: id},
+                    success: function(response) {
+						location.reload();
+						//console.log(response);
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
 	
+}
+
+
+function displayitemunit(itemid){
+	
+	$.ajax({
+	url: 'include/functions.php',
+	type: 'post',
+	data: {action: "saveitem", description: description, unit: unit, unitcost: cost, category: category,supplier:supplierid},
+	success: function(response) { 
+			document.getElementById('iunit').value=response;
+
+		}
+	});
+}
+
+
+
+
 	
 	//save item
 	$('#saveitem').click(function(){
@@ -109,7 +193,7 @@
 				$('#saveitem').prop("disabled", false);  
 				
 				var description = document.getElementById("idescription").value;
-				var pcperunit = document.getElementById("pc_per_unit").value;
+				//var pcperunit = document.getElementById("pc_per_unit").value;
 					var unit = document.getElementById("unit").value;
 					var cost = document.getElementById("cost").value;
 					var category = document.getElementById("category").value;
@@ -119,9 +203,9 @@
 					$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "saveitem", description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category,supplier:supplierid},
+                    data: {action: "saveitem", description: description, unit: unit, unitcost: cost, category: category,supplier:supplierid},
                     success: function(response) {
-						//console.log();
+						console.log(response);
 						document.getElementById("idescription").value = "";
 						document.getElementById("unit").value = "";
 						document.getElementById("cost").value = "";
@@ -133,7 +217,7 @@
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
+						 //setTimeout(function(){location.reload();},1500);
 						
                         //$('table#resultTable tbody').html(response);
 						//alert(response);
@@ -356,7 +440,7 @@ $('#update').click(function(){
 		var itemno = document.getElementById("itemno").value;
 		var description = document.getElementById("idescription").value;
 		var unit = document.getElementById("unit").value;
-		var pcperunit = document.getElementById("pc_per_unit").value;
+		//var pcperunit = document.getElementById("pc_per_unit").value;
 		var cost = document.getElementById("cost").value;
 		var category = document.getElementById("category").value;
 		var supplierid = document.getElementById("supplier").value;
@@ -364,7 +448,7 @@ $('#update').click(function(){
 		$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category, supplier: supplierid},
+                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, unitcost: cost, category: category, supplier: supplierid},
                     success: function(response) {
 						console.log(response);
 						//alert(response);
@@ -785,3 +869,4 @@ $(document).ready(function() {
 				 "order": [[ 0, "asc" ]]
         });
     });
+	

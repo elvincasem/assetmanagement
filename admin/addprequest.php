@@ -4,7 +4,7 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="color:green;"><i class="fa fa-money fa-1x"></i> PURCHASE REQUESTS
+                    <h3 class="page-header" style="color:green;"><i class="fa fa-money fa-1x"></i> PURCHASE REQUESTS
 						<div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
@@ -19,7 +19,7 @@ include('header.php');
                                         
                                     </ul>
                                 </div>
-                            </div></h1>
+                            </div></h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -34,10 +34,10 @@ include('header.php');
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action="addprequestitem.php">
+                                    <form role="form" method="post" action="addprequestitem.php">
                                         <div class="form-group">
                                             <label>PR Number</label>
-                                            <input class="form-control" value="PR-2016-01" tabindex="1">
+                                            <input class="form-control" value="" placeholder="PR-2016-01" tabindex="1">
                                             
                                         </div>
 										<div class="form-group">
@@ -57,16 +57,22 @@ include('header.php');
                                         </div>
 									<div class="form-group">
                                             <label>Request Date</label>
-                                            <input class="form-control" tabindex="4" value="2016-02-01">
+                                            <input type="date" class="form-control" tabindex="4" value="2016-02-01">
                                             
                                         </div>
 									<div class="form-group">
                                             <label>Requested By</label>
                                             
                                             <select class="form-control">
-                                                <option>Juan M.</option>
-                                                <option>Archie L.</option>
-                                                <option>Elvin Casem</option>
+                                                <?php
+						include_once("include/functions.php");			
+						$userlist = selectListSQL("SELECT eid, CONCAT(fname, ' ', lname) AS employee_name FROM employee ORDER BY fname");
+						foreach ($userlist as $rows => $link) {
+							$eid = $link['eid'];
+							$ename = $link['employee_name'];
+							echo "<option value='$eid'>$ename</option>";
+						}
+						?>
                                      
                                             </select>
                                             

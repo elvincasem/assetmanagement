@@ -33,6 +33,52 @@
                     }
                 });
 	} 
+	
+	//additem to requisition
+	
+	$('#additemtolist').click(function(){
+		var reqid =document.getElementById("reqid").value;
+		var requisition_no =document.getElementById("requisition_no").value;
+		var itemno = document.getElementById("item-list").value;
+		var iunit = document.getElementById("iunit").value;
+		var qty = document.getElementById("qty").value;
+		
+		
+		$.ajax({
+			url: 'include/functions.php',
+			type: 'post',
+			data: {action: "additemtolist", reqid: reqid, itemno: itemno, iunit: iunit,qty:qty,requisition_no:requisition_no},
+			success: function(response) {
+				console.log(response);
+				var itemdescription = $('#item-list option:selected').text();
+				
+				$('#itemlist tr:last').after("<tr><td>"+itemdescription+"</td><td>"+iunit+"</td><td>"+qty+"</td><td><button class='btn btn-danger notification' id='notification'><i class='fa fa-times'></i></button></td></tr>");
+
+				//$("#iunit").append("<option value='0'>Select Item</option>");
+				
+				
+				/*
+				$('#success-alert').show("slow");
+				$('#success-alert').removeClass("hide");
+				setTimeout(function(){$('#success-alert').hide("slow");},1500);*/
+				$( ".simplemodal-close" ).trigger( "click" );
+				window.location.reload();
+				//setTimeout(function(){location.reload();},500);
+				//var rid = parseInt(response);
+				
+				//window.location.href = "requisitiondetails.php?id=" + rid;
+			}
+		});
+		
+		
+
+
+	});
+	
+	
+	
+	
+	
 //item savePreferences
 	$('#additembutton').click(function(){
 		$('#update').prop("disabled", true);    
@@ -167,15 +213,56 @@ function deleterequisition(id){
 
 function displayitemunit(itemid){
 	
-	$.ajax({
-	url: 'include/functions.php',
-	type: 'post',
-	data: {action: "saveitem", description: description, unit: unit, unitcost: cost, category: category,supplier:supplierid},
-	success: function(response) { 
-			document.getElementById('iunit').value=response;
+	var unitselect = document.getElementById("iunit");
+	
+	for (var i = 0; i <= unitselect.length; i++) { 
+		unitselect.remove(unitselect.length-1);
+	}
+	
+	
+	
+	if(parseInt(itemid)==0){
+		$("#iunit").append("<option value='0'>Select Item</option>");
+	}else{
+		$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "getitemunit", itemid: itemid},
+		success: function(response) { 
+				var uom = JSON.parse(response);
+				console.log(JSON.parse(response));
+				//var unitselect = document.getElementById('iunit');
+				//var ctr=0;
+				//do{
+					
+				//	ctr++;
+				//}while(testing!=undefined)
+				document.getElementById("inventoryqty").innerHTML = uom.inventory_qty;
+				$("#iunit").append("<option value='"+uom.unit+"'>"+uom.unit+"</option>");
+			
+				var max = 20;
+				for (var ctr = 0; ctr <= max; ctr++) { 
+					try{
+						var testing = uom[ctr].equiv_unit;
+						var base_qty = uom[ctr].base_qty;
+						var base_unit = uom[ctr].base_unit;
+						$("#iunit").append("<option value='"+testing+"'>"+testing+ " (" +base_qty+" "+base_unit+")</option>");
+						//console.log(testing);
+					}catch(e){
+						max = 21;
+						return 0;	
+					}
+				}
+				
+				
+				
+				//document.getElementById('iunit').value=response;
 
-		}
-	});
+			}
+		});
+	}
+	
+	
 }
 
 
@@ -217,7 +304,7 @@ function displayitemunit(itemid){
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
-						 //setTimeout(function(){location.reload();},1500);
+						 setTimeout(function(){location.reload();},1500);
 						
                         //$('table#resultTable tbody').html(response);
 						//alert(response);
@@ -503,6 +590,8 @@ function deleteitem(id){
 	
 }
 
+
+
 function edititem(id){
 	
 	//$('#update').removeAttr("disabled");
@@ -518,6 +607,7 @@ function edititem(id){
 		success: function(response) {
 			console.log(response);
 			 var data = JSON.parse(response);
+			 
 			//var itemdescription = $.parseJSON(response);
 			//var description = item.description;
 			
@@ -529,7 +619,7 @@ function edititem(id){
 			document.getElementById("itemno").value = id;
 			document.getElementById("idescription").value = data.description;
 			document.getElementById("unit").value = data.unit;
-			document.getElementById("pc_per_unit").value = data.pc_per_unit;
+			
 			document.getElementById("cost").value = data.unitCost;
 			
 			
@@ -870,3 +960,84 @@ $(document).ready(function() {
         });
     });
 	
+function editreq(){
+	
+	$('#requisition_no').removeAttr("disabled");
+	$('#reqdate').removeAttr("disabled");
+	$('#requester_id').removeAttr("disabled");
+}
+
+function updatereq(){
+	var reqno = document.getElementById("requisition_no").value;
+	var reqdate = document.getElementById("reqdate").value;
+	var requester_id = document.getElementById("requester_id").value;
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "updatereq",reqno: reqno, reqdate: reqdate, requester_id: requester_id},
+		success: function(response) {
+			//console.log(response);
+			$('#success-alert').show("slow");
+			//$( ".simplemodal-close" ).trigger( "click" );
+			setTimeout(function(){location.reload();},1000);
+			//return "valid";
+		}
+	});
+}
+
+	
+function updateinventory(reqno){
+	
+	var requisition_no = reqno;
+	console.log(requisition_no);
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "updateinventory",requisition_no: requisition_no},
+		success: function(response) {
+			
+			$('#success-alert').show("slow");
+			
+			
+		
+			alert("Inventory Updated");
+			console.log(response);
+			//setTimeout(function(){location.reload();},1000);
+		}
+	});
+	
+	
+}
+
+	
+function deleteitemreq(reqitemno){
+	
+	var reqitem = reqitemno;
+	console.log(requisition_no);
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "deleteitemreq",reqitem: reqitem},
+		success: function(response) {
+			
+			$('#success-alert').show("slow");
+			
+			
+		
+			//alert("Item Deleted");
+			window.location.reload();
+			console.log(response);
+		}
+	});
+	
+	
+}
+
+$('#addRequisition').click(function(){
+	//generate RIS
+	var year = new Date().getFullYear();
+	var prefix = "RIS";
+	
+	//alert(year);
+	
+});

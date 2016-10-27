@@ -5,7 +5,7 @@ include_once("include/functions.php");
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Items
+                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Equipments
 						<div class="pull-right">
 							<button id="additembutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
                                 <i class="fa fa-plus-circle"></i> Add Item
@@ -155,7 +155,7 @@ include_once("include/functions.php");
 												
 												echo "<tr class='odd gradeX'>";
 												echo "<td>$itemNo</td>";
-												echo "<td><a href='itemdetails.php?id=$itemNo'>$description</a></td>";
+												echo "<td><a href='itemdetails.php'>$description</a></td>";
 												echo "<td>$inventoryqty</td>";
 												echo "<td>$unit</td>";
 												echo "<td>$unitcost</td>";

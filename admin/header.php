@@ -49,6 +49,7 @@
     <![endif]-->
 <style>
 .datepicker{z-index:1151 !important;}
+.itemvalues{color:#337ab7;}
 </style>
 </head>
 

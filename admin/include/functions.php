@@ -75,15 +75,18 @@ function singleSQL($q){
 		$description = $_POST['description'];
 		$unit = $_POST['unit'];
 		$unitcost = $_POST['unitcost'];
+		if($unitcost == ""){
+			$unitcost = 0.00;
+		}
 		$pcperunit = $_POST['pc_per_unit'];
 		$category = $_POST['category'];
 		$supplier = $_POST['supplier'];
 		//return "ok";
 
-		$sqlinsert = "INSERT INTO items(description,category,unit,unitcost,supplierID) VALUES('$description','$category','$unit','$pcperunit',$unitcost,$supplier)";
+		$sqlinsert = "INSERT INTO items(description,category,unit,unitcost,supplierID) VALUES('$description','$category','$unit',$unitcost,'$supplier')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		echo $sqlinsert;
+		//echo $sqlinsert;
 		$conn = null;
 
 	}
@@ -122,7 +125,7 @@ function singleSQL($q){
 
 		$conn = dbConnect();
 		$itemno = $_POST['itemno'];
-		$sqlselect = "SELECT itemNo,description,category,unit,pc_per_unit,unitCost,inventory_qty,items.supplierID,COALESCE(supName,'') AS supName FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo=$itemno";
+		$sqlselect = "SELECT itemNo,description,category,unit,unitCost,inventory_qty,items.supplierID,COALESCE(supName,'') AS supName FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo=$itemno";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$rows = $stmt->fetchAll();
@@ -375,6 +378,169 @@ function singleSQL($q){
 		$delete->execute();
 		$conn = null;
 
+	}
+	
+	//getselected charge
+	if($_POST['action'] == "getitemunit"){
+		
+		$conn = dbConnect();
+		$itemid = $_POST['itemid'];
+		
+		
+		
+		$sqlselect = "SELECT * FROM items where itemNo=$itemid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		
+		
+		
+		//search if there is conversion
+		$sqlselect = "SELECT count(*) as conversion FROM items_buom where itemNo=$itemid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$conversion = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if($conversion['conversion']>0){
+			$sqlselect2 = "SELECT equiv_unit,base_qty,base_unit FROM items_buom where itemNo=$itemid";
+			$stmt2 = $conn->prepare($sqlselect2);
+			$stmt2->execute();
+			$additional = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+			//echo json_encode($rows);
+			$conn = null;
+			$merge = array_merge($rows, $additional); 
+			echo json_encode($merge);
+		}
+		else{
+			echo json_encode($rows);
+			//print_r($rows[0]);
+			//echo json_encode($rows);
+			//echo $sqlselect;
+			//$conn = null;
+		}
+		
+
+		
+	}
+	
+	
+	
+	if($_POST['action'] == "additemtolist"){
+
+		$conn = dbConnect();
+		$reqid = $_POST['reqid'];
+		$requisition_no = $_POST['requisition_no'];
+		$itemno = $_POST['itemno'];
+		$iunit = $_POST['iunit'];
+		$qty = $_POST['qty'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO requisition_items(requisition_no,itemno,unit,qty) VALUES('$requisition_no',$itemno,'$iunit',$qty)";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		echo $sqlinsert;
+		
+		$conn = null;
+		//echo "item added";
+
+	}
+	
+	
+	//update item
+	if($_POST['action'] == "updatereq"){
+
+		$conn = dbConnect();
+		$reqno = $_POST['reqno'];
+		$reqdate = $_POST['reqdate'];
+		$requester_id = $_POST['requester_id'];
+		
+		$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id where requisition_no='$reqno'";
+		//echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+	}
+	
+	//update item
+	if($_POST['action'] == "updateinventory"){
+
+		$conn = dbConnect();
+		$reqno = $_POST['requisition_no'];
+		
+		//select all items from reqitems
+		$sqlselect2 = "SELECT * FROM requisition_items WHERE requisition_no='$reqno'";
+		$stmt2 = $conn->prepare($sqlselect2);
+		$stmt2->execute();
+		$reqitems = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($reqitems as $rows => $link) {
+			
+			$itemno = $link['itemno'];
+			$req_unit = $link['unit'];
+			$req_qty = $link['qty'];
+			
+			//compare current unit is the same as the item base unit
+
+			$baseunitmeasure = $conn->prepare("SELECT unit,inventory_qty FROM items WHERE itemNo=$itemno");
+			$baseunitmeasure->execute();
+			$result = $baseunitmeasure->fetch(PDO::FETCH_ASSOC);
+			$baseunit = $result['unit'];
+			$inventory = $result['inventory_qty'];
+			
+			if($baseunit == $req_unit){
+				//no conversion of units
+				
+				//update items inventory
+				$updatedvalue = $inventory - $req_qty;
+				
+				
+				//update item status
+			}else{
+				
+				//get convertion equivalent
+				$convertionequiv = $conn->prepare("SELECT base_qty FROM items_buom where itemNo=$itemno and equiv_unit='$req_unit'");
+				$convertionequiv->execute();
+				$equiv = $convertionequiv->fetch(PDO::FETCH_ASSOC);
+				$equiv_qty = $equiv['base_qty'];
+				
+				$subtotal = $equiv_qty * $req_qty;
+				$updatedvalue = $inventory - $subtotal;
+				
+				
+			}
+				//update inventory per item
+				$sqlupdate = "UPDATE items set inventory_qty=$updatedvalue where itemNo=$itemno";
+				$update = $conn->prepare($sqlupdate);
+				$update->execute();
+				
+				//update status requisition per item
+				$sqlupdate = "UPDATE requisition_items set update_status=1 where itemNo=$itemno AND requisition_no='$reqno'";
+				$update = $conn->prepare($sqlupdate);
+				$update->execute();
+			
+			
+			echo $sqlupdate;
+			
+			
+			
+		}
+		
+		
+		//$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id where requisition_no='$reqno'";
+		//echo $sqlupdate;
+		
+		$conn = null;
+	}
+	
+		//deleteitemreq
+	if($_POST['action'] == "deleteitemreq"){
+		$conn = dbConnect();
+		$reqitem = $_POST['reqitem'];
+		$sqldelete = "DELETE FROM requisition_items where reqitemsid='$reqitem'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
 	}
 	
 ?>

@@ -1,26 +1,33 @@
 <?php
 include('header.php');
+include_once("include/functions.php");	
+
+		$conn = dbConnect();
+		$itemid = $_GET['id'];
+		
+		$sqlselect = "SELECT * FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo='$itemid'";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		//echo $sqlselect;
+		$itemNo = $row['itemNo'];
+		$description = $row['description'];
+		$category = $row['category'];
+		$unit = $row['unit'];
+		$unitCost = $row['unitCost'];
+		$inventory_qty = $row['inventory_qty'];
+		$supName = $row['supName'];
+		$conn = null;
+		//print_r($row);
 ?>
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h3 class="page-header" style="color:green;"><i class="fa fa-money fa-1x"></i> ITEM DETAILS
 						<div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="addprequest.php">Add New Purchase Request</a>
-                                        </li>
-										<li><a href="prequest.php">Purchase Request List</a>
-                                        </li>
-                                        <li><a href="#">Print All Request</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
+						<button class="btn btn-primary btn-lg" onclick="history.go(-1);">
+                                <i class="fa fa-chevron-left"></i> Back to List
+                            </button>
                             </div></h3>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -31,66 +38,64 @@ include('header.php');
                     
                     <div class="panel panel-green">
                         <div class="panel-heading">
-                            Purchase Request Saved
+                           
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form" action="prequest.php">
-                                        <div class="form-group">
-                                            <label>Item Description</label>
-                                            <input disabled class="form-control" value="Keyboard" tabindex="1">
-                                            
-                                        </div>
-										<div class="form-group">
-                                            <label>Cost</label>
-                                            <input disabled class="form-control small" value="10.00" tabindex="1" width="10">
-                                            
-                                        </div>
-										<div class="form-group">
-                                            <label>Purpose</label>
-                                            <textarea disabled class="form-control" rows="3"></textarea>
-                                        </div>
-                                    
+                                <div class="col-lg-8">
+                                  <input type="hidden" id="itemno" value="">
+											<div class="col-lg-4 text-right">
+                                            <label>Item Description:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $description;?></label>
+											</div>
+											
+											
+											<div class="col-lg-4 text-right">
+                                            <label>Cost:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $unitCost;?></label>
+											</div>
+											
+											<div class="col-lg-4 text-right">
+                                            <label>Base Unit of Measure:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $unit;?></label>
+											</div>
+											<div class="col-lg-4 text-right">
+                                            <label>Current QTY:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $inventory_qty;?></label>
+											</div>
+											
+											
+										
                                         
                                     
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                            <label>Category</label>
-                                            <select class="form-control" disabled>
-                                                <option>PC</option>
-                                                <option>BOX</option>
-                                                <option>CASE</option>
-                                     
-                                            </select>
-                                            
-                                        </div>
-									<div class="form-group">
-                                            <label>Supplier</label>
-                                             <select class="form-control" disabled>
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
-                                     
-                                            </select>
-                                            
-                                        </div>
-									<div class="form-group">
-                                            <label>Requested By</label>
-                                            
-                                            <select class="form-control" disabled>
-                                                <option>Juan M.</option>
-                                                <option>Archie L.</option>
-                                                <option>Elvin Casem</option>
-                                     
-                                            </select>
-                                            
-                                        </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-4 text-right">
+                                            <label>Category:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $category;?></label>
+											</div>
+									<div class="col-lg-4 text-right">
+                                            <label>Supplier:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $supName;?></label>
+											</div>
+									
+									
 									
                                     
-									</form>
+								
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
 								
@@ -135,16 +140,17 @@ include('header.php');
 			<div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+					
                         <div class="panel-heading">
-							Item Details: 
+							Transactions 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#home" data-toggle="tab">List Items</a>
+                                <li class="active"><a href="#home" data-toggle="tab">Requisition</a>
                                 </li>
-                                <li><a href="#profile" data-toggle="tab">Search Item</a>
+                                <li><a href="#profile" data-toggle="tab">Inventory</a>
                                 </li>
                                 
                             </ul>
@@ -155,47 +161,11 @@ include('header.php');
                                     <div class="row">
 				<div class="col-lg-12">
 				<div class="panel panel-default">
-                        <div class="panel-heading">
-                           
-                        </div>
-				
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item Description</th>
-                                                    <th>Unit</th>
-                                                    <th>QTY</th>
-													<th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>21" Philips LCD Monitor</td>
-                                                    <td>PCS</td>
-                                                    <td>10</td>
-													<td><button type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
-                                                </tr>
-												     
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.table-responsive -->
-                </div>
-				
-				</div><!--end panel-->
-			
-			</div> <!-- end row-->
-                                </div>
-                                <div class="tab-pane fade" id="profile">
-                                <div class="row">
-								<div class="col-lg-12">
-								<div class="panel panel-default">
-											<div class="panel-heading">
-											   Search Items
-											</div>
-								<div class="panel-body">
-												<div class="dataTable_wrapper">
+						<div class="panel-heading">
+						 Requisition Transactions
+						</div>
+				<div class="panel-body">
+                                    <div class="dataTable_wrapper">
 													<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 														<thead>
 															<tr>
@@ -207,28 +177,42 @@ include('header.php');
 															</tr>
 														</thead>
 														<tbody>
-															<tr class="odd gradeX">
-																<td>21" Philips LCD Monitor</td>
-																<td>PC</td>
-																<td>4500.00</td>
-																<td><input type="text"></td>
-																<td class="center"><button type="submit" class="btn btn-success">Add Item</button></td>
+															
+															
+														</tbody>
+													</table>
+												</div>
+								
+                                    <!-- /.table-responsive -->
+					</div>
+                </div>
+				
+				</div><!--end panel-->
+			
+			</div> <!-- end row-->
+                                </div>
+								
+                                <div class="tab-pane fade" id="profile">
+                                <div class="row">
+								<div class="col-lg-12">
+								<div class="panel panel-default">
+											<div class="panel-heading">
+											  Inventory Transactions
+											</div>
+								<div class="panel-body">
+												<div class="dataTable_wrapper">
+													<table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+														<thead>
+															<tr>
+																<th>Description</th>
+																<th>Unit</th>
+																<th>Cost</th>
+																<th>QTY</th>
+																<th>Action</th>
 															</tr>
-															<tr class="odd gradeX">
-																<td>Staple Wire</td>
-																<td>BOX</td>
-																<td>75.00</td>
-																<td><input type="text"></td>
-																<td class="center"><button type="submit" class="btn btn-success">Add Item</button></td>
-															</tr>
-															<tr class="odd gradeX">
-																<td>700mb CD</td>
-																<td>PC</td>
-																<td>15.00</td>
-																<td><input type="text"></td>
-																<td class="center"><button type="submit" class="btn btn-success">Add Item</button></td>
-															</tr>
-														   
+														</thead>
+														<tbody>
+															
 															
 														</tbody>
 													</table>
@@ -243,7 +227,7 @@ include('header.php');
 											</div><!-- panel default end-->
 											
 											</div> <!-- row end-->
-                                </div>
+                              </div> 
                                 
                             </div>
                         
@@ -303,7 +287,14 @@ include('header.php');
         <!-- /#page-wrapper -->
 
     </div>
-
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example2').DataTable({
+                responsive: true
+        });
+    });
+	
+    </script>
 	
 	
 <?php

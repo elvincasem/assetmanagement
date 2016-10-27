@@ -60,6 +60,14 @@ include('header.php');
 "></td>
 
                                                 </tr>
+												<tr>
+                                                    <td>Requisition Item by Employee</td>
+                                                    <td><a href="genreport.php?rpt=5"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+                            </button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></td>
+
+                                                </tr>
+												
                                                 
                                             </tbody>
                                         </table>

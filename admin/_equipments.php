@@ -4,7 +4,7 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Asset Assignment
+                    <h1 class="page-header">EQUIPMENTS
 						<div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">

@@ -40,6 +40,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 					<div class="col-lg-8 text-right">
 					
 					<select class="form-control" id="item-list" onchange="displayitemunit(this.value);">
+					<option value="0">Select Item</option>
 					 <?php
 											
 				$itemlist = selectListSQL("SELECT * FROM items ORDER BY description");
@@ -53,13 +54,21 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 					?>
 					  
 					</select>
-					
 					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Available QTY</label>
+					</div>
+					<div class="col-lg-8 text-left">
+						<div class="form-control" id="inventoryqty"></div>
+					</div>
+					
 					<div class="col-lg-4 text-right">
 					<label>Unit</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input id="iunit" class="form-control" value="" tabindex="2">
+						<select class="form-control"  id="iunit">
+						</select>
 					</div>
 					<div class="col-lg-4 text-right">
 					<label>QTY</label>
@@ -67,6 +76,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 					<div class="col-lg-8 text-right">
 					<input id="qty" class="form-control" value="" tabindex="2">
 					</div>
+					
 					
 				</div>
 				
@@ -76,8 +86,8 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-					<button id="saveitem" type="button" class="btn btn-primary">Save and Add</button>
-					<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
+					<button id="additemtolist" type="button" class="btn btn-primary">Add Item</button>
+					
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -95,9 +105,11 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                 <div class="col-lg-12">
                     <h3 class="page-header" style="color:green;"><i class="fa fa-money fa-1x"></i> REQUISITION DETAILS
 						<div class="pull-right">
-								<!--<button id="addreq" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequisition">
-								<i class="fa fa-plus-circle"></i> Add Requisition
-							</button> -->
+								
+							<button class="btn btn-primary btn-lg" onclick="history.go(-1);">
+                                <i class="fa fa-chevron-left"></i> Back to List
+                            </button>
+                            
 
                             </div></h3>
                 </div>
@@ -114,16 +126,16 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <form role="form" method="post" action="addprequestitem.php">
+                                   
                                         <div class="form-group">
 											<input type="hidden" value="<?php echo $reqid;?>" id="reqid">
                                             <label>Requisition No.</label>
-                                            <input class="form-control" value="<?php echo $rno;?>" tabindex="1" disabled>
+                                            <input class="form-control" value="<?php echo $rno;?>" tabindex="1" id="requisition_no" disabled>
                                             
                                         </div>
 									<div class="form-group">
                                             <label>Request Date</label>
-                                            <input disabled type="date" class="form-control" tabindex="4" value="<?php echo $rdate;?>">
+                                            <input disabled type="date" class="form-control" tabindex="4" value="<?php echo $rdate;?>" id="reqdate">
                                             
                                         </div>
 									<div class="form-group">
@@ -147,10 +159,10 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                                             
                                         </div>
 									<button type="submit" class="btn btn-warning" onClick="javascript: history.go(-1);">Cancel</button>	
-									<button type="reset" class="btn btn-default">Edit</button>
-                                    <button type="submit" class="btn btn-success">Save</button>
+									<button type="reset" onclick="editreq();" class="btn btn-default">Edit</button>
+                                    <button type="submit" class="btn btn-success" onclick="updatereq();">Save</button>
                                     
-									</form>	
+									
                                     
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -178,12 +190,32 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 									</tr>
 								</thead>
 								<tbody>
+					
+						
+						<?php
+						include_once("include/functions.php");			
+						$item_list = selectListSQL("SELECT items.description, requisition_items.unit, requisition_items.qty, requisition_items.update_status,requisition_items.reqitemsid FROM requisition_items
+INNER JOIN items ON requisition_items.itemno = items.itemNo WHERE requisition_no='$rno'");
+						foreach ($item_list as $rows => $link) {
+							$idescription = $link['description'];
+							$iunit = $link['unit'];
+							$iqty = $link['qty'];
+							$reqitemsid = $link['reqitemsid'];
+							if($link['update_status']==1){
+								$status = "disabled";
+							}
+							echo "<td>$idescription</td><td>$iunit</td><td>$iqty</td><td><button onclick='deleteitemreq($reqitemsid);' class='btn btn-danger notification' id='notification' $status><i class='fa fa-times'></i></button></td></tr>";
+						}
+						?>
 								</tbody>
 							</table>
 						</div>
 						<!-- /.table-responsive -->
 					</div>
 					<!-- /.panel-body -->
+					<div class="panel-footer text-right">
+					<button  type="submit" class="btn btn-success" onclick="updateinventory('<?php echo $rno;?>');" <?php echo $status;?>>Update Inventory</button>
+					</div>
 				</div>
 				<!-- /.panel -->
 									

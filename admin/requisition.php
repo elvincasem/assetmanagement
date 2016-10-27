@@ -143,7 +143,7 @@ ON requisition_details.eid = employee.eid");
 											
 			</div> <!-- row end-->
         </div>
-        <!-- /#page-wrapper -->
+        <!--- /#page-wrapper -->
 
     </div>
 

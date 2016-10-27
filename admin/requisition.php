@@ -7,7 +7,7 @@ include_once("include/functions.php");
                 <div class="col-lg-12">
                     <h3 class="page-header" style="color:#000;"><i class="fa fa-check-square-o fa-1x"></i> REQUISITION AND ISSUE SLIP
 						<div class="pull-right">
-							<button id="addreq" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequisition">
+							<button id="addreq" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addRequisition" >
 									<i class="fa fa-plus-circle"></i> Add Requisition
 							</button>
                                 
@@ -106,7 +106,7 @@ include_once("include/functions.php");
 							</thead>
 							<tbody>
 							<?php
-											
+					$lastreq = "";						
 					$itemlist = selectListSQL("SELECT reqid,requisition_no, requisition_date, CONCAT(employee.fname,' ',employee.lname) AS fullname FROM requisition_details LEFT JOIN employee 
 ON requisition_details.eid = employee.eid");
 					//print_r($employeelist);
@@ -116,17 +116,31 @@ ON requisition_details.eid = employee.eid");
 						$requisition_date = $link['requisition_date'];
 						$fullname = $link['fullname'];
 						
+						$itemstatus = singleSQL("SELECT COUNT(*) AS updated FROM requisition_items WHERE update_status=1 AND requisition_no='$requisition_no'");
+						
+						if($itemstatus['updated']>=1){
+							$disabled = "disabled";
+						}else{
+							$disabled="";
+						}
+						
+						
 						echo "<tr class='odd gradeX'>";
 						echo "<td><a href='requisitiondetails.php?id=$reqid'>$requisition_no</a></td>";
 						echo "<td>$requisition_date</td>";
 						echo "<td>$fullname</td>";
 						echo "<td class='center'> 
 							
-							<button class='btn btn-primary' onClick='editrequisition($reqid)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
-							<button class='btn btn-danger notification' id='notification' onClick='deleterequisition($reqid)'><i class='fa fa-times'></i></button>
+							
+							<button class='btn btn-danger notification' id='notification' onClick='deleterequisition($reqid)' $disabled><i class='fa fa-times'></i></button>
 						</td>";
 						echo "</tr>";
+						$lastreq =$requisition_no;
+					
 					}
+					
+					
+					
 					?>	
 								
 							</tbody>
@@ -134,7 +148,7 @@ ON requisition_details.eid = employee.eid");
 					</div>
 	
 	
-	
+	<input type="hidden" id="lastreq" value="<?php echo $lastreq;?>">
 	
 				</div>
 				

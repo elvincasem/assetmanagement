@@ -451,14 +451,23 @@ function singleSQL($q){
 	if($_POST['action'] == "updatereq"){
 
 		$conn = dbConnect();
+		$reqid = $_POST['reqid'];
 		$reqno = $_POST['reqno'];
+		$old_reqno = $_POST['old_reqno'];
 		$reqdate = $_POST['reqdate'];
 		$requester_id = $_POST['requester_id'];
 		
-		$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id where requisition_no='$reqno'";
-		//echo $sqlupdate;
+		//update details
+		$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id where reqid='$reqid'";
 		$update = $conn->prepare($sqlupdate);
 		$update->execute();
+		
+		//update items
+		$sqlupdate2 = "UPDATE requisition_items set requisition_no = '$reqno' where requisition_no='$old_reqno'";
+		$update2 = $conn->prepare($sqlupdate2);
+		$update2->execute();
+		
+		
 		$conn = null;
 	}
 	

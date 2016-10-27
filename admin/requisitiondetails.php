@@ -129,6 +129,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                                    
                                         <div class="form-group">
 											<input type="hidden" value="<?php echo $reqid;?>" id="reqid">
+											<input type="hidden" value="<?php echo $rno;?>" id="old_requisition_no">
                                             <label>Requisition No.</label>
                                             <input class="form-control" value="<?php echo $rno;?>" tabindex="1" id="requisition_no" disabled>
                                             
@@ -203,6 +204,8 @@ INNER JOIN items ON requisition_items.itemno = items.itemNo WHERE requisition_no
 							$reqitemsid = $link['reqitemsid'];
 							if($link['update_status']==1){
 								$status = "disabled";
+							}else{
+								$status = "";
 							}
 							echo "<td>$idescription</td><td>$iunit</td><td>$iqty</td><td><button onclick='deleteitemreq($reqitemsid);' class='btn btn-danger notification' id='notification' $status><i class='fa fa-times'></i></button></td></tr>";
 						}

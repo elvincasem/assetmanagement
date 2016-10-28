@@ -12,20 +12,22 @@
 									<a href="requisition.php" style="color:#000;"><i class="fa fa-check-square-o fa-2x"></i> REQUISITION</a>
 								</li>
                                <li>
-									<a href="equipments.php" style="color:#000;"><i class="fa fa-home fa-2x"></i> EQUIPMENTS</a>
+									<a href="equipments.php" style="color:#000;"><i class="fa fa-desktop fa-2x"></i> EQUIPMENTS</a>
 								</li>
 								<li>
+										<a href="items.php" style="color:#000;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>
+								</li>
+								
+								<!-- <li>
 									<a href="items" style="color:#bd0000;"><i class="fa fa-briefcase fa-2x"></i> ITEMS<span class="fa arrow"></span></a></a>
 									
 									<ul class="nav nav-third-level">
-									<li>
-										<a href="items.php" style="color:#000;"><i class="fa fa-briefcase fa-2x"></i> Items List</a>
-									</li>
+									
 									<li>
 										<a href="items_baseunit.php" style="color:#000;"><i class="fa fa-columns fa-2x"></i> Base Unit of Measure</a>
 									</li>
 									</ul>
-								</li>
+								</li> -->
 								<li>
 									<a href="suppliers.php" style="color:#000;"><i class="fa fa-cubes fa-2x"></i> SUPPLIERS</a>
 								</li>
@@ -55,15 +57,16 @@
                         </li>
 						
 						
-                        <li>
-                            <a href="employees.php" style="color:#000000;"><i class="fa fa-user fa-2x"></i> EMPLOYEES</a>
-                        </li>
+                        
                         <li>
                             <a href="reports.php" style="color:#000000;"><i class="fa fa-files-o fa-2x"></i> REPORTS</a>
                         </li>
 						<li>
                             <a href="#"  style="color:#bd0000;"><i class="fa fa-gear fa-2x"></i> SETTINGS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+								<li>
+									<a href="employees.php" style="color:#000000;"><i class="fa fa-user fa-2x"></i> EMPLOYEES</a>
+								</li>
 								<li>
                                     <a href="users.php" ><i class="fa fa-user fa-2x" style="bgcolor:green;"></i> Users</a>
                                 </li>

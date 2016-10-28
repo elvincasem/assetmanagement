@@ -106,9 +106,9 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                     <h3 class="page-header" style="color:green;"><i class="fa fa-money fa-1x"></i> REQUISITION DETAILS
 						<div class="pull-right">
 								
-							<button class="btn btn-primary btn-lg" onclick="history.go(-1);">
+							<a href="requisition.php"><button class="btn btn-primary btn-lg" >
                                 <i class="fa fa-chevron-left"></i> Back to List
-                            </button>
+                            </button></a>
                             
 
                             </div></h3>

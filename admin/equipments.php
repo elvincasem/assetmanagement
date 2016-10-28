@@ -5,9 +5,9 @@ include_once("include/functions.php");
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-briefcase fa-1x"></i> Equipments
+                    <h1 class="page-header"><i class="fa fa-desktop fa-1x"></i> Equipments
 						<div class="pull-right">
-							<button id="additembutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addItem">
+							<button id="addequipmentbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEquipment">
                                 <i class="fa fa-plus-circle"></i> Add Item
                             </button>
                              <button class="btn btn-primary btn-lg hidden" data-toggle="modal" data-target="#addItem">
@@ -27,12 +27,12 @@ include_once("include/functions.php");
                             <!-- Button trigger modal -->
                             
                             <!-- Modal -->
-                            <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Add Item</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Add Equipment</h4>
                                         </div>
                                         <div class="modal-body">
                                            
@@ -41,7 +41,7 @@ include_once("include/functions.php");
 										
 											<input type="hidden" id="itemno" value="">
 											<div class="col-lg-4 text-right">
-                                            <label>Item Description</label>
+                                            <label>Equipment Name</label>
 											</div>
 											<div class="col-lg-8 text-right">
                                             <input id="idescription" class="form-control" value="" tabindex="1">
@@ -126,67 +126,65 @@ include_once("include/functions.php");
 								   Search Items
 								</div>
 					<div class="panel-body">
-									<div class="dataTable_wrapper">
-										<table class="table table-striped table-bordered table-hover" id="dataTables-items">
-											<thead>
-												<tr>
-													<th>Item#</th>
-													<th>Description</th>
-													<th>Inventory QTY</th>
-													<th>Unit</th>
-													<th>Cost</th>
-													<th>Category</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
-											
-											<?php
-											
-											$itemlist = selectListSQL("SELECT * FROM items ORDER BY itemNo DESC");
-											//print_r($employeelist);
-											foreach ($itemlist as $rows => $link) {
-												$itemNo = $link['itemNo'];
-												$description = $link['description'];
-												$unit = $link['unit'];
-												$unitcost = $link['unitCost'];
-												$category = $link['category'];
-												$inventoryqty = $link['inventory_qty'];
-												
-												echo "<tr class='odd gradeX'>";
-												echo "<td>$itemNo</td>";
-												echo "<td><a href='itemdetails.php'>$description</a></td>";
-												echo "<td>$inventoryqty</td>";
-												echo "<td>$unit</td>";
-												echo "<td>$unitcost</td>";
-												echo "<td>$category</td>";
-												echo "<td class='center'> 
-													
-													<button class='btn btn-primary' onClick='edititem($itemNo)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
-													<button class='btn btn-danger notification' id='notification' onClick='deleteitem($itemNo)'><i class='fa fa-times'></i></button>
-												</td>";
-												echo "</tr>";
-											}
-											?>
-											
-											
-											
-												
-											   
-												
-											</tbody>
-										</table>
-									</div>
-					
-					
-					
-					
-								</div>
+				<div class="dataTable_wrapper">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-items">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Tag No.</th>
+								<th>Property No.</th>
+								<th>Serial</th>
+								<th>Date Acquired</th>
+								<th>Category</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						<?php
+						
+						$itemlist = selectListSQL("SELECT * FROM equipments ");
+						//print_r($employeelist);
+						foreach ($itemlist as $rows => $link) {
+							$equipname = $link['equipName'];
+							$tagno = $link['tagno'];
+							$propertyno = $link['propertyno'];
+							$serialno = $link['serialno'];
+							$dateacquired = $link['dateacquired'];
+							$category = $link['category'];
+							
+							echo "<tr class='odd gradeX'>";
+							echo "<td>$equipname</td>";
+							echo "<td><a href='itemdetails.php'>$tagno</a></td>";
+							echo "<td>$propertyno</td>";
+							echo "<td>$serialno</td>";
+							echo "<td>$dateacquired</td>";
+							echo "<td>$category</td>";
+							echo "<td class='center'> 
 								
-								</div><!-- table end -->
-								</div><!-- panel default end-->
-								
-								</div> <!-- row end-->
+								<button class='btn btn-primary' onClick='edititem($itemNo)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-danger notification' id='notification' onClick='deleteitem($itemNo)'><i class='fa fa-times'></i></button>
+							</td>";
+							echo "</tr>";
+						}
+						?>
+						
+						
+						
+							
+						   
+							
+						</tbody>
+					</table>
+				</div>
+					
+
+			</div>
+			
+			</div><!-- table end -->
+			</div><!-- panel default end-->
+			
+			</div> <!-- row end-->
 			
 			
 			

@@ -348,7 +348,7 @@ function singleSQL($q){
 		$current_qty = $result['inventory_qty'];
 		
 		
-		*/
+		
 		$sqlselect = "SELECT inventory_qty FROM items where itemNo=$itemno limit 1";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
@@ -365,7 +365,7 @@ function singleSQL($q){
 		$update->execute();
 		
 		$conn = null;
-		echo "inventory added";
+		echo "inventory added";  */
 
 	}
 	
@@ -549,6 +549,105 @@ function singleSQL($q){
 		$sqldelete = "DELETE FROM requisition_items where reqitemsid='$reqitem'";
 		$delete = $conn->prepare($sqldelete);
 		$delete->execute();
+		$conn = null;
+	}
+	
+	
+	if($_POST['action'] == "saveuom"){
+
+		$conn = dbConnect();
+		$itemno = $_POST['itemno'];
+		$uomqty = $_POST['uomqty'];
+		$uomunit = $_POST['uomunit'];
+		$uombaseqty = $_POST['uombaseqty'];
+		$uombaseunit = $_POST['uombaseunit'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO items_buom(itemNo,base_qty,base_unit,equiv_qty,equiv_unit) VALUES('$itemno','$uombaseqty','$uombaseunit','$uomqty','$uomunit')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		echo $sqlinsert;
+		
+		$conn = null;
+		//echo "item added";
+
+	}
+	
+			//delete uom
+	if($_POST['action'] == "deleteuom"){
+		$conn = dbConnect();
+		$uom_id = $_POST['uom_id'];
+		$sqldelete = "DELETE FROM items_buom where item_buom_id='$uom_id'";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
+	}
+	
+	//update item
+	if($_POST['action'] == "updateinventory_inv"){
+
+		$conn = dbConnect();
+		$inventoryno = $_POST['inventoryno'];
+		
+		
+		//select all items from reqitems
+		$sqlselect2 = "SELECT * FROM inventory WHERE inventoryid='$inventoryno'";
+		$stmt2 = $conn->prepare($sqlselect2);
+		$stmt2->execute();
+		$reqitems = $stmt2->fetch(PDO::FETCH_ASSOC);
+		
+		//foreach ($reqitems as $rows => $link) {
+			
+			$itemno = $reqitems['itemNo'];
+			$inv_unit = $reqitems['unit'];
+			$inv_qty = $reqitems['qty'];
+			
+			//compare current unit is the same as the item base unit
+
+			$baseunitmeasure = $conn->prepare("SELECT unit,inventory_qty FROM items WHERE itemNo=$itemno");
+			$baseunitmeasure->execute();
+			$result = $baseunitmeasure->fetch(PDO::FETCH_ASSOC);
+			$baseunit = $result['unit'];
+			$inventory = $result['inventory_qty'];
+			
+			if($baseunit == $inv_unit){
+				//no conversion of units
+				
+				//update items inventory
+				$updatedvalue = $inventory + $inv_qty;
+				
+				
+				//update item status
+			}else{
+				
+				//get convertion equivalent
+				$convertionequiv = $conn->prepare("SELECT base_qty FROM items_buom where itemNo=$itemno and equiv_unit='$inv_unit'");
+				$convertionequiv->execute();
+				$equiv = $convertionequiv->fetch(PDO::FETCH_ASSOC);
+				$equiv_qty = $equiv['base_qty'];
+				
+				$subtotal = $equiv_qty * $inv_qty;
+				$updatedvalue = $inventory + $subtotal;
+				
+				
+			}
+				//update inventory per item
+				$sqlupdate = "UPDATE items set inventory_qty=$updatedvalue where itemNo=$itemno";
+				$update = $conn->prepare($sqlupdate);
+				$update->execute();
+				
+				//update status requisition per item
+				$sqlupdate = "UPDATE inventory set status=1 where inventoryid='$inventoryno'";
+				$update = $conn->prepare($sqlupdate);
+				$update->execute();
+			
+			
+			echo $sqlupdate;
+			
+			
+			
+		//}
+		
 		$conn = null;
 	}
 	

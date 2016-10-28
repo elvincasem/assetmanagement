@@ -47,18 +47,18 @@ include_once("include/functions.php");
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
 										
-											<input type="hidden" id="itemno" value="">
+											<input type="hidden" id="itemno" value="<?php echo $itemid;?>">
 											<div class="col-lg-4 text-right">
                                             <label>QTY</label>
 											</div>
 											<div class="col-lg-8 text-right">
-                                            <input id="qty" class="form-control" value="" tabindex="1">
+                                            <input id="uomqty" class="form-control" tabindex="1">
 											</div>
 											<div class="col-lg-4 text-right">
 											<label>Unit</label>
 											</div>
 											<div class="col-lg-8 text-right">
-												<select id="supplier" class="form-control" tabindex="6">	
+												<select id="uomunit" class="form-control" tabindex="6">	
 												<?php
 														
 												$suplist = selectListSQL("SELECT * FROM items_buom_list");
@@ -76,14 +76,14 @@ include_once("include/functions.php");
 											<label>Base QTY</label>	
 											</div>
 											<div class="col-lg-8 text-right">
-                                            <input id="baseqty" class="form-control" value="" tabindex="1">
+                                            <input id="uombaseqty" class="form-control" value="" tabindex="1">
 											</div>
 											
 											<div class="col-lg-4 text-right">
 											<label>Base UNIT</label>	
 											</div>
 											<div class="col-lg-8 text-right">
-											<input id="baseunit" class="form-control" value="<?php echo $unit;?>" disabled tabindex="1">
+											<input id="uombaseunit" class="form-control" value="<?php echo $unit;?>" disabled tabindex="1">
                                              
 											</div>
 											
@@ -119,37 +119,34 @@ include_once("include/functions.php");
                             <div class="row">
                                 <div class="col-lg-8">
                                   <input type="hidden" id="itemno" value="">
-											<div class="col-lg-4 text-right">
-                                            <label>Item Description:</label>
-											</div>
-											<div class="col-lg-8">
-                                            <label class="itemvalues"><?php echo $description;?></label>
-											</div>
-											
-											
-											<div class="col-lg-4 text-right">
-                                            <label>Cost:</label>
-											</div>
-											<div class="col-lg-8">
-                                            <label class="itemvalues"><?php echo $unitCost;?></label>
-											</div>
-											
-											<div class="col-lg-4 text-right">
-                                            <label>Base Unit of Measure:</label>
-											</div>
-											<div class="col-lg-8">
-                                            <label class="itemvalues"><?php echo $unit;?></label>
-											</div>
-											<div class="col-lg-4 text-right">
-                                            <label>Current QTY:</label>
-											</div>
-											<div class="col-lg-8">
-                                            <label class="itemvalues"><?php echo $inventory_qty;?></label>
-											</div>
-											
-											
-										
-                                        
+									<div class="col-lg-4 text-right">
+									<label>Item Description:</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $description;?></label>
+									</div>
+									
+									
+									<div class="col-lg-4 text-right">
+									<label>Cost:</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $unitCost;?></label>
+									</div>
+									
+									<div class="col-lg-4 text-right">
+									<label>Base Unit of Measure:</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $unit;?></label>
+									</div>
+									<div class="col-lg-4 text-right">
+									<label>Current QTY:</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $inventory_qty;?></label>
+									</div>
+
                                     
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -255,6 +252,7 @@ include_once("include/functions.php");
 								<th>Unit</th>
 								<th>Base QTY</th>
 								<th>Base Unit</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -268,6 +266,7 @@ include_once("include/functions.php");
 								echo "<td>".$link['equiv_unit']."</td>";
 								echo "<td>".$link['base_qty']."</td>";
 								echo "<td>".$link['base_unit']."</td>";
+								echo "<td><button class='btn btn-danger notification' id='notification' onClick='deleteuom(".$link['item_buom_id'].")'><i class='fa fa-times'></i></button></td>";
 								echo "</tr>";
 							}
 						?>	
@@ -332,42 +331,54 @@ include_once("include/functions.php");
 			</div> <!-- end row-->
 		</div>
 								
-                                <div class="tab-pane fade" id="profile">
-                                <div class="row">
-								<div class="col-lg-12">
-								<div class="panel panel-default">
-											
-								<div class="panel-body">
-												<div class="dataTable_wrapper">
-													<table class="table table-striped table-bordered table-hover" id="dataTables-example2">
-														<thead>
-															<tr>
-																<th>Description</th>
-																<th>Unit</th>
-																<th>Cost</th>
-																<th>QTY</th>
-																<th>Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															
-															
-														</tbody>
-													</table>
-												</div>
+			<div class="tab-pane fade" id="profile">
+				<div class="row">
+					<div class="col-lg-12">
+					<div class="panel panel-default">
 								
+					<div class="panel-body">
+						<div class="dataTable_wrapper">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+								<thead>
+									<tr>
+										<th>Inventory Id</th>
+										<th>QTY</th>
+										<th>Unit</th>
+										<th>Date/Time</th>
+									</tr>
+								</thead>
+								<tbody>
+						<?php
+													
+							$suplist = selectListSQL("SELECT * from inventory WHERE itemNo=$itemid AND status=1");
+							//print_r($employeelist);
+							foreach ($suplist as $rows => $link) {
 								
+								$inventoryid = $link['inventoryid'];
+								$unit3 = $link['unit'];
+								$qty3 = $link['qty'];
+								$datetime = $link['time_stamp'];
+								echo "<tr>";
+								echo "<td><a href='#?id=$reqid2'>$inventoryid</a></td>";
+								echo "<td>$qty3</td>";
+								echo "<td>$unit3</td>";
+								echo "<td>$datetime</td>";
+								echo "</tr>";
+							}
+						?>
+								</tbody>
+							</table>
+						</div>
+	
+					</div>
 								
+								</div><!-- table end -->
+								</div><!-- panel default end-->
 								
-											</div>
-											
-											</div><!-- table end -->
-											</div><!-- panel default end-->
-											
-											</div> <!-- row end-->
-                              </div> 
+				</div> <!-- row end-->
+		  </div> 
                                 
-                            </div>
+		</div>
                         
                         <!-- /.panel-body -->
                     </div>

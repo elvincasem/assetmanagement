@@ -130,8 +130,8 @@
 		$('#saveitem').prop("disabled", false);
 		//clear fields
 		//alert("clear");
-		document.getElementById("unit").value = "";
-		document.getElementById("qty").value = "";
+		//document.getElementById("unit").value = "";
+		//document.getElementById("qty").value = "";
 
 	});
 	
@@ -449,8 +449,8 @@ function displayitemunit(itemid){
 				$('#updateuser').prop("disabled", true);    
 				$('#saveuser').prop("disabled", false);  
 				
-					var itemno = document.getElementById("itemdescription").value;
-					var unit = document.getElementById("unit").value;
+					var itemno = document.getElementById("item-list").value;
+					var unit = document.getElementById("iunit").value;
 					var qty = document.getElementById("qty").value;
 					
 					$.ajax({
@@ -459,15 +459,15 @@ function displayitemunit(itemid){
                     data: {action: "saveinventory", itemno: itemno, unit: unit, qty: qty},
                     success: function(response) {
 						console.log(response);
-						document.getElementById("unit").value = "";
-						document.getElementById("qty").value = "";
+						//document.getElementById("unit").value = "";
+						//document.getElementById("qty").value = "";
 						
 
 						$('#success-alert').show("slow");
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
+						 window.location.reload();
 
 						return "valid";
                     }
@@ -915,7 +915,7 @@ function addpritem(id){
 //delete inventory
 function deleteinventory(id){
 	
-	var r = confirm("Are your sure you want to delete this Item?");
+	var r = confirm("Are your sure you want to delete this inventory item?");
     if (r == true) {
         //alert ("You pressed OK!");
 		$.ajax({
@@ -1085,6 +1085,72 @@ $('#addreq').click(function(){
 	});
 
 $('#saveuom').click(function(){
+	var itemno = document.getElementById("itemno").value;
+	var uomqty = document.getElementById("uomqty").value;
+	var uomunit = document.getElementById("uomunit").value;
+	var uombaseqty = document.getElementById("uombaseqty").value;
+	var uombaseunit = document.getElementById("uombaseunit").value;
 	
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "saveuom",itemno: itemno,uomqty:uomqty,uomunit:uomunit,uombaseqty:uombaseqty,uombaseunit:uombaseunit},
+		success: function(response) {
+			
+			$('#success-alert').show("slow");
+
+			window.location.reload();
+			console.log(response);
+		}
+	});
 });
 
+
+function deleteuom(uomid){
+	
+	var r = confirm("Are your sure you want to delete this Unit of Measure Conversion?");
+    if (r == true) {
+		var uom_id = uomid;
+		
+		$.ajax({
+			url: 'include/functions.php',
+			type: 'post',
+			data: {action: "deleteuom",uom_id: uom_id},
+			success: function(response) {
+				
+				$('#success-alert').show("slow");
+				
+				
+			
+				//alert("Item Deleted");
+				window.location.reload();
+				console.log(response);
+			}
+		});
+	}if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
+
+function updateinventory_inv(ino){
+	
+	var inventoryno = ino;
+	
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "updateinventory_inv",inventoryno: inventoryno},
+		success: function(response) {
+			
+			$('#success-alert').show("slow");
+
+			alert("Inventory Updated");
+			console.log(response);
+			window.location.reload();
+		}
+	});
+	
+	
+}

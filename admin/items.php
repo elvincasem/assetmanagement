@@ -66,9 +66,9 @@ include_once("include/functions.php");
 											<label>Category</label>
 											</div>
 											<div class="col-lg-8 text-right">
-												<select id="category" class="form-control" tabindex="5">
+												<select id="category" class="form-control" tabindex="5" disabled>
 													<option value="Equipment">Equipment</option>
-													<option value="Office Supply">Office Supply</option>
+													<option value="Office Supply" selected>Office Supply</option>
 												</select>
 											</div>
 											<div class="col-lg-4 text-right">

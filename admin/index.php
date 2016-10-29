@@ -2,6 +2,9 @@
 include('header.php');
 include_once("include/functions.php");	
 ?>
+<!-- Morris Charts CSS -->
+
+
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -21,14 +24,41 @@ include_once("include/functions.php");
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php
 												
-										$current_items = singleSQL("SELECT COUNT(*) FROM items");
+										$current_items = singleSQL("SELECT COUNT(*) FROM equipments");
 										echo $current_items;
 										?></div>
-                                    <div>Total Assets</div>
+                                    <div>Total Equipments</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="equipments.php">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-briefcase fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php
+												
+										$current_items = singleSQL("SELECT COUNT(*) FROM items");
+										echo $current_items;
+										?></div>
+                                    <div>Total Office Supply</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="items.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -54,7 +84,7 @@ include_once("include/functions.php");
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="items.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -86,68 +116,17 @@ include_once("include/functions.php");
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">5</div>
-                                    <div>Asset Reservation</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                
                 
             </div>
             <!-- /.row -->
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Admin logged in
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> 3 Items Checked out
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> John Doe Requested an Item
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i> Lenovo Laptop has Added
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                </a>
-
-                            </div>
-                            <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
+                    
+					
+					 <div id="morris-bar-chart"></div>
+					
                     
             </div>
             <!-- /.row -->
@@ -155,6 +134,13 @@ include_once("include/functions.php");
         <!-- /#page-wrapper -->
 
     </div>
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+<script src="js/morris-data.js"></script>
 
 <?php
 include('footer.php');

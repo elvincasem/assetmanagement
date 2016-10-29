@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Asset Management System</title>
+    <title>CHARMS</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
                 <div class="login-panel panel panel-default">
 					
                     <div class="panel-heading">
-						<h3>Asset Management System</h3>
+						<h3>CHED Asset and Resource Management System</h3>
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">

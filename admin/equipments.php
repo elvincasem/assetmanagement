@@ -155,7 +155,7 @@ include_once("include/functions.php");
 							
 							echo "<tr class='odd gradeX'>";
 							echo "<td>$equipname</td>";
-							echo "<td><a href='itemdetails.php'>$tagno</a></td>";
+							echo "<td><a href='equipmentsdetails.php'>$tagno</a></td>";
 							echo "<td>$propertyno</td>";
 							echo "<td>$serialno</td>";
 							echo "<td>$dateacquired</td>";

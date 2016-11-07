@@ -91,6 +91,14 @@ include_once("include/functions.php");
 											?>
                                             </select>
 											</div>
+											
+											<div class="col-lg-4 text-right">
+											<label>Brand</label>
+											</div>
+											<div class="col-lg-8 text-right">
+                                            <input id="brand" class="form-control" value="" tabindex="4">
+											</div>
+											
                                         </div>
 										
 									</form>
@@ -135,6 +143,7 @@ include_once("include/functions.php");
 													<th>Inventory QTY</th>
 													<th>Unit</th>
 													<th>Cost</th>
+													<th style="width:20px;">Brand</th>
 													<th>Category</th>
 													<th>Action</th>
 												</tr>
@@ -152,6 +161,7 @@ include_once("include/functions.php");
 												$unitcost = $link['unitCost'];
 												$category = $link['category'];
 												$inventoryqty = $link['inventory_qty'];
+												$brand = $link['brand'];
 												
 												echo "<tr class='odd gradeX'>";
 												echo "<td>$itemNo</td>";
@@ -159,6 +169,7 @@ include_once("include/functions.php");
 												echo "<td>$inventoryqty</td>";
 												echo "<td>$unit</td>";
 												echo "<td>$unitcost</td>";
+												echo "<td>$brand</td>";
 												echo "<td>$category</td>";
 												echo "<td class='center'> 
 													

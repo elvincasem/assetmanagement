@@ -277,12 +277,13 @@ function displayitemunit(itemid){
 					var cost = document.getElementById("cost").value;
 					var category = document.getElementById("category").value;
 					var supplierid = document.getElementById("supplier").value;
+					var brand = document.getElementById("brand").value;
 					//alert(description);
 					
 					$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "saveitem", description: description, unit: unit, unitcost: cost, category: category,supplier:supplierid},
+                    data: {action: "saveitem", description: description, unit: unit, unitcost: cost, category: category,supplier:supplierid, brand:brand},
                     success: function(response) {
 						console.log(response);
 						document.getElementById("idescription").value = "";
@@ -523,11 +524,12 @@ $('#update').click(function(){
 		var cost = document.getElementById("cost").value;
 		var category = document.getElementById("category").value;
 		var supplierid = document.getElementById("supplier").value;
+		var brand = document.getElementById("brand").value;
 		
 		$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, unitcost: cost, category: category, supplier: supplierid},
+                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, unitcost: cost, category: category, supplier: supplierid,brand:brand},
                     success: function(response) {
 						console.log(response);
 						//alert(response);
@@ -615,6 +617,8 @@ function edititem(id){
 			document.getElementById("cost").value = data.unitCost;
 			
 			
+			//alert(data.brand);
+			
 			if(data.category == "Equipment"){
 				document.getElementById("category").selectedIndex = 0;
 			}else{
@@ -635,7 +639,7 @@ function edititem(id){
 			
 			//$("#category :selected").text() = data.category;
 			
-			
+			document.getElementById("brand").value = data.brand;
 			
 			
 			
@@ -996,6 +1000,7 @@ function updateinventory(reqno){
 		
 			alert("Inventory Updated");
 			console.log(response);
+			window.location.reload();
 			//setTimeout(function(){location.reload();},1000);
 		}
 	});

@@ -17,6 +17,7 @@ include_once("include/functions.php");
 		$unitCost = $row['unitCost'];
 		$inventory_qty = $row['inventory_qty'];
 		$supName = $row['supName'];
+		$brand = $row['brand'];
 		$conn = null;
 		//print_r($row);
 ?>
@@ -162,6 +163,13 @@ include_once("include/functions.php");
 											</div>
 											<div class="col-lg-8">
                                             <label class="itemvalues"><?php echo $supName;?></label>
+											</div>
+											<div>&nbsp;</div>
+									<div class="col-lg-4 text-right">
+                                            <label>Brand:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $brand;?></label>
 											</div>
 									
 									

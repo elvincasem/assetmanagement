@@ -81,9 +81,10 @@ function singleSQL($q){
 		$pcperunit = $_POST['pc_per_unit'];
 		$category = $_POST['category'];
 		$supplier = $_POST['supplier'];
+		$brand = $_POST['brand'];
 		//return "ok";
 
-		$sqlinsert = "INSERT INTO items(description,category,unit,unitcost,supplierID) VALUES('$description','$category','$unit',$unitcost,'$supplier')";
+		$sqlinsert = "INSERT INTO items(description,category,unit,unitcost,supplierID,brand) VALUES('$description','$category','$unit',$unitcost,'$supplier','$brand')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		//echo $sqlinsert;
@@ -113,7 +114,8 @@ function singleSQL($q){
 		$cost = $_POST['unitcost'];
 		$category = $_POST['category'];
 		$supplier = $_POST['supplier'];
-		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit', unitCost = $cost, category='$category', supplierID =$supplier where itemNo=$itemno";
+		$brand = $_POST['brand'];
+		$sqlupdate = "UPDATE items set description = '$desc', unit = '$unit', unitCost = $cost, category='$category', supplierID =$supplier, brand='$brand' where itemNo=$itemno";
 		//echo $sqlupdate;
 		$update = $conn->prepare($sqlupdate);
 		$update->execute();
@@ -125,7 +127,7 @@ function singleSQL($q){
 
 		$conn = dbConnect();
 		$itemno = $_POST['itemno'];
-		$sqlselect = "SELECT itemNo,description,category,unit,unitCost,inventory_qty,items.supplierID,COALESCE(supName,'') AS supName FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo=$itemno";
+		$sqlselect = "SELECT itemNo,description,category,unit,unitCost,inventory_qty,items.supplierID,COALESCE(supName,'') AS supName, brand FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo=$itemno";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$rows = $stmt->fetchAll();

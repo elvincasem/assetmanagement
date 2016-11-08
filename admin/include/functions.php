@@ -699,6 +699,78 @@ function singleSQL($q){
 			echo $lastid['duplicate'];
 			$conn = null;
 	}
+	
+	//delete item
+	if($_POST['action'] == "deleteequip"){
+		$conn = dbConnect();
+		$equipno = $_POST['equipno'];
+		$sqldelete = "DELETE FROM equipments where equipNo='$equipno';DELETE FROM equipments_details where equipNoequipNo='$equipno';";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
 
+	}
+
+if($_POST['action'] == "saveequipdetails"){
+
+		$conn = dbConnect();
+		
+		
+		
+		
+		
+		$equipmentid = $_POST['equipmentid'];
+		$eid = $_POST['eid'];
+		$processor = $_POST['processor'];
+		$ram = $_POST['ram'];
+		$hd = $_POST['hd'];
+		$os = $_POST['os'];
+		$brand = $_POST['brand'];
+		$color = $_POST['color'];
+		$others = $_POST['others'];
+		
+		
+		
+		//check if with record
+		$sqlselect = "SELECT count(*) AS withrecord FROM equipments_details where equipNo=$equipmentid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+		$withrecord = $lastid['withrecord'];
+		echo $withrecord;
+		if($withrecord==0){
+			//insert
+			$sqlinsert = "INSERT INTO equipments_details(equipNo,eid,processor,ram,hd,operatingsystem,brand,color,others) VALUES('$equipmentid','$eid','$processor','$ram','$hd','$os','$brand','$color','$others')";
+			$save = $conn->prepare($sqlinsert);
+			$save->execute();
+			
+		}else{
+			//update
+			//update inventory per item
+				$sqlupdate = "UPDATE equipments_details set eid='$eid',processor='$processor',ram='$ram',hd='$hd', operatingsystem='$operatingsystem',brand='$brand',color='$color',others='$others' where equipNo='$equipmentid'";
+				$update = $conn->prepare($sqlupdate);
+				$update->execute();
+				
+				echo $sqlupdate;
+		}
+		
+	
+		$conn = null;
+
+	}	
+//get single equipment
+	if($_POST['action'] == "getequipment"){
+
+		$conn = dbConnect();
+		$equipno = $_POST['equipno'];
+		$sqlselect = "SELECT * FROM equipments left join suppliers on equipments.supplierID = suppliers.supplierID left join equipments_details on equipments.equipNo = equipments_details.equipNo WHERE equipments.equipNo='$equipno'";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		
+		$conn = null;
+	}
 	
 ?>

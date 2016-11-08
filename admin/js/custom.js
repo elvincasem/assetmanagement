@@ -1259,3 +1259,149 @@ function updateinventory_inv(ino){
 */
 				//$( ".simplemodal-close" ).trigger( "click" );
 });
+
+
+function deleteequip(id){
+	
+	var r = confirm("Are your sure you want to delete this Equipment?");
+    if (r == true) {
+        //alert ("You pressed OK!");
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleteequip", equipno: id},
+                    success: function(response) {
+						location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
+
+
+//save employee
+$('#saveequipdetails').click(function(){
+
+	$('#saveequipdetails').prop("disabled", true);
+		var eid = document.getElementById("eid").value;
+		var processor = document.getElementById("processor").value;
+		var ram = document.getElementById("ram").value;
+		var hd = document.getElementById("hd").value;
+		var os = document.getElementById("os").value;
+		var brand = document.getElementById("brand").value;
+		var color = document.getElementById("color").value;
+		var others = document.getElementById("others").value;
+		var equipmentid = document.getElementById("equipmentid").value;
+		
+		$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "saveequipdetails", equipmentid:equipmentid, eid: eid, processor: processor, ram: ram, hd: hd,os: os, brand: brand,color:color,others:others},
+		success: function(response) {
+			console.log(response);
+			
+			//$('#success-alert').show("slow");
+			//$('#success-alert').removeClass("hide");
+			//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+			//$( ".simplemodal-close" ).trigger( "click" );
+			 //setTimeout(function(){location.reload();},1500);
+			window.location.reload();
+			return "valid";
+		}
+	});
+
+});
+
+
+function editequipment(id){
+	
+	//$('#update').removeAttr("disabled");
+	$('#update').prop("disabled", false);    
+	$('#saveequipment').prop("disabled", true);    
+
+	//alert(id);
+	
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "getequipment", equipno : id},
+		success: function(response) {
+			console.log(response);
+			 var data = JSON.parse(response);
+			 
+			//var itemdescription = $.parseJSON(response);
+			//var description = item.description;
+			
+			//alert(data.descript);
+			
+			//alert(response.description);
+			
+			//fill the input box
+			document.getElementById("equipno").value = id;
+			document.getElementById("equipname").value = data.equipName;
+			document.getElementById("propertyno").value = data.propertyno;
+			
+			document.getElementById("serial").value = data.serialno;
+			document.getElementById("dateacquired").value = data.dateacquired;
+			//document.getElementById("category").value = data.category;
+			var equipcategory = data.category;
+			document.getElementById("category").append('<option>'+equipcategory+'</option>');
+			
+			
+			//alert(data.brand);
+			
+			if(data.category == "Computer"){
+				document.getElementById("category").selectedIndex = 0;
+			}
+			if(data.category == "Appliance"){
+				document.getElementById("category").selectedIndex = 1;
+			}
+			if(data.category == "Chairs and Tables"){
+				document.getElementById("category").selectedIndex = 2;
+			}
+			if(data.category == "Printer"){
+				document.getElementById("category").selectedIndex = 3;
+			}
+			if(data.category == "Cabinet"){
+				document.getElementById("category").selectedIndex = 4;
+			}
+			if(data.category == "Others"){
+				document.getElementById("category").selectedIndex = 5;
+			}
+
+			
+
+			//document.getElementById("cost").value = data.unitCost;
+			var sel = document.getElementById("supplier");
+			sel.remove(0);
+			var opt = document.createElement("option");
+			opt.value = data.supplierID;
+			if(data.supplierID==0){
+				opt.text = "";
+			}else{
+				opt.text = data.supName;
+			}
+			
+			opt.selected = "selected";
+
+			sel.add(opt,  sel.options[0]);
+
+			
+			//$("#category :selected").text() = data.category;
+			
+			//document.getElementById("brand").value = data.brand;
+			
+			
+			
+			return "valid";
+		}
+	});
+		
+
+	
+	
+}

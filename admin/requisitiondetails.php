@@ -217,7 +217,7 @@ INNER JOIN items ON requisition_items.itemno = items.itemNo WHERE requisition_no
 					</div>
 					<!-- /.panel-body -->
 					<div class="panel-footer text-right">
-					<button  type="submit" class="btn btn-success" onclick="updateinventory('<?php echo $rno;?>');" <?php echo $status;?>>Update Inventory</button>
+					<button  type="submit" class="btn btn-success" onclick="updateinventory('<?php echo $rno;?>');" <?php echo $status;?> disabled>Update Inventory</button>
 					</div>
 				</div>
 				<!-- /.panel -->

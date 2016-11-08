@@ -4,8 +4,9 @@ include_once("include/functions.php");
 
 		$conn = dbConnect();
 		$equipmentid = $_GET['id'];
-		
-		$sqlselect = "SELECT * FROM equipments left join suppliers on equipments.supplierID = suppliers.supplierID WHERE equipNo='$equipmentid'";
+		echo "<input type='hidden' value='$equipmentid' id='equipmentid'>";
+		$sqlselect = "SELECT * FROM equipments left join suppliers on equipments.supplierID = suppliers.supplierID left join equipments_details on equipments.equipNo = equipments_details.equipNo WHERE equipments.equipNo='$equipmentid'";
+		//echo $sqlselect;
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,6 +21,20 @@ include_once("include/functions.php");
 		$category = $row['category'];
 		$dateacquired = $row['dateacquired'];
 		$suppliername = $row['supName'];
+		$details_eid = $row['eid'];
+		$details_processor = $row['processor'];
+		$details_ram = $row['ram'];
+		$details_hd = $row['hd'];
+		$details_os = $row['operatingsystem'];
+		$details_brand = $row['brand'];
+		$details_color = $row['color'];
+		$details_others = $row['others'];
+		
+		
+		
+		
+		
+		
 		$conn = null;
 		//print_r($row);
 ?>
@@ -251,7 +266,7 @@ include_once("include/functions.php");
 							<label>Employee</label>
 							</div>
 							<div class="col-lg-8">
-							<select id="eid" class="form-control" tabindex="5" disabled>
+							<select id="eid" class="form-control" tabindex="5">
 							<option></option>
 										<?php
 										
@@ -261,20 +276,27 @@ include_once("include/functions.php");
 									$eid = $link['eid'];
 									$fullname = $link['fullname'];
 									
-									
-									echo "<option value='$eid'>$fullname</option>";
+									if($details_eid==$eid){
+										$selected = "selected='selected'";
+									}else{
+										$selected = "";
+									}
+									echo "<option value='$eid' $selected>$fullname</option>";
 								}
 								?>
 									
 									
 								</select>
+								<script>
+								$('#eid').prop('disabled',true);
+								</script>
 							</div>
 						  
 							<div class="col-lg-4 text-right">
 							<label>Processor</label>
 							</div>
 							<div class="col-lg-8">
-							<input id="processor" class="form-control" value="" tabindex="1" disabled>
+							<input id="processor" class="form-control" value="<?php echo $details_processor;?>" tabindex="1" disabled>
 							</div>
 							
 							
@@ -282,7 +304,7 @@ include_once("include/functions.php");
 							<label>Ram</label>
 							</div>
 							<div class="col-lg-8">
-							<input id="ram" class="form-control" value="" tabindex="1" disabled>
+							<input id="ram" class="form-control" value="<?php echo $details_ram;?>" tabindex="1" disabled>
 							</div>
 							
 							
@@ -290,7 +312,7 @@ include_once("include/functions.php");
 							<label>Hard Disk</label>
 							</div>
 							<div class="col-lg-8">
-							<input id="hd" class="form-control" value="" tabindex="1" disabled>
+							<input id="hd" class="form-control" value="<?php echo $details_hd;?>" tabindex="1" disabled>
 							</div>
 							
 							
@@ -298,7 +320,7 @@ include_once("include/functions.php");
 							<label>Operating System</label>
 							</div>
 							<div class="col-lg-8">
-							<input id="os" class="form-control" value="" tabindex="1" disabled>
+							<input id="os" class="form-control" value="<?php echo $details_os;?>" tabindex="1" disabled>
 							</div>
 
 						</div>
@@ -308,23 +330,25 @@ include_once("include/functions.php");
 									<label>Brand</label>
 									</div>
 									<div class="col-lg-8">
-									<input id="brand" class="form-control" value="" tabindex="1" disabled>
+									<input id="brand" class="form-control" value="<?php echo $details_brand;?>" tabindex="1" disabled>
 									</div>
 									<div>&nbsp;</div>
 							<div class="col-lg-4 text-right">
 									<label>Color</label>
 									</div>
 									<div class="col-lg-8">
-									<input id="color" class="form-control" value="" tabindex="1" disabled>
+									<input id="color" class="form-control" value="<?php echo $details_color;?>" tabindex="1" disabled>
 									</div>
 							<div class="col-lg-4 text-right">
 									<label>Others:</label>
 									</div>
 									<div class="col-lg-8">
-									<input id="others" class="form-control" value="" tabindex="1" disabled>
+									<textarea id="others"  class="form-control" disabled><?php echo $details_others;?></textarea>
 									</div>
 							
 							
+									
+									
 						
 							
 						

@@ -39,7 +39,7 @@ include_once("include/functions.php");
                                     <form role="form" id="form_item"> 
                                         <div class="form-group">
 										
-											<input type="hidden" id="itemno" value="">
+											<input type="hidden" id="equipno" value="">
 											<div class="col-lg-4 text-right">
                                             <label>Name</label>
 											</div>
@@ -189,8 +189,8 @@ include_once("include/functions.php");
 							echo "<td>$category</td>";
 							echo "<td class='center'> 
 								
-								<button class='btn btn-primary' onClick='edititem($itemNo)'  data-toggle='modal' data-target='#addItem'><i class='fa fa-edit'></i></button>
-								<button class='btn btn-danger notification' id='notification' onClick='deleteitem($itemNo)'><i class='fa fa-times'></i></button>
+								<button class='btn btn-primary' onClick='editequipment($equipno)'  data-toggle='modal' data-target='#addEquipment'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-danger notification' id='notification' onClick='deleteequip($equipno)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";
 						}

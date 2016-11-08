@@ -1,4 +1,6 @@
 <?php
+	ob_start();
+	session_start();
 	require 'db_connection.php';
 
 //logout user
@@ -40,8 +42,9 @@ function singleSQL($q){
 		$rdate = $_POST['rdate'];
 		$rno = $_POST['rno'];
 		$requesterid = $_POST['requesterid'];
+		$userid = $_SESSION['userID'];
 
-		$sqlinsert = "INSERT INTO requisition_details(requisition_no,requisition_date,eid) VALUES('$rno','$rdate','$requesterid')";
+		$sqlinsert = "INSERT INTO requisition_details(requisition_no,requisition_date,eid,userID) VALUES('$rno','$rdate','$requesterid','$userid')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		
@@ -651,6 +654,37 @@ function singleSQL($q){
 		//}
 		
 		$conn = null;
+	}
+	
+	if($_POST['action'] == "saveequipment"){
+
+		$conn = dbConnect();
+		$equipname = $_POST['equipname'];
+		$tagno = $_POST['tagno'];
+		$propertyno = $_POST['propertyno'];
+		$serial = $_POST['serial'];
+		$dateacquired = $_POST['dateacquired'];
+		$unitcost = $_POST['cost'];
+		$category = $_POST['category'];
+		$supplier = $_POST['supplier'];
+		if($unitcost == ""){
+			$unitcost = 0.00;
+		}
+
+		$sqlinsert = "INSERT INTO equipments(equipName,tagno,propertyno,serialno,unitcost,dateacquired,supplierID,category) VALUES('$equipname','$tagno','$propertyno','$serial','$unitcost','$dateacquired','$supplier','$category')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		//echo $sqlinsert;
+		
+		//get last id
+		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+		echo $lastid['lastid'];
+		
+		$conn = null;
+
 	}
 	
 ?>

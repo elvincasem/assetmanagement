@@ -150,32 +150,58 @@
 
 	});
 
+	
 //save requisition	
 $('#savereqitem').click(function(){
 	var rdate = document.getElementById("rdate").value;
 	var rno = document.getElementById("rno").value;
 	var requesterid = document.getElementById("requester_id").value;
+	//var duplicate=0;
+	
+	//check duplicate rno
 	$.ajax({
 			url: 'include/functions.php',
 			type: 'post',
-			data: {action: "saverequisition", rdate: rdate, rno: rno, requesterid: requesterid},
+			data: {action: "checkduplicaterno", rno: rno},
 			success: function(response) {
-				//console.log(response);
-				document.getElementById("rdate").value = "";
-				document.getElementById("rno").value = "";
-				document.getElementById("requester_id").value = "";
-
-				$('#success-alert').show("slow");
-				$('#success-alert').removeClass("hide");
-				setTimeout(function(){$('#success-alert').hide("slow");},1500);
-				$( ".simplemodal-close" ).trigger( "click" );
-				var rid = parseInt(response);
-				//console.log(rid);
-				window.location.href = "requisitiondetails.php?id=" + rid;
+				console.log(response);
+				var duplicate =parseInt(response);
 				
-				//return "valid";
+				if(duplicate>=1){
+					alert("Duplicate Requisition No.");
+				}else{
+					
+					$.ajax({
+						url: 'include/functions.php',
+						type: 'post',
+						data: {action: "saverequisition", rdate: rdate, rno: rno, requesterid: requesterid},
+						success: function(response) {
+							//console.log(response);
+							document.getElementById("rdate").value = "";
+							document.getElementById("rno").value = "";
+							document.getElementById("requester_id").value = "";
+
+							$('#success-alert').show("slow");
+							$('#success-alert').removeClass("hide");
+							setTimeout(function(){$('#success-alert').hide("slow");},1500);
+							$( ".simplemodal-close" ).trigger( "click" );
+							var rid = parseInt(response);
+							//console.log(rid);
+							window.location.href = "requisitiondetails.php?id=" + rid;
+							
+							//return "valid";
+						}
+					});
+					
+				}
+				
+				
 			}
 		});
+	
+	
+	
+	
 	
 });
 
@@ -403,8 +429,7 @@ function displayitemunit(itemid){
 						$('#success-alert').show("slow");
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
+						window.location.reload();;
 
 						return "valid";
                     }
@@ -412,37 +437,7 @@ function displayitemunit(itemid){
 
 				});	
 
-		//save user
-		$('#saveuser').click(function(){
-
-				$('#updateuser').prop("disabled", true);    
-				$('#saveuser').prop("disabled", false);  
-				
-					var username = document.getElementById("userusername").value;
-					var password = document.getElementById("userpassword").value;
-					var usertype = "admin";
-					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveuser", username: username, password: password},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("userusername").value = "";
-						document.getElementById("userpassword").value = "";
-						
-
-						$('#success-alert').show("slow");
-						$('#success-alert').removeClass("hide");
-						setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
-
-						return "valid";
-                    }
-                });
-
-				});	
+		
 
 //save inventory
 		$('#saveinventory').click(function(){
@@ -1159,3 +1154,108 @@ function updateinventory_inv(ino){
 	
 	
 }
+
+
+//save equipment
+	$('#saveequipment').click(function(){
+			
+				$('#update').prop("disabled", true);    
+				$('#saveequipment').prop("disabled", false);  
+				
+				var equipname = document.getElementById("equipname").value;
+					var tagno = document.getElementById("tagno").value;
+					var propertyno = document.getElementById("propertyno").value;
+					var serial = document.getElementById("serial").value;
+					var dateacquired = document.getElementById("dateacquired").value;
+					var cost = document.getElementById("cost").value;
+					var category = document.getElementById("category").value;
+					var supplierid = document.getElementById("supplier").value;
+					//var brand = document.getElementById("brand").value;
+					//alert(description);
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveequipment", equipname: equipname,tagno:tagno, propertyno:propertyno,serial:serial,dateacquired:dateacquired,cost: cost, category: category,supplier:supplierid},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("equipname").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("propertyno").value = "";
+						document.getElementById("serial").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("dateacquired").value = "";
+						document.getElementById("cost").value = "";
+
+						//$('#success-alert').show("slow");
+						//$('#success-alert').removeClass("hide");
+						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 //setTimeout(function(){location.reload();},1500);
+						window.location.href = "equipmentsdetails.php?id=" + response;
+                       
+						return "valid";
+                    }
+                });
+
+				//$( ".simplemodal-close" ).trigger( "click" );
+				});
+				
+				
+
+//save equipment
+	$('#editequipdetails').click(function(){
+			
+				$('#eid').prop("disabled", false);    
+				$('#processor').prop("disabled", false);
+				$('#ram').prop("disabled", false);
+				$('#hd').prop("disabled", false);
+				$('#os').prop("disabled", false);
+				$('#brand').prop("disabled", false);
+				$('#color').prop("disabled", false);
+				$('#others').prop("disabled", false);
+				$('#editequipdetails').prop("disabled", true);
+				$('#saveequipdetails').prop("disabled", false);
+				
+				
+				/*
+				$('#saveequipment').prop("disabled", false);  
+				
+				var equipname = document.getElementById("equipname").value;
+					var tagno = document.getElementById("tagno").value;
+					var propertyno = document.getElementById("propertyno").value;
+					var serial = document.getElementById("serial").value;
+					var dateacquired = document.getElementById("dateacquired").value;
+					var cost = document.getElementById("cost").value;
+					var category = document.getElementById("category").value;
+					var supplierid = document.getElementById("supplier").value;
+					//var brand = document.getElementById("brand").value;
+					//alert(description);
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveequipment", equipname: equipname,tagno:tagno, propertyno:propertyno,serial:serial,dateacquired:dateacquired,cost: cost, category: category,supplier:supplierid},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("equipname").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("propertyno").value = "";
+						document.getElementById("serial").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("dateacquired").value = "";
+						document.getElementById("cost").value = "";
+
+						//$('#success-alert').show("slow");
+						//$('#success-alert').removeClass("hide");
+						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 //setTimeout(function(){location.reload();},1500);
+						window.location.href = "equipmentsdetails.php?id=" + response;
+                       
+						return "valid";
+                    }
+                });
+*/
+				//$( ".simplemodal-close" ).trigger( "click" );
+});

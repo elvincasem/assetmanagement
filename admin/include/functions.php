@@ -687,4 +687,18 @@ function singleSQL($q){
 
 	}
 	
+//get last id
+	if($_POST['action'] == "checkduplicaterno"){
+			$rno = $_POST['rno'];
+			//echo $rno;
+			$conn = dbConnect();
+			$sqlselect = "SELECT count(*) as duplicate FROM requisition_details WHERE requisition_no='$rno'";
+			$stmt = $conn->prepare($sqlselect);
+			$stmt->execute();
+			$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo $lastid['duplicate'];
+			$conn = null;
+	}
+
+	
 ?>

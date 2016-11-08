@@ -704,7 +704,7 @@ function singleSQL($q){
 	if($_POST['action'] == "deleteequip"){
 		$conn = dbConnect();
 		$equipno = $_POST['equipno'];
-		$sqldelete = "DELETE FROM equipments where equipNo='$equipno';DELETE FROM equipments_details where equipNoequipNo='$equipno';";
+		$sqldelete = "DELETE FROM equipments where equipNo='$equipno';DELETE FROM equipments_details where equipNo='$equipno';";
 		$delete = $conn->prepare($sqldelete);
 		$delete->execute();
 		$conn = null;

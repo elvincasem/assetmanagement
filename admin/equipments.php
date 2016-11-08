@@ -41,16 +41,37 @@ include_once("include/functions.php");
 										
 											<input type="hidden" id="itemno" value="">
 											<div class="col-lg-4 text-right">
-                                            <label>Equipment Name</label>
+                                            <label>Name</label>
 											</div>
 											<div class="col-lg-8 text-right">
-                                            <input id="idescription" class="form-control" value="" tabindex="1">
+                                            <input id="equipname" class="form-control" value="" tabindex="1">
 											</div>
 											<div class="col-lg-4 text-right">
-											<label>Unit</label>
+											<label>Tag No.</label>
 											</div>
 											<div class="col-lg-8 text-right">
-                                            <input id="unit" class="form-control" value="" tabindex="2">
+                                            <input id="tagno" class="form-control" value="" tabindex="2" placeholder="CHEDRO1-13-0001">
+											</div>
+											
+											<div class="col-lg-4 text-right">
+											<label>Property No.</label>
+											</div>
+											<div class="col-lg-8 text-right">
+                                            <input id="propertyno" class="form-control" value="" tabindex="2">
+											</div>
+											
+											<div class="col-lg-4 text-right">
+											<label>Serial</label>
+											</div>
+											<div class="col-lg-8 text-right">
+                                            <input id="serial" class="form-control" value="" tabindex="2">
+											</div>
+											
+											<div class="col-lg-4 text-right">
+											<label>Date Acquired</label>
+											</div>
+											<div class="col-lg-8 text-right">
+                                            <input type="date" id="dateacquired" class="form-control" value="" tabindex="2">
 											</div>
 											
 											<div class="col-lg-4 text-right">
@@ -67,8 +88,13 @@ include_once("include/functions.php");
 											</div>
 											<div class="col-lg-8 text-right">
 												<select id="category" class="form-control" tabindex="5">
-													<option value="Equipment">Equipment</option>
-													<option value="Office Supply">Office Supply</option>
+													<option value="Computer">Computer</option>
+													<option value="Appliance">Appliance</option>
+													<option value="Chairs and Tables">Chairs and Tables</option>
+													<option value="Printer">Printer</option>
+													<option value="Cabinet">Cabinet</option>
+													
+													<option value="Others">Others</option>
 												</select>
 											</div>
 											<div class="col-lg-4 text-right">
@@ -99,7 +125,7 @@ include_once("include/functions.php");
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-                                            <button id="saveitem" type="button" class="btn btn-primary">Save and Close</button>
+                                            <button id="saveequipment" type="button" class="btn btn-primary">Save and Close</button>
 											<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
                                         </div>
                                     </div>
@@ -146,6 +172,7 @@ include_once("include/functions.php");
 						$itemlist = selectListSQL("SELECT * FROM equipments ");
 						//print_r($employeelist);
 						foreach ($itemlist as $rows => $link) {
+							$equipno = $link['equipNo'];
 							$equipname = $link['equipName'];
 							$tagno = $link['tagno'];
 							$propertyno = $link['propertyno'];
@@ -155,7 +182,7 @@ include_once("include/functions.php");
 							
 							echo "<tr class='odd gradeX'>";
 							echo "<td>$equipname</td>";
-							echo "<td><a href='equipmentsdetails.php'>$tagno</a></td>";
+							echo "<td><a href='equipmentsdetails.php?id=$equipno'>$tagno</a></td>";
 							echo "<td>$propertyno</td>";
 							echo "<td>$serialno</td>";
 							echo "<td>$dateacquired</td>";

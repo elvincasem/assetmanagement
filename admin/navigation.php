@@ -70,12 +70,12 @@
 								<li>
                                     <a href="users.php" ><i class="fa fa-user fa-2x" style="bgcolor:green;"></i> Users</a>
                                 </li>
-                                <li>
+                               <!-- <li>
                                     <a href="alerts.php"><i class="fa fa-bell fa-2x"></i> Alerts</a>
                                 </li>
                                 <li>
                                     <a href="#" ><i class="fa fa-gears fa-2x" style="bgcolor:green;"></i> System Settings</a>
-                                </li>
+                                </li> -->
 								
                             </ul>
                             <!-- /.nav-second-level -->

@@ -3,20 +3,23 @@ include('header.php');
 include_once("include/functions.php");	
 
 		$conn = dbConnect();
-		$itemid = $_GET['id'];
+		$equipmentid = $_GET['id'];
 		
-		$sqlselect = "SELECT * FROM items LEFT JOIN suppliers ON items.supplierID = suppliers.supplierID WHERE itemNo='$itemid'";
+		$sqlselect = "SELECT * FROM equipments left join suppliers on equipments.supplierID = suppliers.supplierID WHERE equipNo='$equipmentid'";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		//echo $sqlselect;
-		$itemNo = $row['itemNo'];
-		$description = $row['description'];
+		$equipno = $row['equipNo'];
+		$equipname = $row['equipName'];
+		$tagno = $row['tagno'];
+		$propertyno = $row['propertyno'];
+		$serial = $row['serialno'];
+		$unitcost = $row['unitcost'];
+		$dateacquired = $row['dateacquired'];
 		$category = $row['category'];
-		$unit = $row['unit'];
-		$unitCost = $row['unitCost'];
-		$inventory_qty = $row['inventory_qty'];
-		$supName = $row['supName'];
+		$dateacquired = $row['dateacquired'];
+		$suppliername = $row['supName'];
 		$conn = null;
 		//print_r($row);
 ?>
@@ -123,7 +126,31 @@ include_once("include/functions.php");
 									<label>Item Description:</label>
 									</div>
 									<div class="col-lg-8">
-									<label class="itemvalues"><?php echo $description;?></label>
+									<label class="itemvalues"><?php echo $equipname;?></label>
+									</div>
+									
+									
+									<div class="col-lg-4 text-right">
+									<label>Tag No.</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $tagno;?></label>
+									</div>
+									
+									
+									<div class="col-lg-4 text-right">
+									<label>Property No.</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $propertyno;?></label>
+									</div>
+									
+									
+									<div class="col-lg-4 text-right">
+									<label>Serial</label>
+									</div>
+									<div class="col-lg-8">
+									<label class="itemvalues"><?php echo $serial;?></label>
 									</div>
 									
 									
@@ -131,26 +158,22 @@ include_once("include/functions.php");
 									<label>Cost:</label>
 									</div>
 									<div class="col-lg-8">
-									<label class="itemvalues"><?php echo $unitCost;?></label>
+									<label class="itemvalues"><?php echo $unitcost;?></label>
 									</div>
 									
-									<div class="col-lg-4 text-right">
-									<label>Base Unit of Measure:</label>
-									</div>
-									<div class="col-lg-8">
-									<label class="itemvalues"><?php echo $unit;?></label>
-									</div>
-									<div class="col-lg-4 text-right">
-									<label>Current QTY:</label>
-									</div>
-									<div class="col-lg-8">
-									<label class="itemvalues"><?php echo $inventory_qty;?></label>
-									</div>
-
+									
+									
                                     
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-4">
+								<div class="col-lg-4 text-right">
+                                            <label>Date Acquired:</label>
+											</div>
+											<div class="col-lg-8">
+                                            <label class="itemvalues"><?php echo $dateacquired;?></label>
+											</div>
+											<div>&nbsp;</div>
                                     <div class="col-lg-4 text-right">
                                             <label>Category:</label>
 											</div>
@@ -161,7 +184,7 @@ include_once("include/functions.php");
                                             <label>Supplier:</label>
 											</div>
 											<div class="col-lg-8">
-                                            <label class="itemvalues"><?php echo $supName;?></label>
+                                            <label class="itemvalues"><?php echo $suppliername;?></label>
 											</div>
 									
 									
@@ -214,175 +237,126 @@ include_once("include/functions.php");
                     <div class="panel panel-default">
 					
                         <div class="panel-heading">
-							Transactions 
+							Other Details 
+							
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs">
-								<li class="active"><a href="#uom" data-toggle="tab">Unit of Measure</a>
-                                </li>
-                                <li><a href="#home" data-toggle="tab">Requisition</a>
-                                </li>
-                                <li><a href="#profile" data-toggle="tab">Inventory</a>
-                                </li>
-                                
-                            </ul>
-
-                            <!-- Tab panes -->
-		<div class="tab-content">
-		
-		<div class="tab-pane fade in active" id="uom">
-			<div class="row">
-				<div class="col-lg-12">
-				<div style="margin:10px;">
-								<button id="adduom" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#adduom">
-								<i class="fa fa-plus-circle"></i> Add UoM
-							</button>
-
-                            </div>
-				<div class="panel panel-default">
 						
-				<div class="panel-body">
-				<div class="dataTable_wrapper">
-					<table class="table table-striped table-bordered table-hover" id="dataTables-example3">
-						<thead>
-							<tr>
-								<th>QTY</th>
-								<th>Unit</th>
-								<th>Base QTY</th>
-								<th>Base Unit</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php
-													
-							$suplist = selectListSQL("SELECT * FROM items_buom WHERE itemno=$itemid");
-							//print_r($employeelist);
-							foreach ($suplist as $rows => $link) {
-								echo "<tr>";
-								echo "<td>".$link['equiv_qty']."</td>";
-								echo "<td>".$link['equiv_unit']."</td>";
-								echo "<td>".$link['base_qty']."</td>";
-								echo "<td>".$link['base_unit']."</td>";
-								echo "<td><button class='btn btn-danger notification' id='notification' onClick='deleteuom(".$link['item_buom_id'].")'><i class='fa fa-times'></i></button></td>";
-								echo "</tr>";
-							}
-						?>	
+						<div class="row">
+						<div class="col-lg-8">
+						  <input type="hidden" id="itemno" value="">
+						  
+						  <div class="col-lg-4 text-right">
+							<label>Employee</label>
+							</div>
+							<div class="col-lg-8">
+							<select id="eid" class="form-control" tabindex="5" disabled>
+							<option></option>
+										<?php
+										
+								$suplist = selectListSQL("SELECT eid, CONCAT(fname,' ',lname) AS fullname FROM employee order by fname");
+								//print_r($employeelist);
+								foreach ($suplist as $rows => $link) {
+									$eid = $link['eid'];
+									$fullname = $link['fullname'];
+									
+									
+									echo "<option value='$eid'>$fullname</option>";
+								}
+								?>
+									
+									
+								</select>
+							</div>
+						  
+							<div class="col-lg-4 text-right">
+							<label>Processor</label>
+							</div>
+							<div class="col-lg-8">
+							<input id="processor" class="form-control" value="" tabindex="1" disabled>
+							</div>
 							
-						</tbody>
-					</table>
-				</div>
-								
-                                    <!-- /.table-responsive -->
-					</div>
-                </div>
-				
-				</div><!--end panel-->
-			
-			</div> <!-- end row-->
-		</div>
-		
-			<div class="tab-pane fade" id="home">
-			<div class="row">
-				<div class="col-lg-12">
-				<div class="panel panel-default">
-						
-				<div class="panel-body">
-				<div class="dataTable_wrapper">
-					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-						<thead>
-							<tr>
-								<th>Requisition No</th>
-								<th>Unit</th>
-								<th>QTY</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php
-													
-							$suplist = selectListSQL("SELECT * FROM requisition_items LEFT JOIN requisition_details ON requisition_items.requisition_no = requisition_details.requisition_no WHERE itemno=$itemid");
-							//print_r($employeelist);
-							foreach ($suplist as $rows => $link) {
-								
-								$reqid2 = $link['reqid'];
-								$requisition_no2 = $link['requisition_no'];
-								$unit2 = $link['unit'];
-								$qty2 = $link['qty'];
-								echo "<tr>";
-								echo "<td><a href='requisitiondetails.php?id=$reqid2'>$requisition_no2</a></td>";
-								echo "<td>$unit2</td>";
-								echo "<td>$qty2</td>";
-								echo "</tr>";
-							}
-						?>	
 							
-						</tbody>
-					</table>
-				</div>
-								
-                                    <!-- /.table-responsive -->
-					</div>
-                </div>
-				
-				</div><!--end panel-->
-			
-			</div> <!-- end row-->
-		</div>
-								
-			<div class="tab-pane fade" id="profile">
-				<div class="row">
-					<div class="col-lg-12">
-					<div class="panel panel-default">
-								
-					<div class="panel-body">
-						<div class="dataTable_wrapper">
-							<table class="table table-striped table-bordered table-hover" id="dataTables-example2">
-								<thead>
-									<tr>
-										<th>Inventory Id</th>
-										<th>QTY</th>
-										<th>Unit</th>
-										<th>Date/Time</th>
-									</tr>
-								</thead>
-								<tbody>
-						<?php
-													
-							$suplist = selectListSQL("SELECT * from inventory WHERE itemNo=$itemid AND status=1");
-							//print_r($employeelist);
-							foreach ($suplist as $rows => $link) {
-								
-								$inventoryid = $link['inventoryid'];
-								$unit3 = $link['unit'];
-								$qty3 = $link['qty'];
-								$datetime = $link['time_stamp'];
-								echo "<tr>";
-								echo "<td><a href='#?id=$reqid2'>$inventoryid</a></td>";
-								echo "<td>$qty3</td>";
-								echo "<td>$unit3</td>";
-								echo "<td>$datetime</td>";
-								echo "</tr>";
-							}
-						?>
-								</tbody>
-							</table>
+							<div class="col-lg-4 text-right">
+							<label>Ram</label>
+							</div>
+							<div class="col-lg-8">
+							<input id="ram" class="form-control" value="" tabindex="1" disabled>
+							</div>
+							
+							
+							<div class="col-lg-4 text-right">
+							<label>Hard Disk</label>
+							</div>
+							<div class="col-lg-8">
+							<input id="hd" class="form-control" value="" tabindex="1" disabled>
+							</div>
+							
+							
+							<div class="col-lg-4 text-right">
+							<label>Operating System</label>
+							</div>
+							<div class="col-lg-8">
+							<input id="os" class="form-control" value="" tabindex="1" disabled>
+							</div>
+
 						</div>
-	
+						<!-- /.col-lg-6 (nested) -->
+						<div class="col-lg-4">
+						<div class="col-lg-4 text-right">
+									<label>Brand</label>
+									</div>
+									<div class="col-lg-8">
+									<input id="brand" class="form-control" value="" tabindex="1" disabled>
+									</div>
+									<div>&nbsp;</div>
+							<div class="col-lg-4 text-right">
+									<label>Color</label>
+									</div>
+									<div class="col-lg-8">
+									<input id="color" class="form-control" value="" tabindex="1" disabled>
+									</div>
+							<div class="col-lg-4 text-right">
+									<label>Others:</label>
+									</div>
+									<div class="col-lg-8">
+									<input id="others" class="form-control" value="" tabindex="1" disabled>
+									</div>
+							
+							
+						
+							
+						
+						</div>
+						<!-- /.col-lg-6 (nested) -->
+
+				<!-- /.panel-heading -->
+
 					</div>
-								
-								</div><!-- table end -->
-								</div><!-- panel default end-->
-								
-				</div> <!-- row end-->
-		  </div> 
-                                
-		</div>
+						
+
                         
                         <!-- /.panel-body -->
                     </div>
+					
                     <!-- /.panel -->
+					
+					<div class="panel-footer">
+					<div>
+							<button id="editequipdetails" class="btn btn-info btn-sm">
+								<i class="fa fa-edit"></i> Edit Details
+							</button>
+							
+							<button id="saveequipdetails" class="btn btn-primary btn-sm" disabled>
+								<i class="fa fa-save"></i> Save
+							</button>
+							
+							</div>	
+					</div>
+					
+					
+					
                 </div>
                 <!-- /.col-lg-6 -->
                 

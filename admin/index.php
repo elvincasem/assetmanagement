@@ -102,8 +102,8 @@ include_once("include/functions.php");
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>Purchase Request</div>
+                                    <div class="huge">0</div>
+                                    <div>Equipments</div>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ include_once("include/functions.php");
                 <div class="col-lg-12">
                     
 					
-					 <div id="morris-bar-chart"></div>
+					<!-- <div id="morris-bar-chart"></div> -->
 					
                     
             </div>

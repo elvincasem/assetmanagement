@@ -279,7 +279,7 @@ function displayitemunit(itemid){
 			}
 		});
 	}
-	
+	document.getElementById("qty").focus();
 	
 }
 

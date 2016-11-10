@@ -659,30 +659,36 @@ function singleSQL($q){
 	if($_POST['action'] == "saveequipment"){
 
 		$conn = dbConnect();
-		$equipname = $_POST['equipname'];
-		$tagno = $_POST['tagno'];
 		$propertyno = $_POST['propertyno'];
-		$serial = $_POST['serial'];
+		$article = $_POST['article'];
+		$particulars = $_POST['particulars'];
 		$dateacquired = $_POST['dateacquired'];
-		$unitcost = $_POST['cost'];
-		$category = $_POST['category'];
-		$supplier = $_POST['supplier'];
-		if($unitcost == ""){
-			$unitcost = 0.00;
+		$cost = $_POST['cost'];
+		$eid = $_POST['eid'];
+		$classification = $_POST['classification'];
+		$accountcode = $_POST['accountcode'];
+		$tagno = $_POST['tagno'];
+		$service = $_POST['service'];
+		$whereabout = $_POST['whereabout'];
+		$remarks = $_POST['remarks'];
+		$supplierid = $_POST['supplierid'];
+		
+		if($cost == ""){
+			$cost = 0.00;
 		}
 
-		$sqlinsert = "INSERT INTO equipments(equipName,tagno,propertyno,serialno,unitcost,dateacquired,supplierID,category) VALUES('$equipname','$tagno','$propertyno','$serial','$unitcost','$dateacquired','$supplier','$category')";
+		$sqlinsert = "INSERT INTO equipments(propertyNo,article,particulars,dateacquired,totalcost,eid,classification,accountcode,service,whereabout,remarks,inventorytag,supplierID) VALUES('$propertyno','$article','$particulars','$dateacquired','$cost','$eid','$classification','$accountcode','$service','$whereabou','$remarks','$tagno','$supplierid')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		//echo $sqlinsert;
+		echo $sqlinsert;
 		
-		//get last id
+		/*get last id
 		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
 		echo $lastid['lastid'];
-		
+		*/
 		$conn = null;
 
 	}

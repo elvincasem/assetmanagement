@@ -57,7 +57,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 									<div class="form-group">
                                             <label>Requested By</label>
                                             
-                                            <select class="form-control" disabled>
+                                            <select class="form-control js-example-basic-single" disabled>
                                                 <?php
 												echo "<option value='$eid'>$efullname;</option>";
 												

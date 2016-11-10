@@ -40,29 +40,6 @@ include_once("include/functions.php");
                                         <div class="form-group">
 										
 											<input type="hidden" id="equipno" value="">
-											
-											<div class="col-lg-4 text-right">
-											<label>Property No.</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input id="propertyno" class="form-control" value="" tabindex="2">
-											</div>
-											
-											<div class="col-lg-4 text-right">
-											<label>Article</label>
-											</div>
-											<div class="col-lg-8 text-right">
-												<select id="category" class="form-control" tabindex="5">
-													<option value="Computer">Computer</option>
-													<option value="Appliance">Appliance</option>
-													<option value="Chairs and Tables">Chairs and Tables</option>
-													<option value="Printer">Printer</option>
-													<option value="Cabinet">Cabinet</option>
-													
-													<option value="Others">Others</option>
-												</select>
-											</div>
-											
 											<div class="col-lg-4 text-right">
                                             <label>Name</label>
 											</div>
@@ -76,7 +53,12 @@ include_once("include/functions.php");
                                             <input id="tagno" class="form-control" value="" tabindex="2" placeholder="CHEDRO1-13-0001">
 											</div>
 											
-											
+											<div class="col-lg-4 text-right">
+											<label>Property No.</label>
+											</div>
+											<div class="col-lg-8 text-right">
+                                            <input id="propertyno" class="form-control" value="" tabindex="2">
+											</div>
 											
 											<div class="col-lg-4 text-right">
 											<label>Serial</label>

@@ -18,7 +18,7 @@ include_once("include/functions.php");
 			
 		
 		<!-- Modal -->
-			<div class="modal fade" id="addRequisition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="addRequisition"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -47,8 +47,8 @@ include_once("include/functions.php");
 							<div class="col-lg-4 text-right">
 							<label>Requesting Official/Employee</label>
 							</div>
-							<div class="col-lg-8 text-right">
-								<select id="requester_id" class="form-control" tabindex="5">
+							<div class="col-lg-8 text-left">
+								<select style="width:100%"  id="requester_id" class="form-control js-example-basic-single" tabindex="5">
 										<?php
 										
 								$suplist = selectListSQL("SELECT eid, CONCAT(fname,' ',lname) AS fullname FROM employee order by fname");

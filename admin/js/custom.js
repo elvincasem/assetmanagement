@@ -1,10 +1,10 @@
 
 	$(function() {
         // initialize sol
-        $('#guest-list').searchableOptionList({
-			maxHeight: '250px'
+        //$('#guest-list').searchableOptionList({
+			//maxHeight: '250px'
 			
-		});
+		//});
 		
     });
 //user logout
@@ -1155,8 +1155,51 @@ function updateinventory_inv(ino){
 	
 }
 
+//save equipment new
+	$('#saveequipment').click(function(){
+			
+				$('#update').prop("disabled", true);    
+				$('#saveequipment').prop("disabled", false);  
+				
+				var equipname = document.getElementById("equipname").value;
+					var tagno = document.getElementById("tagno").value;
+					var propertyno = document.getElementById("propertyno").value;
+					var serial = document.getElementById("serial").value;
+					var dateacquired = document.getElementById("dateacquired").value;
+					var cost = document.getElementById("cost").value;
+					var category = document.getElementById("category").value;
+					var supplierid = document.getElementById("supplier").value;
+					//var brand = document.getElementById("brand").value;
+					//alert(description);
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveequipment", equipname: equipname,tagno:tagno, propertyno:propertyno,serial:serial,dateacquired:dateacquired,cost: cost, category: category,supplier:supplierid},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("equipname").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("propertyno").value = "";
+						document.getElementById("serial").value = "";
+						document.getElementById("tagno").value = "";
+						document.getElementById("dateacquired").value = "";
+						document.getElementById("cost").value = "";
 
-//save equipment
+						//$('#success-alert').show("slow");
+						//$('#success-alert').removeClass("hide");
+						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 //setTimeout(function(){location.reload();},1500);
+						window.location.href = "equipmentsdetails.php?id=" + response;
+                       
+						return "valid";
+                    }
+                });
+
+				//$( ".simplemodal-close" ).trigger( "click" );
+				});
+/*save equipment
 	$('#saveequipment').click(function(){
 			
 				$('#update').prop("disabled", true);    
@@ -1201,9 +1244,9 @@ function updateinventory_inv(ino){
 				//$( ".simplemodal-close" ).trigger( "click" );
 				});
 				
-				
+	*/			
 
-//save equipment
+//edit equipment
 	$('#editequipdetails').click(function(){
 			
 				$('#eid').prop("disabled", false);    

@@ -7,7 +7,7 @@ include_once("include/functions.php");
 
 
 <!-- Modal -->
-	<div class="modal fade" id="addinventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addinventory" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -23,9 +23,9 @@ include_once("include/functions.php");
 					<div class="col-lg-4 text-right">
 					<label>Item Description</label>
 					</div>
-					<div class="col-lg-8 text-right">
+					<div class="col-lg-8 text-left">
 					
-					<select class="form-control" id="item-list" onchange="displayitemunit(this.value);">
+					<select style="width:100%;" class="form-control js-example-basic-single" id="item-list" onchange="displayitemunit(this.value);">
 					<option value="0">Select Item</option>
 					 <?php
 											

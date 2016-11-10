@@ -125,7 +125,7 @@ include_once("include/functions.php");
                 <div class="col-lg-12">
                     
 					
-					<!-- <div id="morris-bar-chart"></div> -->
+					<div id="morris-bar-chart"></div>
 					
                     
             </div>

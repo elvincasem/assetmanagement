@@ -21,7 +21,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 <div id="page-wrapper">
 
 <!-- Modal -->
-	<div class="modal fade" id="additemdetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="additemdetails" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -37,9 +37,9 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 					<div class="col-lg-4 text-right">
 					<label>Item Description</label>
 					</div>
-					<div class="col-lg-8 text-right">
+					<div class="col-lg-8 text-left">
 					
-					<select class="form-control" id="item-list" onchange="displayitemunit(this.value);">
+					<select style="width:100%;" class="form-control js-example-basic-single2" id="item-list" onchange="displayitemunit(this.value);">
 					<option value="0">Select Item</option>
 					 <?php
 											
@@ -142,7 +142,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 									<div class="form-group">
                                             <label>Requested By</label>
                                             
-                                            <select class="form-control" id="requester_id" disabled>
+                                            <select class="form-control js-example-basic-single" id="requester_id" disabled>
                                                 <?php
 												echo "<option value='$eid'>$efullname</option>";
 												

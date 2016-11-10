@@ -3,7 +3,10 @@ include('header.php');
 
 $reportid = $_GET['rpt'];
 
-if($reportid==5){
+if($reportid==1){
+	$reporttitle = "Inventory with Zero Stock Qty";
+}
+if($reportid==3){
 	$reporttitle = "Requisition by Employee";
 }
 
@@ -42,8 +45,11 @@ if($reportid==5){
 								<tr>
 					<?php
 									
-									
-						if($reportid==5){
+						if($reportid==1){
+							$reportsql = "SELECT description,inventory_qty,unit from ITEMS where inventory_qty<=0";
+							echo "<th>Description</th><th>QTY</th><th>unit</th>";
+						}			
+						if($reportid==3){
 							$reportsql = "SELECT CONCAT(employee.fname, ' ', employee.lname) AS cname, COUNT(*) AS requisition FROM requisition_details LEFT JOIN employee ON requisition_details.eid = employee.eid GROUP BY requisition_details.eid";
 							echo "<th>Employee</th><th>No. of Requisition</th>";
 						}
@@ -58,7 +64,14 @@ if($reportid==5){
 						$emplist = selectListSQL($reportsql);
 						foreach ($emplist as $rows => $link) {
 							
-							if($reportid ==5){
+							if($reportid ==1){
+								echo "<tr class='odd gradeX'>";
+								echo "<td>".$link['description']."</td>";
+								echo "<td>".$link['inventory_qty']."</td>";
+								echo "<td>".$link['unit']."</td>";
+								echo "</tr>";	
+							}
+							if($reportid ==3){
 								echo "<tr class='odd gradeX'>";
 								echo "<td>".$link['cname']."</td>";
 								echo "<td>".$link['requisition']."</td>";

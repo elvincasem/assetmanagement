@@ -1,3 +1,8 @@
+<?php 
+if($_SESSION['userType']=='staff'){
+	$display = "hidden";
+}
+?>
 <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -38,7 +43,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<li>
+						<li <?php echo "class='".$display."'";?>>
                             <a href="#"  style="color:#bd0000;"><i class="fa fa-list fa-2x"></i> ORDER MANAGEMENT<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
@@ -61,7 +66,7 @@
                         <li>
                             <a href="reports.php" style="color:#000000;"><i class="fa fa-files-o fa-2x"></i> REPORTS</a>
                         </li>
-						<li>
+						<li <?php echo "class='".$display."'";?>>
                             <a href="#"  style="color:#bd0000;"><i class="fa fa-gear fa-2x"></i> SETTINGS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>

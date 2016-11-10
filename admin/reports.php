@@ -23,54 +23,40 @@ include('header.php');
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Report Description</th>
-                                                    <th>View Report</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>List of all Suppliers</td>
-                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+					<table class="table table-bordered table-hover table-striped">
+						<thead>
+							<tr>
+								<th>Report Description</th>
+								<th>View Report</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td>Inventory with Low or Zero Stock</td>
+								<td><a href="genreport.php?rpt=1"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
-                                                </tr>
-												<tr>
-                                                    <td>Inventory List</td>
-                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></i>
-                            </button></td>
-
-                                                </tr>
-												<tr>
-                                                    <td>Inventory with Low or Zero Stock</td>
-                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+							</tr>
+							<tr>
+								<td>Asset Assignment List</td>
+								<td><a href="genreport.php?rpt=3"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
-                                                </tr>
-												<tr>
-                                                    <td>Asset Assignment List</td>
-                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+							</tr>
+							<tr>
+								<td>Requisition Item by Employee</td>
+								<td><a href="genreport.php?rpt=3"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
-                                                </tr>
-												<tr>
-                                                    <td>Requisition Item by Employee</td>
-                                                    <td><a href="genreport.php?rpt=5"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-                            </button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
-
-                                                </tr>
-												
-                                                
-                                            </tbody>
-                                        </table>
+							</tr>
+							
+							
+						</tbody>
+					</table>
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>

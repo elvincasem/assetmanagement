@@ -1,3 +1,7 @@
+<?php
+ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,10 +41,12 @@
 	
 	<!-- searchable list -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="js/sol.js"></script>
+   <!-- <script type="text/javascript" src="js/sol.js"></script>
 	<script src="js/sol.js"></script>
 	<link href="js/sol.css" rel="stylesheet">
-
+	<script type="text/javascript" src="js/select2.full.js"></script> -->
+	<script type="text/javascript" src="dist/js/select2.full.js"></script>
+	<link href="dist/css/select2.min.css" type="text/css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,7 +56,16 @@
 <style>
 .datepicker{z-index:1151 !important;}
 .itemvalues{color:#337ab7;}
+
 </style>
+
+ <script type="text/javascript">
+$(document).ready(function() {
+  $(".js-example-basic-single").select2();
+  $(".js-example-basic-single2").select2();
+  $(".js-example-basic-single3").select2();
+});
+</script>
 </head>
 
 <body>

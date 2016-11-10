@@ -26,133 +26,194 @@ include_once("include/functions.php");
 			
                             <!-- Button trigger modal -->
                             
-                            <!-- Modal -->
-                            <div class="modal fade" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Add Equipment</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                           
-                                    <form role="form" id="form_item"> 
-                                        <div class="form-group">
+	<!-- Modal -->
+	<div class="modal fade" id="addEquipment"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Add Equipment</h4>
+				</div>
+				<div class="modal-body">
+				   
+			<form role="form" id="form_item"> 
+				<div class="form-group">
+				
+					<input type="hidden" id="equipno" value="">
+					
+					<div class="col-lg-4 text-right">
+					<label>Property No.</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="propertyno" class="form-control" value="" tabindex="2">
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Article</label>
+					</div>
+					<div class="col-lg-8 text-left">
+						<select style="width:100%;" id="article" class="form-control js-example-basic-single" tabindex="5">
+							<option value="Computer">Computer</option>
+							<option value="Appliance">Appliance</option>
+							<option value="Chairs and Tables">Chairs and Tables</option>
+							<option value="Printer">Printer</option>
+							<option value="Cabinet">Cabinet</option>
+							
+							<option value="Others">Others</option>
+						</select>
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Particulars</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<textarea class="form-control" id="particulars"></textarea>
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Date Acquired</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input type="date" id="dateacquired" class="form-control" value="" tabindex="2">
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Cost</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<div class="form-group input-group">
+						<span class="input-group-addon">₱</span>
+						<input id="cost" class="form-control" value="0.00" tabindex="4">
+					</div>
+					</div>
+					
+					<div class="col-lg-4 text-right">
+							<label>Employee</label>
+							</div>
+							<div class="col-lg-8">
+							<select style="width:100%;" id="eid" class="form-control js-example-basic-single" tabindex="5">
+							<option></option>
+										<?php
 										
-											<input type="hidden" id="equipno" value="">
-											
-											<div class="col-lg-4 text-right">
-											<label>Property No.</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input id="propertyno" class="form-control" value="" tabindex="2">
-											</div>
-											
-											<div class="col-lg-4 text-right">
-											<label>Article</label>
-											</div>
-											<div class="col-lg-8 text-right">
-												<select id="category" class="form-control" tabindex="5">
-													<option value="Computer">Computer</option>
-													<option value="Appliance">Appliance</option>
-													<option value="Chairs and Tables">Chairs and Tables</option>
-													<option value="Printer">Printer</option>
-													<option value="Cabinet">Cabinet</option>
-													
-													<option value="Others">Others</option>
-												</select>
-											</div>
-											
-											<div class="col-lg-4 text-right">
-                                            <label>Name</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input id="equipname" class="form-control" value="" tabindex="1">
-											</div>
-											<div class="col-lg-4 text-right">
-											<label>Tag No.</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input id="tagno" class="form-control" value="" tabindex="2" placeholder="CHEDRO1-13-0001">
-											</div>
-											
-											
-											
-											<div class="col-lg-4 text-right">
-											<label>Serial</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input id="serial" class="form-control" value="" tabindex="2">
-											</div>
-											
-											<div class="col-lg-4 text-right">
-											<label>Date Acquired</label>
-											</div>
-											<div class="col-lg-8 text-right">
-                                            <input type="date" id="dateacquired" class="form-control" value="" tabindex="2">
-											</div>
-											
-											<div class="col-lg-4 text-right">
-                                            <label>Cost</label>
-											</div>
-											<div class="col-lg-8 text-right">
-											<div class="form-group input-group">
-												<span class="input-group-addon">₱</span>
-												<input id="cost" class="form-control" value="0.00" tabindex="4">
-											</div>
-											</div>
-											<div class="col-lg-4 text-right">
-											<label>Category</label>
-											</div>
-											<div class="col-lg-8 text-right">
-												<select id="category" class="form-control" tabindex="5">
-													<option value="Computer">Computer</option>
-													<option value="Appliance">Appliance</option>
-													<option value="Chairs and Tables">Chairs and Tables</option>
-													<option value="Printer">Printer</option>
-													<option value="Cabinet">Cabinet</option>
-													
-													<option value="Others">Others</option>
-												</select>
-											</div>
-											<div class="col-lg-4 text-right">
-											<label>Supplier</label>	
-											</div>
-											<div class="col-lg-8 text-right">
-											<select id="supplier" class="form-control" tabindex="6">	
-											<option value="0"></option>
-											<?php
-													
-											$suplist = selectListSQL("SELECT * FROM suppliers ORDER BY supName ASC");
-											//print_r($employeelist);
-											foreach ($suplist as $rows => $link) {
-												$supplierid = $link['supplierID'];
-												$supname = $link['supName'];
-												
-												
-												echo "<option value='$supplierid'>$supname</option>";
-											}
-											?>
-                                            </select>
-											</div>
-                                        </div>
-										
-									</form>
-										<div class="row">
-										</div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-                                            <button id="saveequipment" type="button" class="btn btn-primary">Save and Close</button>
-											<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
+								$suplist = selectListSQL("SELECT eid, CONCAT(fname,' ',lname) AS fullname FROM employee order by fname");
+								//print_r($employeelist);
+								foreach ($suplist as $rows => $link) {
+									$eid = $link['eid'];
+									$fullname = $link['fullname'];
+									
+									if($details_eid==$eid){
+										$selected = "selected='selected'";
+									}else{
+										$selected = "";
+									}
+									echo "<option value='$eid' $selected>$fullname</option>";
+								}
+								?>
+									
+									
+								</select>
+								
+							</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Classification</label>
+					</div>
+					<div class="col-lg-8 text-left">
+						<select style="width:100%;" id="classification" class="form-control js-example-basic-single" tabindex="5">
+							<option value="Books">Books</option>
+							<option value="Communication Equipment">Communication Equipment</option>
+							<option value="Firefighting Equipment">Firefighting Equipment</option>
+							<option value="Furniture and Fixtures">Furniture and Fixtures</option>
+							<option value="IT Equipment and Softwares">IT Equipment and Softwares</option>
+							<option value="Medical and Dental Laboratory">Medical and Dental Laboratory</option>
+							<option value="Motor Vehicle">Motor Vehicle</option>
+							<option value="Office Equipment">Office Equipment</option>
+							<option value="Others Machineries and Equipment">Others Machineries and Equipment</option>
+						</select>
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Account Code</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="accountcode" class="form-control" value="" tabindex="2" >
+					</div>
+					
+					
+					<div class="col-lg-4 text-right">
+					<label>Service</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<select class="form-control" id="service">
+					<option value="Servicable">Servicable</option>
+					<option value="Unservicable">Unservicable</option>
+					<option value="Disposed">Disposed</option>
+					</select>
+					</div>
+					
+					
+					<div class="col-lg-4 text-right">
+					<label>Whereabout</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="whereabout" class="form-control" value="" tabindex="2" placeholder="2016-01">
+					</div>
+					
+					
+					<div class="col-lg-4 text-right">
+					<label>Remarks</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="remarks" class="form-control" value="" tabindex="2" >
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Tag No.</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="tagno" class="form-control" value="" tabindex="2" placeholder="2016-01">
+					</div>
+					
+					
+					<div class="col-lg-4 text-right">
+					<label>Supplier</label>	
+					</div>
+					<div class="col-lg-8 text-left">
+					<select style="width:100%;" id="supplier" class="form-control js-example-basic-single" tabindex="6">	
+					<option value="0"></option>
+					<?php
+							
+					$suplist = selectListSQL("SELECT * FROM suppliers ORDER BY supName ASC");
+					//print_r($employeelist);
+					foreach ($suplist as $rows => $link) {
+						$supplierid = $link['supplierID'];
+						$supname = $link['supName'];
+						
+						
+						echo "<option value='$supplierid'>$supname</option>";
+					}
+					?>
+					</select>
+					</div>
+				</div>
+				
+			</form>
+				<div class="row">
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button class='btn btn-primary'><i class='fa fa-edit'></i></button>
+					<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
+					<button id="saveequipment" type="button" class="btn btn-primary">Save and Close</button>
+					<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 
-			<!-- end modal-->
+<!-- end modal-->
 			
 			<div class="row">
 				<div class="alert alert-success hide" id="success-alert">
@@ -174,12 +235,13 @@ include_once("include/functions.php");
 					<table class="table table-striped table-bordered table-hover" id="dataTables-items">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Tag No.</th>
 								<th>Property No.</th>
-								<th>Serial</th>
+								<th>Article</th>
+								<th>Particulars</th>
 								<th>Date Acquired</th>
-								<th>Category</th>
+								<th>Unit Cost</th>
+								<th>Assigned To</th>
+								<th>Classification</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -187,27 +249,34 @@ include_once("include/functions.php");
 						
 						<?php
 						
-						$itemlist = selectListSQL("SELECT * FROM equipments ");
+						$itemlist = selectListSQL("SELECT * FROM equipments left join employee on equipments.eid = employee.eid");
 						//print_r($employeelist);
 						foreach ($itemlist as $rows => $link) {
 							$equipno = $link['equipNo'];
-							$equipname = $link['equipName'];
-							$tagno = $link['tagno'];
-							$propertyno = $link['propertyno'];
-							$serialno = $link['serialno'];
+							$propertyno = $link['propertyNo'];
+							$article = $link['article'];
+							$particulars = $link['particulars'];
+							
 							$dateacquired = $link['dateacquired'];
-							$category = $link['category'];
+							$totalcost = $link['totalcost'];
+							$eid = $link['eid'];
+							$accountcode = $link['accountcode'];
+							$service = $link['service'];
+							$classification = $link['classification'];
+							$whereabout = $link['whereabout'];
+							$empname = $link['fname']." ".$link['lname'];
 							
 							echo "<tr class='odd gradeX'>";
-							echo "<td>$equipname</td>";
-							echo "<td><a href='equipmentsdetails.php?id=$equipno'>$tagno</a></td>";
-							echo "<td>$propertyno</td>";
-							echo "<td>$serialno</td>";
+							echo "<td><a href='#' data-toggle='modal' data-target='#addEquipment' onClick='editequipment($equipno)'>$propertyno</a></td>";
+							echo "<td>$article</td>";
+							echo "<td>$particulars</td>";
 							echo "<td>$dateacquired</td>";
-							echo "<td>$category</td>";
+							echo "<td>$totalcost</td>";
+							echo "<td>$empname</td>";
+							echo "<td>$classification</td>";
 							echo "<td class='center'> 
 								
-								<button class='btn btn-primary' onClick='editequipment($equipno)'  data-toggle='modal' data-target='#addEquipment'><i class='fa fa-edit'></i></button>
+								
 								<button class='btn btn-danger notification' id='notification' onClick='deleteequip($equipno)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";

@@ -1161,44 +1161,49 @@ function updateinventory_inv(ino){
 				$('#update').prop("disabled", true);    
 				$('#saveequipment').prop("disabled", false);  
 				
-				var equipname = document.getElementById("equipname").value;
-					var tagno = document.getElementById("tagno").value;
-					var propertyno = document.getElementById("propertyno").value;
-					var serial = document.getElementById("serial").value;
-					var dateacquired = document.getElementById("dateacquired").value;
-					var cost = document.getElementById("cost").value;
-					var category = document.getElementById("category").value;
-					var supplierid = document.getElementById("supplier").value;
-					//var brand = document.getElementById("brand").value;
-					//alert(description);
+				var propertyno = document.getElementById("propertyno").value;
+				var article = document.getElementById("article").value;
+				var particulars = document.getElementById("particulars").value;
+				var dateacquired = document.getElementById("dateacquired").value;
+				var cost = document.getElementById("cost").value;
+				var eid = document.getElementById("eid").value;
+				var classification = document.getElementById("classification").value;
+				var accountcode = document.getElementById("accountcode").value;
+				
+				var service = document.getElementById("service").value;
+				var whereabout = document.getElementById("whereabout").value;
+				var remarks = document.getElementById("remarks").value;
+				var tagno = document.getElementById("tagno").value;
+				var supplierid = document.getElementById("supplier").value;	
 					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveequipment", equipname: equipname,tagno:tagno, propertyno:propertyno,serial:serial,dateacquired:dateacquired,cost: cost, category: category,supplier:supplierid},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("equipname").value = "";
-						document.getElementById("tagno").value = "";
-						document.getElementById("propertyno").value = "";
-						document.getElementById("serial").value = "";
-						document.getElementById("tagno").value = "";
-						document.getElementById("dateacquired").value = "";
-						document.getElementById("cost").value = "";
 
-						//$('#success-alert').show("slow");
-						//$('#success-alert').removeClass("hide");
-						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 //setTimeout(function(){location.reload();},1500);
-						window.location.href = "equipmentsdetails.php?id=" + response;
-                       
-						return "valid";
-                    }
-                });
+			$.ajax({
+			url: 'include/functions.php',
+			type: 'post',
+			data: {action: "saveequipment", propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+			success: function(response) {
+				console.log(response);
+				//document.getElementById("equipname").value = "";
+				//document.getElementById("tagno").value = "";
+				//document.getElementById("propertyno").value = "";
+				//document.getElementById("serial").value = "";
+				//document.getElementById("tagno").value = "";
+				//document.getElementById("dateacquired").value = "";
+				//document.getElementById("cost").value = "";
+
+				//$('#success-alert').show("slow");
+				//$('#success-alert').removeClass("hide");
+				//setTimeout(function(){$('#success-alert').hide("slow");},1500);
+				$( ".simplemodal-close" ).trigger( "click" );
+				 //setTimeout(function(){location.reload();},1500);
+				//window.location.href = "equipmentsdetails.php?id=" + response;
+			   //window.location.reload();
+				return "valid";
+			}
+		});
 
 				//$( ".simplemodal-close" ).trigger( "click" );
-				});
+});
 /*save equipment
 	$('#saveequipment').click(function(){
 			
@@ -1367,7 +1372,7 @@ function editequipment(id){
 	$('#saveequipment').prop("disabled", true);    
 
 	//alert(id);
-	
+	/*
 	$.ajax({
 		url: 'include/functions.php',
 		type: 'post',
@@ -1384,6 +1389,7 @@ function editequipment(id){
 			//alert(response.description);
 			
 			//fill the input box
+		
 			document.getElementById("equipno").value = id;
 			document.getElementById("equipname").value = data.equipName;
 			document.getElementById("propertyno").value = data.propertyno;
@@ -1441,10 +1447,17 @@ function editequipment(id){
 			
 			
 			return "valid";
-		}
+		} 
 	});
 		
 
-	
+	*/
 	
 }
+
+	$('#addequipmentbutton').click(function(){
+		console.log("test");
+		   $('#saveequipment').prop("disabled", false); 
+			$('#update').prop("disabled", true); 	
+		
+	});

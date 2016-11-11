@@ -1546,6 +1546,7 @@ $('#updateequipment').prop("disabled", true);
 	$('#addequipmentbutton').click(function(){
 		//console.log("test");
 		   $('#saveequipment').prop("disabled", false); 
+				
 			
 			
 			document.getElementById("equipno").value ="";
@@ -1577,6 +1578,7 @@ $('#updateequipment').prop("disabled", true);
 	$('#remarks').prop("disabled", false);
 	$('#tagno').prop("disabled", false);
 	$('#supplier').prop("disabled", false);
+	$('#updateequipment').prop("disabled", true); 
 			
 			
 		

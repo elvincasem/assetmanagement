@@ -15,7 +15,7 @@ include_once("include/functions.php");
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
@@ -102,8 +102,11 @@ include_once("include/functions.php");
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">0</div>
-                                    <div>Equipments</div>
+                                    <div class="huge"><?php
+										$current_requisition = singleSQL("SELECT COUNT(*) FROM requisition_details");
+										echo $current_requisition;
+										?></div>
+                                    <div>Total Requesition</div>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +126,17 @@ include_once("include/functions.php");
             <div class="row">
                 
                 <div class="col-lg-12">
-                    
+                    <?php
+							
+					$conn = dbConnect();
+					$sqlselect2 = "SELECT COUNT(*) AS xkey, MONTHNAME(requisition_date) AS ykey FROM requisition_details WHERE EXTRACT(YEAR FROM requisition_date)='2016' GROUP BY ykey ORDER BY EXTRACT(MONTH FROM requisition_date) 
+";
+					$stmt2 = $conn->prepare($sqlselect2);
+					$stmt2->execute();
+					$reqitems = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+					$jsonvalue = json_encode($reqitems);
+					echo "<input type='hidden' id='indexbarchard' value='$jsonvalue'>";
+					?>
 					
 					<div id="morris-bar-chart"></div>
 					

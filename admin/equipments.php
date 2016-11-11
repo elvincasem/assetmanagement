@@ -52,7 +52,7 @@ include_once("include/functions.php");
 					<label>Article</label>
 					</div>
 					<div class="col-lg-8 text-left">
-						<select style="width:100%;" id="article" class="form-control js-example-basic-single" tabindex="5">
+						<select style="width:100%;" id="article" class="form-control js-example-basic-single" tabindex="3">
 							<option value="Computer">Computer</option>
 							<option value="Appliance">Appliance</option>
 							<option value="Chairs and Tables">Chairs and Tables</option>
@@ -67,14 +67,14 @@ include_once("include/functions.php");
 					<label>Particulars</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<textarea class="form-control" id="particulars"></textarea>
+					<textarea class="form-control" id="particulars" tabindex="4"></textarea>
 					</div>
 					
 					<div class="col-lg-4 text-right">
 					<label>Date Acquired</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input type="date" id="dateacquired" class="form-control" value="" tabindex="2">
+					<input type="date" id="dateacquired" class="form-control" value="" tabindex="5">
 					</div>
 					
 					<div class="col-lg-4 text-right">
@@ -83,7 +83,7 @@ include_once("include/functions.php");
 					<div class="col-lg-8 text-right">
 					<div class="form-group input-group">
 						<span class="input-group-addon">₱</span>
-						<input id="cost" class="form-control" value="0.00" tabindex="4">
+						<input id="cost" class="form-control" value="0.00" tabindex="6">
 					</div>
 					</div>
 					
@@ -91,7 +91,7 @@ include_once("include/functions.php");
 							<label>Employee</label>
 							</div>
 							<div class="col-lg-8">
-							<select style="width:100%;" id="eid" class="form-control js-example-basic-single" tabindex="5">
+							<select style="width:100%;" id="eid" class="form-control js-example-basic-single" tabindex="7">
 							<option></option>
 										<?php
 										
@@ -119,7 +119,7 @@ include_once("include/functions.php");
 					<label>Classification</label>
 					</div>
 					<div class="col-lg-8 text-left">
-						<select style="width:100%;" id="classification" class="form-control js-example-basic-single" tabindex="5">
+						<select style="width:100%;" id="classification" class="form-control js-example-basic-single" tabindex="8">
 							<option value="Books">Books</option>
 							<option value="Communication Equipment">Communication Equipment</option>
 							<option value="Firefighting Equipment">Firefighting Equipment</option>
@@ -136,7 +136,7 @@ include_once("include/functions.php");
 					<label>Account Code</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input id="accountcode" class="form-control" value="" tabindex="2" >
+					<input id="accountcode" class="form-control" value="" tabindex="9" >
 					</div>
 					
 					
@@ -144,7 +144,7 @@ include_once("include/functions.php");
 					<label>Service</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<select class="form-control" id="service">
+					<select class="form-control" id="service" tabindex="10">
 					<option value="Servicable">Servicable</option>
 					<option value="Unservicable">Unservicable</option>
 					<option value="Disposed">Disposed</option>
@@ -156,7 +156,7 @@ include_once("include/functions.php");
 					<label>Whereabout</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input id="whereabout" class="form-control" value="" tabindex="2" placeholder="2016-01">
+					<input id="whereabout" class="form-control" value="" tabindex="11">
 					</div>
 					
 					
@@ -164,14 +164,14 @@ include_once("include/functions.php");
 					<label>Remarks</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input id="remarks" class="form-control" value="" tabindex="2" >
+					<input id="remarks" class="form-control" value="" tabindex="12" >
 					</div>
 					
 					<div class="col-lg-4 text-right">
 					<label>Tag No.</label>
 					</div>
 					<div class="col-lg-8 text-right">
-					<input id="tagno" class="form-control" value="" tabindex="2" placeholder="2016-01">
+					<input id="tagno" class="form-control" value="" tabindex="13" placeholder="2016-01">
 					</div>
 					
 					
@@ -179,7 +179,7 @@ include_once("include/functions.php");
 					<label>Supplier</label>	
 					</div>
 					<div class="col-lg-8 text-left">
-					<select style="width:100%;" id="supplier" class="form-control js-example-basic-single" tabindex="6">	
+					<select style="width:100%;" id="supplier" class="form-control js-example-basic-single" tabindex="14">	
 					<option value="0"></option>
 					<?php
 							
@@ -202,10 +202,10 @@ include_once("include/functions.php");
 				</div>
 				</div>
 				<div class="modal-footer">
-					<button class='btn btn-primary'><i class='fa fa-edit'></i></button>
+					<button class='btn btn-primary' id="editbutton"><i class='fa fa-edit'></i></button>
 					<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
 					<button id="saveequipment" type="button" class="btn btn-primary">Save and Close</button>
-					<button id="update" type="button" class="btn btn-primary" disabled>Update</button>
+					<button id="updateequipment" type="button" class="btn btn-primary" disabled>Update</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->

@@ -32,9 +32,14 @@ $reportid = $_GET['reportid'];
 					<?php
 									
 						if($reportid==1){
-							$reportsql = "SELECT description,inventory_qty,unit from ITEMS where inventory_qty<=0";
+							$reportsql = "SELECT description,inventory_qty,unit from items where inventory_qty<=0";
 							echo "<th>Description</th><th>QTY</th><th>unit</th>";
-						}			
+						}
+						if($reportid==2){
+							$reportsql = "SELECT COUNT(*) AS noofequip, CONCAT(fname,' ',lname) AS fullname FROM equipments LEFT JOIN employee ON 
+equipments.eid = employee.eid GROUP BY equipments.eid";
+							echo "<th>Employee</th><th>QTY</th>";
+						}						
 						if($reportid==3){
 							$reportsql = "SELECT CONCAT(employee.fname, ' ', employee.lname) AS cname, COUNT(*) AS requisition FROM requisition_details LEFT JOIN employee ON requisition_details.eid = employee.eid GROUP BY requisition_details.eid";
 							echo "<th>Employee</th><th>No. of Requisition</th>";
@@ -55,6 +60,12 @@ $reportid = $_GET['reportid'];
 								echo "<td>".$link['description']."</td>";
 								echo "<td>".$link['inventory_qty']."</td>";
 								echo "<td>".$link['unit']."</td>";
+								echo "</tr>";	
+							}
+							if($reportid ==2){
+								echo "<tr class='odd gradeX'>";
+								echo "<td>".$link['noofequip']."</td>";
+								echo "<td>".$link['fullname']."</td>";
 								echo "</tr>";	
 							}
 							if($reportid ==3){

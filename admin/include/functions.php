@@ -677,7 +677,7 @@ function singleSQL($q){
 			$cost = 0.00;
 		}
 
-		$sqlinsert = "INSERT INTO equipments(propertyNo,article,particulars,dateacquired,totalcost,eid,classification,accountcode,service,whereabout,remarks,inventorytag,supplierID) VALUES('$propertyno','$article','$particulars','$dateacquired','$cost','$eid','$classification','$accountcode','$service','$whereabou','$remarks','$tagno','$supplierid')";
+		$sqlinsert = "INSERT INTO equipments(propertyNo,article,particulars,dateacquired,totalcost,eid,classification,accountcode,service,whereabout,remarks,inventorytag,supplierID) VALUES('$propertyno','$article','$particulars','$dateacquired','$cost','$eid','$classification','$accountcode','$service','$whereabout','$remarks','$tagno','$supplierid')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		echo $sqlinsert;
@@ -769,7 +769,7 @@ if($_POST['action'] == "saveequipdetails"){
 
 		$conn = dbConnect();
 		$equipno = $_POST['equipno'];
-		$sqlselect = "SELECT * FROM equipments left join suppliers on equipments.supplierID = suppliers.supplierID left join equipments_details on equipments.equipNo = equipments_details.equipNo WHERE equipments.equipNo='$equipno'";
+		$sqlselect = "SELECT * FROM equipments LEFT JOIN suppliers ON equipments.supplierID = suppliers.supplierID LEFT JOIN equipments_details ON equipments.equipNo = equipments_details.equipNo LEFT JOIN employee ON equipments.eid = employee.eid WHERE equipments.equipNo='$equipno'";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$rows = $stmt->fetchAll();
@@ -779,4 +779,55 @@ if($_POST['action'] == "saveequipdetails"){
 		$conn = null;
 	}
 	
+	//get last id
+	if($_POST['action'] == "checkduplicatepropertyno"){
+			$propertyno = $_POST['propertyno'];
+			//echo $rno;
+			$conn = dbConnect();
+			$sqlselect = "SELECT COUNT(*) AS duplicate FROM equipments WHERE propertyNo='$propertyno'";
+			$stmt = $conn->prepare($sqlselect);
+			$stmt->execute();
+			$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo $lastid['duplicate'];
+			//echo $sqlselect;
+			$conn = null;
+	}
+	
+	if($_POST['action'] == "updateequipment"){
+
+		$conn = dbConnect();
+		$equipno = $_POST['equipno'];
+		$propertyno = $_POST['propertyno'];
+		$article = $_POST['article'];
+		$particulars = $_POST['particulars'];
+		$dateacquired = $_POST['dateacquired'];
+		$cost = $_POST['cost'];
+		$eid = $_POST['eid'];
+		$classification = $_POST['classification'];
+		$accountcode = $_POST['accountcode'];
+		$tagno = $_POST['tagno'];
+		$service = $_POST['service'];
+		$whereabout = $_POST['whereabout'];
+		$remarks = $_POST['remarks'];
+		$supplierid = $_POST['supplierid'];
+		
+		if($cost == ""){
+			$cost = 0.00;
+		}
+
+		$sqlinsert = "UPDATE  equipments SET propertyNo='$propertyno',article='$article',particulars='$particulars',dateacquired='$dateacquired',totalcost='$cost',eid='$eid',classification='$classification',accountcode='$accountcode',service='$service',whereabout='$whereabout',remarks='$remarks',inventorytag='$tagno',supplierID='$supplierid' WHERE equipNo='$equipno';";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		echo $sqlinsert;
+		
+		/*get last id
+		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
+		echo $lastid['lastid'];
+		*/
+		$conn = null;
+
+	}
 ?>

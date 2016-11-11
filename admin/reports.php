@@ -41,7 +41,7 @@ include('header.php');
 							</tr>
 							<tr>
 								<td>Asset Assignment List</td>
-								<td><a href="genreport.php?rpt=3"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+								<td><a href="genreport.php?rpt=2"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
 		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 

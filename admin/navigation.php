@@ -43,7 +43,7 @@ if($_SESSION['userType']=='staff'){
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<li <?php echo "class='".$display."'";?>>
+						<!-- <li <?php echo "class='".$display."'";?>>
                             <a href="#"  style="color:#bd0000;"><i class="fa fa-list fa-2x"></i> ORDER MANAGEMENT<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
@@ -58,8 +58,8 @@ if($_SESSION['userType']=='staff'){
 								
 								
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                            <!-- /.nav-second-level 
+                        </li> -->
 						
 						
                         

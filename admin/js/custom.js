@@ -1155,6 +1155,7 @@ function updateinventory_inv(ino){
 	
 }
 
+
 //save equipment new
 	$('#saveequipment').click(function(){
 			
@@ -1174,82 +1175,99 @@ function updateinventory_inv(ino){
 				var whereabout = document.getElementById("whereabout").value;
 				var remarks = document.getElementById("remarks").value;
 				var tagno = document.getElementById("tagno").value;
-				var supplierid = document.getElementById("supplier").value;	
-					
+				var supplierid = document.getElementById("supplier").value;
+				//var duplicatepropertyno = 0;
 
-			$.ajax({
+				
+			//alert(globalpropno);
+				
+					
+if(propertyno != '' && particulars !=''){
+				
+	//check duplicate property no
+	$.ajax({
 			url: 'include/functions.php',
 			type: 'post',
-			data: {action: "saveequipment", propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+			data: {action: "checkduplicatepropertyno", propertyno: propertyno},
 			success: function(response) {
 				console.log(response);
-				//document.getElementById("equipname").value = "";
-				//document.getElementById("tagno").value = "";
-				//document.getElementById("propertyno").value = "";
-				//document.getElementById("serial").value = "";
-				//document.getElementById("tagno").value = "";
-				//document.getElementById("dateacquired").value = "";
-				//document.getElementById("cost").value = "";
+				var duplicatepropertyno =parseInt(response);
+				//duplicateproperty(response);
+				//alert(duplicatepropertyno);
+				if(duplicatepropertyno == 0){
+				
+					$.ajax({
+						url: 'include/functions.php',
+						type: 'post',
+						data: {action: "saveequipment", propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+						success: function(response) {
+							console.log(response);
 
-				//$('#success-alert').show("slow");
-				//$('#success-alert').removeClass("hide");
-				//setTimeout(function(){$('#success-alert').hide("slow");},1500);
-				$( ".simplemodal-close" ).trigger( "click" );
-				 //setTimeout(function(){location.reload();},1500);
-				//window.location.href = "equipmentsdetails.php?id=" + response;
-			   //window.location.reload();
-				return "valid";
+							$( ".simplemodal-close" ).trigger( "click" );
+							 //setTimeout(function(){location.reload();},1500);
+							//window.location.href = "equipmentsdetails.php?id=" + response;
+						   window.location.reload();
+							return "valid";
+						}
+					});	
+					
+
+				}else{
+					alert("Duplicate Property No.");
+				}
+			
 			}
-		});
+		});	
+
+			}else{
+				
+				alert("Property No. & Particulars must not be blank.")
+				
+			}
+			
 
 				//$( ".simplemodal-close" ).trigger( "click" );
 });
-/*save equipment
-	$('#saveequipment').click(function(){
+//update equipment
+	$('#updateequipment').click(function(){
 			
 				$('#update').prop("disabled", true);    
 				$('#saveequipment').prop("disabled", false);  
+				var equipno = document.getElementById("equipno").value;
+				var propertyno = document.getElementById("propertyno").value;
+				var article = document.getElementById("article").value;
+				var particulars = document.getElementById("particulars").value;
+				var dateacquired = document.getElementById("dateacquired").value;
+				var cost = document.getElementById("cost").value;
+				var eid = document.getElementById("eid").value;
+				var classification = document.getElementById("classification").value;
+				var accountcode = document.getElementById("accountcode").value;
 				
-				var equipname = document.getElementById("equipname").value;
-					var tagno = document.getElementById("tagno").value;
-					var propertyno = document.getElementById("propertyno").value;
-					var serial = document.getElementById("serial").value;
-					var dateacquired = document.getElementById("dateacquired").value;
-					var cost = document.getElementById("cost").value;
-					var category = document.getElementById("category").value;
-					var supplierid = document.getElementById("supplier").value;
-					//var brand = document.getElementById("brand").value;
-					//alert(description);
+				var service = document.getElementById("service").value;
+				var whereabout = document.getElementById("whereabout").value;
+				var remarks = document.getElementById("remarks").value;
+				var tagno = document.getElementById("tagno").value;
+				var supplierid = document.getElementById("supplier").value;
 					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveequipment", equipname: equipname,tagno:tagno, propertyno:propertyno,serial:serial,dateacquired:dateacquired,cost: cost, category: category,supplier:supplierid},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("equipname").value = "";
-						document.getElementById("tagno").value = "";
-						document.getElementById("propertyno").value = "";
-						document.getElementById("serial").value = "";
-						document.getElementById("tagno").value = "";
-						document.getElementById("dateacquired").value = "";
-						document.getElementById("cost").value = "";
+				$.ajax({
+				url: 'include/functions.php',
+				type: 'post',
+				data: {action: "updateequipment",equipno:equipno, propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+				success: function(response) {
+					console.log(response);
 
-						//$('#success-alert').show("slow");
-						//$('#success-alert').removeClass("hide");
-						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 //setTimeout(function(){location.reload();},1500);
-						window.location.href = "equipmentsdetails.php?id=" + response;
-                       
-						return "valid";
+					//$( ".simplemodal-close" ).trigger( "click" );
+					 //setTimeout(function(){location.reload();},1500);
+					//window.location.href = "equipmentsdetails.php?id=" + response;
+				    window.location.reload();
+					return "valid";
                     }
                 });
 
 				//$( ".simplemodal-close" ).trigger( "click" );
 				});
 				
-	*/			
+			
 
 //edit equipment
 	$('#editequipdetails').click(function(){
@@ -1365,99 +1383,201 @@ $('#saveequipdetails').click(function(){
 });
 
 
+$('#editbutton').click(function(){
+	$('#propertyno').prop("disabled", false);   
+	$('#article').prop("disabled", false);
+	$('#particulars').prop("disabled", false);
+	$('#dateacquired').prop("disabled", false);
+	$('#cost').prop("disabled", false);
+	$('#eid').prop("disabled", false);
+	$('#classification').prop("disabled", false);
+	$('#accountcode').prop("disabled", false);
+	$('#service').prop("disabled", false);
+	$('#whereabout').prop("disabled", false);
+	$('#remarks').prop("disabled", false);
+	$('#tagno').prop("disabled", false);
+	$('#supplier').prop("disabled", false);
+	$('#updateequipment').prop("disabled", false);
+	
+});
+
+
 function editequipment(id){
 	
 	//$('#update').removeAttr("disabled");
 	$('#update').prop("disabled", false);    
 	$('#saveequipment').prop("disabled", true);    
+	
+	
+	$('#propertyno').prop("disabled", true);   
+	$('#article').prop("disabled", true);
+	$('#particulars').prop("disabled", true);
+	$('#dateacquired').prop("disabled", true);
+	$('#cost').prop("disabled", true);
+	$('#eid').prop("disabled", true);
+	$('#classification').prop("disabled", true);
+	$('#accountcode').prop("disabled", true);
+	$('#service').prop("disabled", true);
+	$('#whereabout').prop("disabled", true);
+	$('#remarks').prop("disabled", true);
+	$('#tagno').prop("disabled", true);
+	$('#supplier').prop("disabled", true);
 
 	//alert(id);
-	/*
+	
 	$.ajax({
 		url: 'include/functions.php',
 		type: 'post',
 		data: {action: "getequipment", equipno : id},
 		success: function(response) {
-			console.log(response);
+			//console.log(response);
 			 var data = JSON.parse(response);
 			 
-			//var itemdescription = $.parseJSON(response);
-			//var description = item.description;
-			
-			//alert(data.descript);
-			
-			//alert(response.description);
-			
-			//fill the input box
-		
+			//insert values	
 			document.getElementById("equipno").value = id;
-			document.getElementById("equipname").value = data.equipName;
-			document.getElementById("propertyno").value = data.propertyno;
+			document.getElementById("propertyno").value = data.propertyNo;
 			
-			document.getElementById("serial").value = data.serialno;
-			document.getElementById("dateacquired").value = data.dateacquired;
-			//document.getElementById("category").value = data.category;
-			var equipcategory = data.category;
-			document.getElementById("category").append('<option>'+equipcategory+'</option>');
-			
-			
-			//alert(data.brand);
-			
-			if(data.category == "Computer"){
-				document.getElementById("category").selectedIndex = 0;
-			}
-			if(data.category == "Appliance"){
-				document.getElementById("category").selectedIndex = 1;
-			}
-			if(data.category == "Chairs and Tables"){
-				document.getElementById("category").selectedIndex = 2;
-			}
-			if(data.category == "Printer"){
-				document.getElementById("category").selectedIndex = 3;
-			}
-			if(data.category == "Cabinet"){
-				document.getElementById("category").selectedIndex = 4;
-			}
-			if(data.category == "Others"){
-				document.getElementById("category").selectedIndex = 5;
-			}
-
-			
-
-			//document.getElementById("cost").value = data.unitCost;
-			var sel = document.getElementById("supplier");
-			sel.remove(0);
+			var equiparticle = data.article;
+			var art = document.getElementById("article");
 			var opt = document.createElement("option");
-			opt.value = data.supplierID;
-			if(data.supplierID==0){
-				opt.text = "";
+			opt.value = data.article;
+			if(data.supplierID==""){
+				opt.text = data.article;
 			}else{
-				opt.text = data.supName;
+				opt.text = data.article;
 			}
 			
 			opt.selected = "selected";
 
-			sel.add(opt,  sel.options[0]);
+			art.add(opt,  art.options[0]);
+			
+			document.getElementById("particulars").value = data.particulars;
+			document.getElementById("dateacquired").value = data.dateacquired;
+			document.getElementById("cost").value = data.totalcost;
+			
+			
+			var employeeid = data.eid;
+			//alert(employeeid);
+			var employeename = data.fname +" "+data.lname;
+			var emp = document.getElementById("eid");
+			var opt = document.createElement("option");
+			
+			if(data.eid==null){
+				opt.value = 0;
+				opt.text = "";
+			}else{
+				opt.value = data.eid;
+				opt.text = employeename;
+			}
+			
+			opt.selected = "selected";
 
-			
-			//$("#category :selected").text() = data.category;
-			
-			//document.getElementById("brand").value = data.brand;
+			emp.add(opt,  emp.options[0]);
 			
 			
+			//classification
+			var classification = data.classification;
+			var classf = document.getElementById("classification");
+			var opt = document.createElement("option");
+			
+			if(classification==null){
+				opt.value = "";
+				opt.text = "";
+			}else{
+				opt.value = classification;
+				opt.text = classification;
+			}
+			
+			opt.selected = "selected";
+
+			classf.add(opt,  classf.options[0]);
+			
+			//account code
+			document.getElementById("accountcode").value = data.accountcode;
+			
+			//servicable
+			var servicable = data.service;
+			var service = document.getElementById("service");
+			var opt = document.createElement("option");
+			
+			if(servicable==null){
+				opt.value = "";
+				opt.text = "";
+			}else{
+				opt.value = servicable;
+				opt.text = servicable;
+			}
+			
+			opt.selected = "selected";
+
+			service.add(opt,  service.options[0]);
+			
+			document.getElementById("whereabout").value = data.whereabout;
+			document.getElementById("remarks").value = data.remarks;
+			document.getElementById("tagno").value = data.inventorytag;
+			
+			//supplier
+			var suppliername = data.supName;
+			var supplier = document.getElementById("supplier");
+			var opt = document.createElement("option");
+			
+			if(data.supplierID==null){
+				opt.value = "";
+				opt.text = "";
+			}else{
+				opt.value = data.supplierID;
+				opt.text = suppliername;
+			}
+			
+			opt.selected = "selected";
+
+			supplier.add(opt,  supplier.options[0]);
+
 			
 			return "valid";
 		} 
 	});
 		
-
-	*/
+$('#updateequipment').prop("disabled", true); 	
+	
 	
 }
 
 	$('#addequipmentbutton').click(function(){
-		console.log("test");
+		//console.log("test");
 		   $('#saveequipment').prop("disabled", false); 
-			$('#update').prop("disabled", true); 	
+			
+			
+			document.getElementById("equipno").value ="";
+			document.getElementById("propertyno").value="";
+			document.getElementById("article").value="";
+			document.getElementById("particulars").value="";
+			document.getElementById("dateacquired").value="";
+			document.getElementById("cost").value="";
+			document.getElementById("eid").value="";
+			document.getElementById("classification").value="";
+			document.getElementById("accountcode").value="";
+			
+			document.getElementById("service").value="";
+			document.getElementById("whereabout").value="";
+			document.getElementById("remarks").value="";
+			document.getElementById("tagno").value="";
+			document.getElementById("supplier").value="";
+			
+			$('#propertyno').prop("disabled", false);   
+	$('#article').prop("disabled", false);
+	$('#particulars').prop("disabled", false);
+	$('#dateacquired').prop("disabled", false);
+	$('#cost').prop("disabled", false);
+	$('#eid').prop("disabled", false);
+	$('#classification').prop("disabled", false);
+	$('#accountcode').prop("disabled", false);
+	$('#service').prop("disabled", false);
+	$('#whereabout').prop("disabled", false);
+	$('#remarks').prop("disabled", false);
+	$('#tagno').prop("disabled", false);
+	$('#supplier').prop("disabled", false);
+			
+			
 		
 	});

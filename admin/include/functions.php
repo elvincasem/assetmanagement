@@ -476,14 +476,14 @@ function singleSQL($q){
 		$conn = null;
 	}
 	
-	//update item
+	//update item inventory qty when update_status 0
 	if($_POST['action'] == "updateinventory"){
 
 		$conn = dbConnect();
 		$reqno = $_POST['requisition_no'];
 		
 		//select all items from reqitems
-		$sqlselect2 = "SELECT * FROM requisition_items WHERE requisition_no='$reqno'";
+		$sqlselect2 = "SELECT * FROM requisition_items WHERE requisition_no='$reqno' AND update_status=0";
 		$stmt2 = $conn->prepare($sqlselect2);
 		$stmt2->execute();
 		$reqitems = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -588,7 +588,7 @@ function singleSQL($q){
 		$conn = null;
 	}
 	
-	//update item
+	//update inventory when added in inventory module
 	if($_POST['action'] == "updateinventory_inv"){
 
 		$conn = dbConnect();

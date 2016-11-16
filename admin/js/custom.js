@@ -448,11 +448,13 @@ function displayitemunit(itemid){
 					var itemno = document.getElementById("item-list").value;
 					var unit = document.getElementById("iunit").value;
 					var qty = document.getElementById("qty").value;
+					var datereceived = document.getElementById("datereceived").value;
+					var drno = document.getElementById("drno").value;
 					
 					$.ajax({
                     url: 'include/functions.php',
                     type: 'post',
-                    data: {action: "saveinventory", itemno: itemno, unit: unit, qty: qty},
+                    data: {action: "saveinventory", itemno: itemno, unit: unit, qty: qty,datereceived:datereceived,drno:drno},
                     success: function(response) {
 						console.log(response);
 						//document.getElementById("unit").value = "";

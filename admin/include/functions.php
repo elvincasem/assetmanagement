@@ -337,9 +337,11 @@ function singleSQL($q){
 		$itemno = $_POST['itemno'];
 		$unit = $_POST['unit'];
 		$qty = $_POST['qty'];
+		$datereceived = $_POST['datereceived'];
+		$drno = $_POST['drno'];
 		
 		//return "ok";
-		$sqlinsert = "INSERT INTO inventory(itemNo,unit,qty) VALUES($itemno,'$unit',$qty)";
+		$sqlinsert = "INSERT INTO inventory(itemNo,unit,qty,datereceived,drno) VALUES($itemno,'$unit',$qty,'$datereceived','$drno')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		

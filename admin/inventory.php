@@ -63,6 +63,20 @@ include_once("include/functions.php");
 					<input id="qty" class="form-control" value="" tabindex="2">
 					</div>
 					
+					<div class="col-lg-4 text-right">
+					<label>Received Date</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input type="date" id="datereceived" class="form-control" value="" tabindex="2">
+					</div>
+					
+					<div class="col-lg-4 text-right">
+					<label>Delivery Receipt</label>
+					</div>
+					<div class="col-lg-8 text-right">
+					<input id="drno" class="form-control" value="" tabindex="2">
+					</div>
+					
 					
 				</div>
 				
@@ -125,6 +139,8 @@ include_once("include/functions.php");
 					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 						<thead>
 							<tr>
+								<th>Delivery Receipt</th>
+								<th>Date Received</th>
 								<th>Item Name</th>
 								<th>Unit</th>
 								<th>QTY</th>
@@ -136,7 +152,7 @@ include_once("include/functions.php");
 						
 						<?php
 									
-						$itemlist = selectListSQL("SELECT inventory.inventoryid,items.description,inventory.itemNo,inventory.unit,inventory.qty,inventory.time_stamp,inventory.status FROM inventory LEFT JOIN items ON inventory.itemNo = items.itemNo ORDER BY inventoryid DESC");
+						$itemlist = selectListSQL("SELECT inventory.inventoryid,inventory.datereceived,inventory.drno,items.description,inventory.itemNo,inventory.unit,inventory.qty,inventory.time_stamp,inventory.status FROM inventory LEFT JOIN items ON inventory.itemNo = items.itemNo ORDER BY inventoryid DESC");
 						//print_r($employeelist);
 						foreach ($itemlist as $rows => $link) {
 							$itemNo = $link['itemNo'];
@@ -146,6 +162,8 @@ include_once("include/functions.php");
 							$time = $link['time_stamp'];
 							$inventoryid = $link['inventoryid'];
 							$invstatus = $link['status'];
+							$datereceived = $link['datereceived'];
+							$drno = $link['drno'];
 							
 							if($invstatus==1){
 								$status ="disabled";
@@ -154,6 +172,8 @@ include_once("include/functions.php");
 							}
 							
 							echo "<tr class='odd gradeX'>";
+							echo "<td>$drno</td>";
+							echo "<td>$datereceived</td>";
 							echo "<td>$description</td>";
 							echo "<td>$unit</td>";
 							echo "<td>$qty</td>";

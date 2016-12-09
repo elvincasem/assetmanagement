@@ -109,7 +109,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 							<a href="requisition.php"><button class="btn btn-primary btn-lg" >
                                 <i class="fa fa-chevron-left"></i> Back to List
                             </button></a>
-                            
+                            <a href="printrequisition.php?reqid=<?php echo $reqid;?>" target="_blank" class="btn btn-primary notification btn-lg"><i class="fa fa-print"></i> Print</a>
 
                             </div></h3>
                 </div>

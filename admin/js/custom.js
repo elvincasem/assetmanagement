@@ -1178,6 +1178,18 @@ function updateinventory_inv(ino){
 				var remarks = document.getElementById("remarks").value;
 				var tagno = document.getElementById("tagno").value;
 				var supplierid = document.getElementById("supplier").value;
+				
+				//peripheral details
+				var processor = document.getElementById("processor").value;
+				var ram = document.getElementById("ram").value;
+				var hd = document.getElementById("hd").value;
+				var os = document.getElementById("os").value;
+				var equipsn = document.getElementById("equipsn").value;
+				var processorsn = document.getElementById("processorsn").value;
+				var monitorsn = document.getElementById("monitorsn").value;
+				var keyboardsn = document.getElementById("keyboardsn").value;
+				var mousesn = document.getElementById("mousesn").value;
+				
 				//var duplicatepropertyno = 0;
 
 				
@@ -1201,14 +1213,14 @@ if(propertyno != '' && particulars !=''){
 					$.ajax({
 						url: 'include/functions.php',
 						type: 'post',
-						data: {action: "saveequipment", propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+						data: {action: "saveequipment", propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid, processor:processor,ram:ram,hd:hd,os:os,equipsn:equipsn,processorsn:processorsn,monitorsn:monitorsn,keyboardsn:keyboardsn,mousesn:mousesn},
 						success: function(response) {
 							console.log(response);
 
 							$( ".simplemodal-close" ).trigger( "click" );
 							 //setTimeout(function(){location.reload();},1500);
 							//window.location.href = "equipmentsdetails.php?id=" + response;
-						   window.location.reload();
+						   //window.location.reload();
 							return "valid";
 						}
 					});	
@@ -1250,11 +1262,23 @@ if(propertyno != '' && particulars !=''){
 				var remarks = document.getElementById("remarks").value;
 				var tagno = document.getElementById("tagno").value;
 				var supplierid = document.getElementById("supplier").value;
+				
+				
+				//peripheral details
+				var processor = document.getElementById("processor").value;
+				var ram = document.getElementById("ram").value;
+				var hd = document.getElementById("hd").value;
+				var os = document.getElementById("os").value;
+				var equipsn = document.getElementById("equipsn").value;
+				var processorsn = document.getElementById("processorsn").value;
+				var monitorsn = document.getElementById("monitorsn").value;
+				var keyboardsn = document.getElementById("keyboardsn").value;
+				var mousesn = document.getElementById("mousesn").value;
 					
 				$.ajax({
 				url: 'include/functions.php',
 				type: 'post',
-				data: {action: "updateequipment",equipno:equipno, propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid},
+				data: {action: "updateequipment",equipno:equipno, propertyno: propertyno,article:article, particulars:particulars,dateacquired:dateacquired,cost:cost,eid: eid, classification: classification,accountcode:accountcode,tagno:tagno,service:service,whereabout:whereabout,remarks:remarks,supplierid:supplierid,processor,processor:processor,ram:ram,hd:hd,os:os,equipsn:equipsn,processorsn:processorsn,monitorsn:monitorsn,keyboardsn:keyboardsn,mousesn:mousesn},
 				success: function(response) {
 					console.log(response);
 
@@ -1400,6 +1424,16 @@ $('#editbutton').click(function(){
 	$('#tagno').prop("disabled", false);
 	$('#supplier').prop("disabled", false);
 	$('#updateequipment').prop("disabled", false);
+	//peripheral details
+	$('#processor').prop("disabled", false);
+	$('#ram').prop("disabled", false);
+	$('#hd').prop("disabled", false);
+	$('#os').prop("disabled", false);
+	$('#equipsn').prop("disabled", false);
+	$('#processorsn').prop("disabled", false);
+	$('#monitorsn').prop("disabled", false);
+	$('#keyboardsn').prop("disabled", false);
+	$('#mousesn').prop("disabled", false);
 	
 });
 
@@ -1425,6 +1459,16 @@ function editequipment(id){
 	$('#tagno').prop("disabled", true);
 	$('#supplier').prop("disabled", true);
 
+	//peripheral details
+	$('#processor').prop("disabled", true);
+	$('#ram').prop("disabled", true);
+	$('#hd').prop("disabled", true);
+	$('#os').prop("disabled", true);
+	$('#equipsn').prop("disabled", true);
+	$('#processorsn').prop("disabled", true);
+	$('#monitorsn').prop("disabled", true);
+	$('#keyboardsn').prop("disabled", true);
+	$('#mousesn').prop("disabled", true);
 	//alert(id);
 	
 	$.ajax({
@@ -1535,7 +1579,15 @@ function editequipment(id){
 
 			supplier.add(opt,  supplier.options[0]);
 
-			
+			document.getElementById("processor").value = data.processor;
+			document.getElementById("ram").value = data.ram;
+			document.getElementById("hd").value = data.hd;
+			document.getElementById("os").value = data.operatingsystem;
+			document.getElementById("equipsn").value = data.equipsn;
+			document.getElementById("processorsn").value = data.processorsn;
+			document.getElementById("monitorsn").value = data.monitorsn;
+			document.getElementById("keyboardsn").value = data.keyboardsn;
+			document.getElementById("mousesn").value = data.mousesn;
 			return "valid";
 		} 
 	});

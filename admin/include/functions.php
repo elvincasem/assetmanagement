@@ -675,6 +675,17 @@ function singleSQL($q){
 		$remarks = $_POST['remarks'];
 		$supplierid = $_POST['supplierid'];
 		
+		$processor = $_POST['processor'];
+		$ram = $_POST['ram'];
+		$hd = $_POST['hd'];
+		$os = $_POST['os'];
+		$equipsn = $_POST['equipsn'];
+		$processorsn = $_POST['processorsn'];
+		$monitorsn = $_POST['monitorsn'];
+		$keyboardsn = $_POST['keyboardsn'];
+		$mousesn = $_POST['mousesn'];
+		
+		
 		if($cost == ""){
 			$cost = 0.00;
 		}
@@ -682,15 +693,26 @@ function singleSQL($q){
 		$sqlinsert = "INSERT INTO equipments(propertyNo,article,particulars,dateacquired,totalcost,eid,classification,accountcode,service,whereabout,remarks,inventorytag,supplierID) VALUES('$propertyno','$article','$particulars','$dateacquired','$cost','$eid','$classification','$accountcode','$service','$whereabout','$remarks','$tagno','$supplierid')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		echo $sqlinsert;
+		//echo $sqlinsert;
 		
-		/*get last id
+		//get last id
 		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$lastid = $stmt->fetch(PDO::FETCH_ASSOC);
-		echo $lastid['lastid'];
-		*/
+		$currentid = $lastid['lastid'];
+		
+		
+		//insert details
+		$sqlinsert = "INSERT INTO equipments_details(equipNo,processor,ram,hd,operatingsystem,equipsn,processorsn,monitorsn,keyboardsn,mousesn) values('$currentid','$processor','$ram','$hd','$os','$equipsn','$processorsn','$monitorsn','$keyboardsn','$mousesn')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		
+		echo $sqlinsert;
+		
+		
+		
+		
 		$conn = null;
 
 	}
@@ -813,14 +835,24 @@ if($_POST['action'] == "saveequipdetails"){
 		$remarks = $_POST['remarks'];
 		$supplierid = $_POST['supplierid'];
 		
+		$processor = $_POST['processor'];
+		$ram = $_POST['ram'];
+		$hd = $_POST['hd'];
+		$os = $_POST['os'];
+		$equipsn = $_POST['equipsn'];
+		$processorsn = $_POST['processorsn'];
+		$monitorsn = $_POST['monitorsn'];
+		$keyboardsn = $_POST['keyboardsn'];
+		$mousesn = $_POST['mousesn'];
+		
 		if($cost == ""){
 			$cost = 0.00;
 		}
 
-		$sqlinsert = "UPDATE  equipments SET propertyNo='$propertyno',article='$article',particulars='$particulars',dateacquired='$dateacquired',totalcost='$cost',eid='$eid',classification='$classification',accountcode='$accountcode',service='$service',whereabout='$whereabout',remarks='$remarks',inventorytag='$tagno',supplierID='$supplierid' WHERE equipNo='$equipno';";
+		$sqlinsert = "UPDATE  equipments SET propertyNo='$propertyno',article='$article',particulars='$particulars',dateacquired='$dateacquired',totalcost='$cost',eid='$eid',classification='$classification',accountcode='$accountcode',service='$service',whereabout='$whereabout',remarks='$remarks',inventorytag='$tagno',supplierID='$supplierid' WHERE equipNo='$equipno'; UPDATE equipments_details SET processor='$processor', ram='$ram', hd='$hd',operatingsystem='$os',equipsn='$equipsn', processorsn='$processorsn',monitorsn='$monitorsn',keyboardsn='$keyboardsn',mousesn='$mousesn' WHERE equipNo='$equipno'";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		echo $sqlinsert;
+		//echo $sqlinsert;
 		
 		/*get last id
 		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";

@@ -87,7 +87,28 @@ include_once("include/functions.php");
 					</div>
 					</div>
 					
-					<div class="col-lg-4 text-right">
+					
+					<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">Basic Info</a>
+                                </li>
+                                <li><a href="#profile" data-toggle="tab">Peripheral Details</a>
+                                </li>
+                                
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="home">
+                                    <h5><br></h5>
+						<div class="row">			
+							<div class="col-lg-4 text-right">
 							<label>Employee</label>
 							</div>
 							<div class="col-lg-8">
@@ -112,9 +133,8 @@ include_once("include/functions.php");
 									
 									
 								</select>
+						</div>		
 								
-							</div>
-					
 					<div class="col-lg-4 text-right">
 					<label>Classification</label>
 					</div>
@@ -174,7 +194,6 @@ include_once("include/functions.php");
 					<input id="tagno" class="form-control" value="" tabindex="13" placeholder="2016-01">
 					</div>
 					
-					
 					<div class="col-lg-4 text-right">
 					<label>Supplier</label>	
 					</div>
@@ -195,6 +214,97 @@ include_once("include/functions.php");
 					?>
 					</select>
 					</div>
+	</div><!-- end tab content-->
+					
+                                </div>
+                                <div class="tab-pane fade" id="profile">
+                                    <h5><br></h5>
+		<div class="row">	
+				
+				<div class="col-lg-4 text-right">
+				<label>Processor</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="processor" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>RAM</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="ram" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Hard Disk</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="hd" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Operating System</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="os" class="form-control" value="" tabindex="12" >
+				</div>
+				<div class="col-lg-4 text-right">
+				<label>Equipment S/N</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="equipsn" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Processor S/N</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="processorsn" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Monitor S/N</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="monitorsn" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Keyboard S/N</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="keyboardsn" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				<div class="col-lg-4 text-right">
+				<label>Mouse S/N</label>
+				</div>
+				<div class="col-lg-8 text-right">
+				<input id="mousesn" class="form-control" value="" tabindex="12" >
+				</div>
+				
+				
+			</div><!-- end row -->
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+                
+            </div>
+            <!-- /.row -->
+					
+					
+					
+					
+					
+					
+					
+					
 				</div>
 				
 			</form>

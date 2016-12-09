@@ -131,6 +131,7 @@ ON requisition_details.eid = employee.eid");
 						echo "<td>$fullname</td>";
 						echo "<td class='center'> 
 							
+							<a href='printrequisition.php?reqid=$reqid' target='_blank' class='btn btn-primary notification'><i class='fa fa-print'></i></a>
 							
 							<button class='btn btn-danger notification' id='notification' onClick='deleterequisition($reqid)' $disabled><i class='fa fa-times'></i></button>
 						</td>";

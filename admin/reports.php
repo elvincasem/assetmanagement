@@ -53,6 +53,20 @@ include('header.php');
 "></td>
 
 							</tr>
+							<tr>
+								<td>Most Requested Item</td>
+								<td><a href="genreport.php?rpt=4"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></td>
+
+							</tr>
+							<tr>
+								<td>Current Inventory Status</td>
+								<td><a href="genreport.php?rpt=5"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></td>
+
+							</tr>
 							
 							
 						</tbody>

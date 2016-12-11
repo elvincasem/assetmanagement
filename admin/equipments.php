@@ -5,7 +5,7 @@ include_once("include/functions.php");
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-desktop fa-1x"></i> Equipments
+                    <h1 class="page-header"><i class="fa fa-desktop fa-1x"></i> Equipment
 						<div class="pull-right">
 							<button id="addequipmentbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEquipment">
                                 <i class="fa fa-plus-circle"></i> Add Item

@@ -17,7 +17,7 @@ if($_SESSION['userType']=='staff'){
 									<a href="requisition.php" style="color:#000;"><i class="fa fa-check-square-o fa-2x"></i> REQUISITION</a>
 								</li>
                                <li>
-									<a href="equipments.php" style="color:#000;"><i class="fa fa-desktop fa-2x"></i> EQUIPMENTS</a>
+									<a href="equipments.php" style="color:#000;"><i class="fa fa-desktop fa-2x"></i> EQUIPMENT</a>
 								</li>
 								<li>
 										<a href="items.php" style="color:#000;"><i class="fa fa-briefcase fa-2x"></i> ITEMS</a>

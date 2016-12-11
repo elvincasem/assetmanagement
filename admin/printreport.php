@@ -44,6 +44,14 @@ equipments.eid = employee.eid GROUP BY equipments.eid";
 							$reportsql = "SELECT CONCAT(employee.fname, ' ', employee.lname) AS cname, COUNT(*) AS requisition FROM requisition_details LEFT JOIN employee ON requisition_details.eid = employee.eid GROUP BY requisition_details.eid";
 							echo "<th>Employee</th><th>No. of Requisition</th>";
 						}
+						if($reportid==4){
+							$reportsql = "SELECT SUM(qty) AS total, description FROM requisition_items LEFT JOIN items ON requisition_items.itemno = items.itemNo GROUP BY items.itemNo ORDER BY total desc";
+							echo "<th>Total Qty Requested</th><th>Item</th>";
+						}
+						if($reportid==5){
+							$reportsql = "SELECT * from items";
+							echo "<th>Total Qty</th><th>Unit</th><th>Item</th>";
+						}
 					?>
 									
 									
@@ -72,6 +80,19 @@ equipments.eid = employee.eid GROUP BY equipments.eid";
 								echo "<tr class='odd gradeX'>";
 								echo "<td>".$link['cname']."</td>";
 								echo "<td>".$link['requisition']."</td>";
+								echo "</tr>";	
+							}
+							if($reportid ==4){
+								echo "<tr class='odd gradeX'>";
+								echo "<td>".$link['total']."</td>";
+								echo "<td>".$link['description']."</td>";
+								echo "</tr>";	
+							}
+							if($reportid ==5){
+								echo "<tr class='odd gradeX'>";
+								echo "<td>".$link['inventory_qty']."</td>";
+								echo "<td>".$link['unit']."</td>";
+								echo "<td>".$link['description']."</td>";
 								echo "</tr>";	
 							}
 							

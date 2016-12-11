@@ -28,15 +28,16 @@
     <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 	
 	
-	<!-- Page-Level Demo Scripts - Tables - Use for reference 
+	 <!-- Page-Level Demo Scripts - Tables - Use for reference  -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
+        $('#dataTables-example2').DataTable({
+                responsive: true,
+				 "order": [[ 0, "desc" ]]
         });
     });
 	
-    </script> -->
+    </script> 
 
 
 

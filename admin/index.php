@@ -27,7 +27,7 @@ include_once("include/functions.php");
 										$current_items = singleSQL("SELECT COUNT(*) FROM equipments");
 										echo $current_items;
 										?></div>
-                                    <div>Total Equipments</div>
+                                    <div>Total Equipment</div>
                                 </div>
                             </div>
                         </div>

@@ -19,7 +19,7 @@ function selectListSQL($q){
 	$conn = dbConnect();
 	$stmt = $conn->prepare($q);
 	$stmt->execute();
-	$rows = $stmt->fetchAll();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 	$conn = null;
 	
@@ -295,7 +295,7 @@ function singleSQL($q){
 		$password = $_POST['password'];
 		
 		//return "ok";
-		$sqlinsert = "INSERT INTO users(userName,password,userType,status) VALUES('$username',MD5('$password'),'admin','1')";
+		$sqlinsert = "INSERT INTO users(userName,password,userType,status) VALUES('$username',MD5('$password'),'staff','1')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		$conn = null;
@@ -463,12 +463,14 @@ function singleSQL($q){
 		$old_reqno = $_POST['old_reqno'];
 		$reqdate = $_POST['reqdate'];
 		$requester_id = $_POST['requester_id'];
+		$req_status = $_POST['req_status'];
+		
 		
 		//update details
-		$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id where reqid='$reqid'";
+		$sqlupdate = "UPDATE requisition_details set requisition_no = '$reqno', requisition_date = '$reqdate', eid = $requester_id, requisition_status='$req_status' where reqid='$reqid'";
 		$update = $conn->prepare($sqlupdate);
 		$update->execute();
-		
+		//echo $sqlupdate;
 		//update items
 		$sqlupdate2 = "UPDATE requisition_items set requisition_no = '$reqno' where requisition_no='$old_reqno'";
 		$update2 = $conn->prepare($sqlupdate2);

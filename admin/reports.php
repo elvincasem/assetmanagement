@@ -35,36 +35,31 @@ include('header.php');
 							<tr>
 								<td>Inventory with Low or Zero Stock</td>
 								<td><a href="genreport.php?rpt=1"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
+		</button></a> <a href="xls.php?rpt=1"><button type="button" class="btn btn-info btn-circle"><i class="fa fa-download"></td></a>
 
 							</tr>
 							<tr>
 								<td>Asset Assignment List</td>
 								<td><a href="genreport.php?rpt=2"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
+		</button></a> <a href="xls.php?rpt=2"><button type="button" class="btn btn-info btn-circle"><i class="fa fa-download"></td></a>
 
 							</tr>
 							<tr>
 								<td>Requisition Item by Employee</td>
 								<td><a href="genreport.php?rpt=3"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
+		</button></a> <a href="xls.php?rpt=3"><button type="button" class="btn btn-info btn-circle"><i class="fa fa-download"></td></a>
 
 							</tr>
 							<tr>
 								<td>Most Requested Item</td>
 								<td><a href="genreport.php?rpt=4"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
+		</button></a> <a href="xls.php?rpt=4"><button type="button" class="btn btn-info btn-circle"><i class="fa fa-download"></td></a>
 
 							</tr>
 							<tr>
 								<td>Current Inventory Status</td>
 								<td><a href="genreport.php?rpt=5"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
-		</button></a> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
-"></td>
+		</button></a> <a href="xls.php?rpt=5"><button type="button" class="btn btn-info btn-circle"><i class="fa fa-download"></td></a>
 
 							</tr>
 							

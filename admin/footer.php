@@ -37,6 +37,13 @@
         });
     });
 	
+	$(document).ready(function() {
+        $('#dataTables-requisition').DataTable({
+                responsive: true,
+				 "order": [[ 0, "desc" ]]
+        });
+    });
+	
     </script> 
 
 

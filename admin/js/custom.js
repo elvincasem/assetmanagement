@@ -958,6 +958,7 @@ function editreq(){
 	$('#requisition_no').removeAttr("disabled");
 	$('#reqdate').removeAttr("disabled");
 	$('#requester_id').removeAttr("disabled");
+	$('#req_status').removeAttr("disabled");
 }
 
 function updatereq(){
@@ -966,15 +967,17 @@ function updatereq(){
 	var old_reqno = document.getElementById("old_requisition_no").value;
 	var reqdate = document.getElementById("reqdate").value;
 	var requester_id = document.getElementById("requester_id").value;
+	var req_status = document.getElementById("req_status").value;
 	$.ajax({
 		url: 'include/functions.php',
 		type: 'post',
-		data: {action: "updatereq",reqid:reqid,old_reqno: old_reqno, reqno: reqno, reqdate: reqdate, requester_id: requester_id},
+		data: {action: "updatereq",reqid:reqid,old_reqno: old_reqno, reqno: reqno, reqdate: reqdate, requester_id: requester_id,req_status:req_status},
 		success: function(response) {
 			//console.log(response);
 			$('#success-alert').show("slow");
 			//$( ".simplemodal-close" ).trigger( "click" );
-			setTimeout(function(){location.reload();},1000);
+			location.reload();
+			//setTimeout(function(){location.reload();},1000);
 			//return "valid";
 		}
 	});

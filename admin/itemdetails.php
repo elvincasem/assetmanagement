@@ -346,7 +346,7 @@ include_once("include/functions.php");
 								
 					<div class="panel-body">
 						<div class="dataTable_wrapper">
-							<table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example4">
 								<thead>
 									<tr>
 										<th>Inventory Id</th>
@@ -446,7 +446,7 @@ include_once("include/functions.php");
     </div>
     <script>
     $(document).ready(function() {
-        $('#dataTables-example2').DataTable({
+        $('#dataTables-example4').DataTable({
                 responsive: true
         });
     });

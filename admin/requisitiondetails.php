@@ -4,7 +4,7 @@ include_once("include/functions.php");
 
 		$conn = dbConnect();
 		$reqid = $_GET['id'];
-		$sqlselect = "SELECT reqid,requisition_no, requisition_date, CONCAT(employee.fname,' ',employee.lname) AS fullname,employee.eid FROM requisition_details LEFT JOIN employee 
+		$sqlselect = "SELECT requisition_status,reqid,requisition_no, requisition_date, CONCAT(employee.fname,' ',employee.lname) AS fullname,employee.eid FROM requisition_details LEFT JOIN employee 
 ON requisition_details.eid = employee.eid where reqid='$reqid'";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
@@ -14,6 +14,7 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
 		$rno = $row['requisition_no'];
 		$rdate = $row['requisition_date'];
 		$efullname = $row['fullname'];
+		$req_status = $row['requisition_status'];
 		$eid = $row['eid'];
 		$conn = null;
 		//print_r($row);
@@ -159,6 +160,20 @@ ON requisition_details.eid = employee.eid where reqid='$reqid'";
                                             </select>
                                             
                                         </div>
+										
+						<div class="form-group">
+                                            <label>Status</label>
+                                            
+                                            <select class="form-control js-example-basic-single" id="req_status" disabled>
+											<?php
+											echo "<option value='".$req_status."'>".$req_status."</option>"
+											?>
+                                                <option value="NONE">NONE</option>
+												<option value="CANCELLED">CANCELLED</option>
+                                            </select>
+                                            
+                                        </div>
+						
 									<button type="submit" class="btn btn-warning" onClick="javascript: history.go(-1);">Cancel</button>	
 									<button type="reset" onclick="editreq();" class="btn btn-default">Edit</button>
                                     <button type="submit" class="btn btn-success" onclick="updatereq();">Save</button>
@@ -217,7 +232,7 @@ INNER JOIN items ON requisition_items.itemno = items.itemNo WHERE requisition_no
 					</div>
 					<!-- /.panel-body -->
 					<div class="panel-footer text-right">
-					<button  type="submit" class="btn btn-success" onclick="updateinventory('<?php echo $rno;?>');" <?php echo $status;?> disabled>Update Inventory</button>
+					<button  type="submit" class="btn btn-success" onclick="updateinventory('<?php echo $rno;?>');" <?php echo $status;?>>Update Inventory</button>
 					</div>
 				</div>
 				<!-- /.panel -->

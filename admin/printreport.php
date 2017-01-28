@@ -22,6 +22,11 @@ $reportid = $_GET['reportid'];
 	
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+	<style>
+	td{
+		padding:2px !important;
+	}
+	</style>
 </head>
 	
 <body>
@@ -46,11 +51,11 @@ equipments.eid = employee.eid GROUP BY equipments.eid";
 						}
 						if($reportid==4){
 							$reportsql = "SELECT SUM(qty) AS total, description FROM requisition_items LEFT JOIN items ON requisition_items.itemno = items.itemNo GROUP BY items.itemNo ORDER BY total desc";
-							echo "<th>Total Qty Requested</th><th>Item</th>";
+							echo "<th width='250'>Total Qty Requested</th><th>Item</th>";
 						}
 						if($reportid==5){
 							$reportsql = "SELECT * from items";
-							echo "<th>Total Qty</th><th>Unit</th><th>Item</th>";
+							echo "<th width='150' class='center'>Total Qty</th><th>Unit</th><th>Item</th>";
 						}
 					?>
 									

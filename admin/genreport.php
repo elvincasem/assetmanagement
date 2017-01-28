@@ -32,6 +32,12 @@ if($reportid==4){
                                 <i class="fa fa-print"></i> Print
                             </button>   
 							</a>
+							
+							<a href="xls.php?reportid=<?php echo $reportid;?>" target="_blank">
+                             <button class="btn btn-primary btn-lg">
+                                <i class="fa fa-download"></i> Download XLS
+                            </button>   
+							</a>
                          </div>
 					</h3>
                 </div>

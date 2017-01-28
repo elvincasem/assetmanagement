@@ -94,7 +94,7 @@ include_once("include/functions.php");
 				</div>
 	<div class="panel-body">
 					<div class="dataTable_wrapper">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-requisition">
 							<thead>
 								<tr>
 									<th>RIS No.</th>

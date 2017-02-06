@@ -1288,7 +1288,7 @@ if(propertyno != '' && particulars !=''){
 					//$( ".simplemodal-close" ).trigger( "click" );
 					 //setTimeout(function(){location.reload();},1500);
 					//window.location.href = "equipmentsdetails.php?id=" + response;
-				    window.location.reload();
+				    //window.location.reload();
 					return "valid";
                     }
                 });

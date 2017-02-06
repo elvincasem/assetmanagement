@@ -854,7 +854,7 @@ if($_POST['action'] == "saveequipdetails"){
 		$sqlinsert = "UPDATE  equipments SET propertyNo='$propertyno',article='$article',particulars='$particulars',dateacquired='$dateacquired',totalcost='$cost',eid='$eid',classification='$classification',accountcode='$accountcode',service='$service',whereabout='$whereabout',remarks='$remarks',inventorytag='$tagno',supplierID='$supplierid' WHERE equipNo='$equipno'; UPDATE equipments_details SET processor='$processor', ram='$ram', hd='$hd',operatingsystem='$os',equipsn='$equipsn', processorsn='$processorsn',monitorsn='$monitorsn',keyboardsn='$keyboardsn',mousesn='$mousesn' WHERE equipNo='$equipno'";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
-		//echo $sqlinsert;
+		echo $sqlinsert;
 		
 		/*get last id
 		$sqlselect = "SELECT MAX(equipno) AS lastid FROM equipments";
